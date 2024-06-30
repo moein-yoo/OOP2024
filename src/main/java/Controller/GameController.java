@@ -1,7 +1,9 @@
 package Controller;
 
+import Model.Application;
 import Model.Card;
 import Model.Game;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -44,11 +46,29 @@ public class GameController {
         return false;
     }
     public void nextTurn(){
+        if(game.isHostTurn())
+            game.setHostRemainingTurns(game.getHostRemainingTurns()-1);
+        if(!game.isHostTurn())
+            game.setGuestRemainingTurns(game.getGuestRemainingTurns()-1);
         game.setHostTurn();
-        //...
-        //timeline if needed
-        //reduce turn numbers
-        //gd
+        if(game.getHostRemainingTurns()==0 || game.getGuestRemainingTurns()==0)
+            createTimeline();
+    }
+    public String createTimeline(){
+        System.out.println("Timeline created!");
+        for(int i=0;i<21;i++){
+            if(game.getHostRowStatus()[i].equals("card"))
+                Application.decreaseGuestHP(game.getHostRowCards()[i].getDamage());
+            if(game.getGuestRowStatus()[i].equals("card"))
+                Application.decreaseHostHP(game.getGuestRowCards()[i].getDamage());
+            if(Application.getHost().getHP()<=0)
+                return "player "+Application.getGuest().getNickname()+" wins!";
+            if(Application.getGuest().getHP()<0)
+                return "player "+Application.getHost().getNickname()+" wins!";
+        }
+        game.setHostRemainingTurns(4);
+        game.setGuestRemainingTurns(4);
+        return "New Round";
     }
     public String placeCard(int cardnumber,int blocknumber){
         Card i=null;
@@ -72,13 +92,13 @@ public class GameController {
                 }
             }
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++) {
-                game.setGuestRowStatus("card", j);
-                game.setGuestRowCards(i, j);
+                game.setHostRowStatus("card", j);
+                game.setHostRowCards(i, j);
             }
             game.removeCardFromHostCardsAtHand(i);
-            game.randomCardReplace(true);
+            game.addCardToHostCardsAtHand(game.randomCardReplace(true));
+            checkBrakes();
             nextTurn();
-            checkshekasts();
             String str="Card "+i.getKind()+" placed successfully";
             return str;
         }
@@ -89,19 +109,30 @@ public class GameController {
                 }
             }
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++) {
-                game.setHostRowStatus("card",j);
-                game.setHostRowCards(i,j);
+                game.setGuestRowStatus("card",j);
+                game.setGuestRowCards(i,j);
             }
             game.removeCardFromGuestCardsAtHand(i);
-            game.randomCardReplace(false);
+            game.addCardToGuestCardsAtHand(game.randomCardReplace(false));
+            checkBrakes();
             nextTurn();
-            checkshekasts();
             String str="Card "+i.getKind()+" placed successfully";
             return str;
         }
         return "salam";
     }
-    public void checkshekasts(){
-        //....
+    public void checkBrakes(){
+        for(int i=0;i<21;i++){
+            if(game.getGuestRowStatus()[i].equals("nothing") || game.getGuestRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing") || game.getHostRowStatus()[i].equals("hole")){continue;}
+            if(game.getHostRowCards()[i].getAccuracy() <=game.getGuestRowCards()[i].getAccuracy()){
+                game.setHostRowStatus("broken",i);
+            }
+            if(game.getHostRowCards()[i].getAccuracy() >=game.getGuestRowCards()[i].getAccuracy()){
+                game.setGuestRowStatus("broken",i);
+            }
+        }
+    }
+    public void checkPossibleBonus(){
+
     }
 }

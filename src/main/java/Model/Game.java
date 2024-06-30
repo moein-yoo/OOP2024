@@ -1,10 +1,9 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Game {
-    private String[] hostRowStatus;//empty-hole-card-shekaste
+    private String[] hostRowStatus;//nothing-hole-card-broken
     private String[] guestRowStatus;
     private Card[] hostRowCards;//card names
     private Card[] guestRowCards;
@@ -18,10 +17,7 @@ public class Game {
     private boolean hostTurn;
     private int hostRemainingTurns;
     private int guestRemainingTurns;
-    Game(User host,User guest){
-//        this.host=host;
-//        this.guest=guest;
-
+    Game(){
         int a = Application.getRandom().nextInt(21);
         int b = Application.getRandom().nextInt(21);
         hostRowCards =new Card[21];
@@ -31,8 +27,8 @@ public class Game {
         for(int i=0;i<21;i++){
             hostRowCards[i]=nullCard();
             guestRowCards[i]=nullCard();
-            hostRowStatus[i]="empty";
-            guestRowStatus[i]="empty";
+            hostRowStatus[i]="nothing";
+            guestRowStatus[i]="nothing";
         }
         hostRowStatus[a]="hole";
         guestRowStatus[b]="hole";
@@ -41,10 +37,8 @@ public class Game {
         for(int i=0;i<5;i++){
             hostCardsAtHand.add(randomCardReplace(true));
             guestCardsAtHand.add(randomCardReplace(false));
-
-
         }
-        boolean startt=randomhoststart();
+        boolean startt= randomHostStart();
         if(startt)
             hostTurn =true;
         else
@@ -56,7 +50,7 @@ public class Game {
         hostRemainingTurns =4;
         guestRemainingTurns =4;
     }
-    boolean randomhoststart(){//1:guest starts-2host starts
+    boolean randomHostStart(){//1:guest starts-2host starts
         int a=Application.getRandom().nextInt(3);
         if(a==0)
             return false;
@@ -128,22 +122,6 @@ public class Game {
     public void setGuestRowCards(Card[] card) {
         this.guestRowCards = card;
     }
-
-//    public User getHost() {
-//        return host;
-//    }
-//
-//    public void setHost(User host) {
-//        this.host = host;
-//    }
-//
-//    public User getGuest() {
-//        return guest;
-//    }
-//
-//    public void setGuest(User guest) {
-//        this.guest = guest;
-//    }
 
     public boolean isHostTurn() {
         return hostTurn;

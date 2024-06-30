@@ -59,6 +59,9 @@ public class Application {
     public static void setEnemyUsersListString(String[] enemyUsersListString) {
         Application.enemyUsersListString = enemyUsersListString;
     }
+    public static void decreaseHostHP(int loss){host.setHP(host.getHP()-loss);}
+    public static void decreaseGuestHP(int loss){guest.setHP(guest.getHP()-loss);}
+
 
     public static Random getRandom() {
         return random;
