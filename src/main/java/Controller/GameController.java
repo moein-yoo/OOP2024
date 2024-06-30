@@ -40,6 +40,7 @@ public class GameController {
         //...
         //timeline if needed
         //reduce turn numbers
+        //gd
     }
     public String placeCard(int cardnumber,int blocknumber){
         Card i=null;
