@@ -12,15 +12,15 @@ public class Game {
 
     private ArrayList<Card> hostCardsAtHand;
     private ArrayList<Card> guestCardsAtHand;
-    private User host;
-    private User guest;
+//    private User host;
+//    private User guest;
     //boolean bet;
     private boolean hostTurn;
     private int hostRemainingTurns;
     private int guestRemainingTurns;
     Game(User host,User guest){
-        this.host=host;
-        this.guest=guest;
+//        this.host=host;
+//        this.guest=guest;
 
         int a = Application.getRandom().nextInt(21);
         int b = Application.getRandom().nextInt(21);
@@ -66,9 +66,9 @@ public class Game {
 
         int a=Application.getRandom().nextInt(20);
         if(ishost)
-           return host.getTwentyCardsAtDeck().get(a);
+           return Application.getHost().getTwentyCardsAtDeck().get(a);
         else{
-            return guest.getTwentyCardsAtDeck().get(a);
+            return Application.getGuest().getTwentyCardsAtDeck().get(a);
         }
         //bayad barresi konim type special ziad nabashe too dast
     }
@@ -88,6 +88,10 @@ public class Game {
         this.hostRowStatus[index] = str;
     }
 
+    public void setHostRowStatus(String[] list) {
+        this.hostRowStatus = list;
+    }
+
     public String getGuestRowStatus(int index) {
         return guestRowStatus[index];
     }
@@ -99,12 +103,19 @@ public class Game {
         this.guestRowStatus[index]=str;
     }
 
+    public void setGuestRowStatus(String[] list) {
+        this.guestRowStatus=list;
+    }
+
     public Card[] getHostRowCards() {
         return hostRowCards;
     }
 
     public void setHostRowCards(Card card,int index) {
         this.hostRowCards[index] = card;
+    }
+    public void setHostRowCards(Card[] card) {
+        this.hostRowCards = card;
     }
 
     public Card[] getGuestRowCards() {
@@ -114,22 +125,25 @@ public class Game {
     public void setGuestRowCards(Card card,int index) {
         this.guestRowCards[index] = card;
     }
-
-    public User getHost() {
-        return host;
+    public void setGuestRowCards(Card[] card) {
+        this.guestRowCards = card;
     }
 
-    public void setHost(User host) {
-        this.host = host;
-    }
-
-    public User getGuest() {
-        return guest;
-    }
-
-    public void setGuest(User guest) {
-        this.guest = guest;
-    }
+//    public User getHost() {
+//        return host;
+//    }
+//
+//    public void setHost(User host) {
+//        this.host = host;
+//    }
+//
+//    public User getGuest() {
+//        return guest;
+//    }
+//
+//    public void setGuest(User guest) {
+//        this.guest = guest;
+//    }
 
     public boolean isHostTurn() {
         return hostTurn;

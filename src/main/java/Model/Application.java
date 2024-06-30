@@ -3,8 +3,8 @@ package Model;
 import java.util.Random;
 
 public class Application {
-    private static User userInUse;
-    private static User temporaryUser;
+    private static User host;
+    private static User guest;
     private static Card[] attackerUsersCardList;
     private static Card[] enemyUsersCardList;
     private static String[] attackerUsersListString;
@@ -12,20 +12,20 @@ public class Application {
     private static Random random = new Random();
 
 
-    public static User getUserInUse() {
-        return userInUse;
+    public static User getHost() {
+        return host;
     }
 
     public static void setUserInUse(User userInUse) {
-        Application.userInUse = userInUse;
+        Application.host = userInUse;
     }
 
-    public static User getTemporaryUser() {
-        return temporaryUser;
+    public static User getGuest() {
+        return guest;
     }
 
-    public static void setTemporaryUser(User temporaryUser) {
-        Application.temporaryUser = temporaryUser;
+    public static void setGuest(User temporaryUser) {
+        Application.guest = temporaryUser;
     }
 
     public static Card[] getAttackerUsersCardList() {
