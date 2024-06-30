@@ -156,7 +156,4 @@ public class Card {
         else GameController.getGame().setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
     }
 
-
-
-    public void
 }
