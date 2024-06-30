@@ -17,7 +17,7 @@ public class GameController {
         while(true){
             command=scan.nextLine();
 
-
+//eruyfhhieckj
             Matcher exitm=exit.matcher(command);
             Matcher backm= back.matcher(command);
             Matcher selectcardm=selectcard.matcher(command);
