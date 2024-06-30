@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Random;
+
 public class Application {
     private static User userInUse;
     private static User temporaryUser;
@@ -7,6 +9,8 @@ public class Application {
     private static Card[] enemyUsersCardList;
     private static String[] attackerUsersListString;
     private static String[] enemyUsersListString;
+    private static Random random = new Random();
+
 
     public static User getUserInUse() {
         return userInUse;
@@ -54,5 +58,13 @@ public class Application {
 
     public static void setEnemyUsersListString(String[] enemyUsersListString) {
         Application.enemyUsersListString = enemyUsersListString;
+    }
+
+    public static Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
     }
 }

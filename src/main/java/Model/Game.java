@@ -8,8 +8,10 @@ public class Game {
     private String[] guestRowStatus;
     private Card[] hostRowCards;//card names
     private Card[] guestRowCards;
-    public ArrayList<Card> hostCardsAtHand;
-    public ArrayList<Card> guestCardsAtHand;
+
+
+    private ArrayList<Card> hostCardsAtHand;
+    private ArrayList<Card> guestCardsAtHand;
     private User host;
     private User guest;
     //boolean bet;
@@ -19,9 +21,9 @@ public class Game {
     Game(User host,User guest){
         this.host=host;
         this.guest=guest;
-        Random random=new Random();
-        int a=random.nextInt(21);
-        int b=random.nextInt(21);
+
+        int a = Application.getRandom().nextInt(21);
+        int b = Application.getRandom().nextInt(21);
         hostRowCards =new Card[21];
         guestRowCards =new Card[21];
         hostRowStatus =new String[21];
@@ -55,15 +57,14 @@ public class Game {
         guestRemainingTurns =4;
     }
     boolean randomhoststart(){//1:guest starts-2host starts
-        Random random=new Random();
-        int a=random.nextInt(3);
+        int a=Application.getRandom().nextInt(3);
         if(a==0)
             return false;
         return true;
     }
     public Card randomCardReplace(boolean ishost){
-        Random random=new Random();
-        int a=random.nextInt(20);
+
+        int a=Application.getRandom().nextInt(20);
         if(ishost)
            return host.getTwentyCardsAtDeck().get(a);
         else{
@@ -148,6 +149,33 @@ public class Game {
         this.guestRemainingTurns = guestRemainingTurns;
     }
 
+    public ArrayList<Card> getHostCardsAtHand() {
+        return hostCardsAtHand;
+    }
+
+    public void setHostCardsAtHand(ArrayList<Card> hostCardsAtHand) {
+        this.hostCardsAtHand = hostCardsAtHand;
+    }
+
+    public void addCardToHostCardsAtHand(Card card) {
+        this.hostCardsAtHand.add(card);
+    }
+    public void removeCardFromHostCardsAtHand(Card card) {
+        this.hostCardsAtHand.remove(card);
+    }
+    public ArrayList<Card> getGuestCardsAtHand() {
+        return guestCardsAtHand;
+    }
+
+    public void setGuestCardsAtHand(ArrayList<Card> guestCardsAtHand) {
+        this.guestCardsAtHand = guestCardsAtHand;
+    }
+    public void addCardToGuestCardsAtHand(Card card) {
+        this.guestCardsAtHand.add(card);
+    }
+    public void removeCardFromGuestCardsAtHand(Card card) {
+        this.guestCardsAtHand.remove(card);
+    }
 
 
 }

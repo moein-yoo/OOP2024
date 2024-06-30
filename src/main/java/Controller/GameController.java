@@ -44,14 +44,14 @@ public class GameController {
     public String placeCard(int cardnumber,int blocknumber){
         Card i=null;
         if(game.isHostTurn()){
-            if(cardnumber>game.hostCardsAtHand.size())
+            if(cardnumber>game.getHostCardsAtHand().size())
                 return "select a valid number";
-            i=game.hostCardsAtHand.get(cardnumber);
+            i=game.getHostCardsAtHand().get(cardnumber);
         }
         if(!game.isHostTurn()){
-            if(cardnumber>game.guestCardsAtHand.size())
+            if(cardnumber>game.getGuestCardsAtHand().size())
                 return "select a valid number";
-            i=game.guestCardsAtHand.get(cardnumber);
+            i=game.getGuestCardsAtHand().get(cardnumber);
         }
         if(blocknumber+i.getDuration()>20){
             return "invalid spot for card placement";
@@ -66,7 +66,7 @@ public class GameController {
                 game.setGuestRowStatus("card", j);
                 game.setGuestRowCards(i, j);
             }
-            game.hostCardsAtHand.remove(i);
+            game.removeCardFromHostCardsAtHand(i);
             game.randomCardReplace(true);
             nextTurn();
             checkshekasts();
@@ -83,7 +83,7 @@ public class GameController {
                 game.setHostRowStatus("card",j);
                 game.setHostRowCards(i,j);
             }
-            game.guestCardsAtHand.remove(i);
+            game.removeCardFromGuestCardsAtHand(i);
             game.randomCardReplace(false);
             nextTurn();
             checkshekasts();
