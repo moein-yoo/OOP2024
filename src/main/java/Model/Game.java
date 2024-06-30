@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +37,10 @@ public class Game {
         hostCardsAtHand=new ArrayList<>();
         guestCardsAtHand=new ArrayList<>();
         for(int i=0;i<5;i++){
-            hostCardsAtHand.add(randomCardReplace(this.host));
+            hostCardsAtHand.add(randomCardReplace(true));
+            guestCardsAtHand.add(randomCardReplace(false));
+
+
         }
         boolean startt=randomhoststart();
         if(startt)

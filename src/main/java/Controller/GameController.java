@@ -1,7 +1,7 @@
-package controller;
+package Controller;
 
-import model.Card;
-import model.Game;
+import Model.Card;
+import Model.Game;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
