@@ -80,6 +80,9 @@ public class Game {
     public String getHostRowStatus(int index) {
         return hostRowStatus[index];
     }
+    public String[] getHostRowStatus() {
+        return hostRowStatus;
+    }
 
     public void setHostRowStatus(String str,int index) {
         this.hostRowStatus[index] = str;
@@ -87,6 +90,9 @@ public class Game {
 
     public String getGuestRowStatus(int index) {
         return guestRowStatus[index];
+    }
+    public String[] getGuestRowStatus() {
+        return guestRowStatus;
     }
 
     public void setGuestRowStatus(String str,int index) {

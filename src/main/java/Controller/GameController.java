@@ -8,7 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GameController {
-    Game game;
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void setGame(Game game) {
+        GameController.game = game;
+    }
+
+    private static Game game;
     public boolean run(Game game,Scanner scan,String command){
         Pattern exit=Pattern.compile("exit");
         Pattern back=Pattern.compile("back");

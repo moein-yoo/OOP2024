@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.GameController;
+
 public class Card {
     private int duration;
     private int accuracy;
@@ -67,7 +69,9 @@ public class Card {
     public void separInstaller(int index,int player) {
         if (player == 1) {
             enemyUsersCardList = Application.getEnemyUsersCardList();
+            GameController.getGame().getGuestRowCards();
             enemyUsersListString = Application.getEnemyUsersListString();
+            GameController.getGame().getGuestRowStatus();
             enemyUsersListString[index] = "shekaste";
             enemyUsersCardList[index] = null;
             Application.setEnemyUsersCardList(enemyUsersCardList);
