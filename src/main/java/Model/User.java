@@ -3,19 +3,21 @@ package Model;
 import java.util.ArrayList;
 
 public class User {
-    String username;
-    String password;
-    String nickname;
-    String email;
-    String passwordRecoveryQuestion;
-    int hp;
-    int coins;
+    private String username;
+    private String password;
+    private String nickname;
+    private String email;
+    private String passwordRecoveryQuestion;
+    private int passwordRecoveryType;
+    private int hp;
+    private int coins;
     private ArrayList<Card> allPossessedCards;
     private ArrayList<Card> twentyCardsAtDeck;
-    int character;//1-2-3-4
-    int level;
-    int xp;
-    public User (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int character){
+    private int character;//1-2-3-4
+    private int level;
+    private int xp;
+    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType, int character){
+        this.passwordRecoveryType = passwordRecoveryType;
         this.character=character;
         this.xp=0;
         this.level=1;
@@ -104,4 +106,19 @@ public class User {
     }
 
 
+    public int getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(int character) {
+        this.character = character;
+    }
+
+    public int getPasswordRecoveryType() {
+        return passwordRecoveryType;
+    }
+
+    public void setPasswordRecoveryType(int passwordRecoveryType) {
+        this.passwordRecoveryType = passwordRecoveryType;
+    }
 }

@@ -13,11 +13,12 @@ public class RegistryMenu {
     public static String signin(String[] enteredUser) {
         String tempUsername = enteredUser[0];
         String tempNickName= enteredUser[1];
-//        (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int character)
+//        (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int passType,int character)
         String tempPassword = enteredUser[2];
         String tempMail = enteredUser[3];
         String tempPasswordRecoveryQuestion = enteredUser[4];
-        int tempCharacter = Integer.parseInt(enteredUser[5]);
+        int tempPasswordRecoveryType = Integer.parseInt(enteredUser[5]);
+        int tempCharacter = Integer.parseInt(enteredUser[6]);
         if (!isUsernameCorrect(tempUsername)) {
             return "username's format is invalid!";
         }
@@ -35,7 +36,7 @@ public class RegistryMenu {
         }
         else {
             User user = new User(tempUsername, tempNickName, tempPassword,
-                    tempMail, tempPasswordRecoveryQuestion, tempCharacter);
+                    tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, tempCharacter);
             ApplicationData.addToUserArrayList(user);
             return "user successfully created!";
         }
@@ -64,11 +65,14 @@ public class RegistryMenu {
         }
         return null;
     }
-    public static void userList(Matcher matcher) {
-        System.out.printf("%d users have registered!\n",ApplicationData.getUserArrayList().size());
+    public static ArrayList<String> userList() {
+        ArrayList<String> outcome = new ArrayList<>();
+        outcome.add(ApplicationData.getUserArrayList().size() + " users have registered!\n");
         for (int i = 0; i < ApplicationData.getUserArrayList().size(); i++) {
-            System.out.printf("%d - %s\n",i+1,ApplicationData.getUserArrayList().get(i).getNickname());
+            int j = i+1;
+            outcome.add(j + " - " + ApplicationData.getUserArrayList().get(i).getNickname() + "\n");
         }
+        return outcome;
     }
     public static boolean isUsernameCorrect(String tempUsername) {
         for (int i = 0; i < tempUsername.length(); i++) {
