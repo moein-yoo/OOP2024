@@ -3,17 +3,14 @@ package View;
 import Controller.RegistryMenu;
 import Model.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegistryMenuView extends Menu{
-    public RegistryMenuView(ArrayList<User> users , User userInUse, int index) {
-        super(users,userInUse,index);
-        userArrayList = users;
-        RegistryMenuView.userInUse = userInUse;
-        userInUseIndex = index;
-    }
     public void run() {
+        Scanner scanner = ApplicationData.getScanner();
+        String input;
         Pattern[] patterns = new Pattern[10];
         patterns[0] = Pattern.compile("exit");
         patterns[1] = Pattern.compile("show current menu");
@@ -71,8 +68,7 @@ public class RegistryMenuView extends Menu{
                 String outcome = RegistryMenu.login(entered);
                 System.out.println(outcome);
                 if (outcome.contains("successfully")) {
-                    MainMenu mainMenu = new MainMenu(userArrayList,userInUse,userInUseIndex);
-                    if (!mainMenu.run())
+                    if (!MainMenu.run())
                         return;
                 }
                 ejra = true;

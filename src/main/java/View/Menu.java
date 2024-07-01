@@ -8,17 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Menu {
-    static ArrayList<User> userArrayList = new ArrayList<>();
-    static User userInUse;
-    static int userInUseIndex;
-    static Scanner scanner = new Scanner(System.in);
-    static String input;
-    public Menu(ArrayList<User> users , User userInUse,int index)  {
-        userArrayList = users;
-        RegistryMenu.userInUse = userInUse;
-        userInUseIndex = index;
-
-    }
     public static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input);

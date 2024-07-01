@@ -2,9 +2,11 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class ApplicationData {
     private static ArrayList<User> userArrayList = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
     private static User host;
     private static User guest;
     private static Card[] attackerUsersCardList;
@@ -81,6 +83,14 @@ public class ApplicationData {
     }
     public static void removeFromUserArrayList(User user) {
         ApplicationData.userArrayList.remove(user);
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
+    public static void setScanner(Scanner scanner) {
+        ApplicationData.scanner = scanner;
     }
 
     public void setRandom(Random random) {
