@@ -112,26 +112,26 @@ public class Card {
     }
     public void HPInstaller(int cardHPScore,int player) {//host=1
         if (player == 1) {
-            Application.getHost().setHP(Application.getHost().getHP()+cardHPScore);
+            ApplicationData.getHost().setHP(ApplicationData.getHost().getHP()+cardHPScore);
         }
         else {
-            Application.getGuest().setHP(Application.getGuest().getHP()+cardHPScore);
+            ApplicationData.getGuest().setHP(ApplicationData.getGuest().getHP()+cardHPScore);
         }
     }
     public void holeChanger(int player,int oldIndex) {
         if (player==1) {
             hostRowStatus = GameController.getGame().getHostRowStatus();
-            int index = Application.getRandom().nextInt(21);
+            int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("nothing"))
-                index = Application.getRandom().nextInt(21);
+                index = ApplicationData.getRandom().nextInt(21);
             hostRowStatus[index] = "hole";hostRowStatus[oldIndex] = "nothing";
             GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
             guestRowStatus = GameController.getGame().getGuestRowStatus();
-            int index = Application.getRandom().nextInt(21);
+            int index = ApplicationData.getRandom().nextInt(21);
             while (!guestRowStatus[index].equals("nothing"))
-                index = Application.getRandom().nextInt(21);
+                index = ApplicationData.getRandom().nextInt(21);
             guestRowStatus[index] = "hole";guestRowStatus[oldIndex] = "nothing";
             GameController.getGame().setGuestRowStatus(guestRowStatus);
         }

@@ -15,7 +15,7 @@ public class User {
     int character;//1-2-3-4
     int level;
     int xp;
-    User (String username,String nickname,String password,String email,String passwordrecoveryquestion,int character){
+    public User (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int character){
         this.character=character;
         this.xp=0;
         this.level=1;
@@ -25,7 +25,7 @@ public class User {
         this.password=password;
         this.nickname=nickname;
         this.email=email;
-        this.passwordRecoveryQuestion =passwordrecoveryquestion;
+        this.passwordRecoveryQuestion = passwordRecoveryQuestion;
         this.allPossessedCards =new ArrayList<>();
         StarterPack(this.allPossessedCards);
         this.twentyCardsAtDeck=new ArrayList<>();

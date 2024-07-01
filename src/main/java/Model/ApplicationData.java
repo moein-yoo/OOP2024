@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Application {
+public class ApplicationData {
+    private static ArrayList<User> userArrayList = new ArrayList<>();
     private static User host;
     private static User guest;
     private static Card[] attackerUsersCardList;
@@ -16,8 +18,8 @@ public class Application {
         return host;
     }
 
-    public static void setUserInUse(User userInUse) {
-        Application.host = userInUse;
+    public static void setHost(User host) {
+        ApplicationData.host = host;
     }
 
     public static User getGuest() {
@@ -25,7 +27,7 @@ public class Application {
     }
 
     public static void setGuest(User temporaryUser) {
-        Application.guest = temporaryUser;
+        ApplicationData.guest = temporaryUser;
     }
 
     public static Card[] getAttackerUsersCardList() {
@@ -33,7 +35,7 @@ public class Application {
     }
 
     public static void setAttackerUsersCardList(Card[] attackerUsersCardList) {
-        Application.attackerUsersCardList = attackerUsersCardList;
+        ApplicationData.attackerUsersCardList = attackerUsersCardList;
     }
 
     public static Card[] getEnemyUsersCardList() {
@@ -41,7 +43,7 @@ public class Application {
     }
 
     public static void setEnemyUsersCardList(Card[] enemyUsersCardList) {
-        Application.enemyUsersCardList = enemyUsersCardList;
+        ApplicationData.enemyUsersCardList = enemyUsersCardList;
     }
 
     public static String[] getAttackerUsersListString() {
@@ -49,7 +51,7 @@ public class Application {
     }
 
     public static void setAttackerUsersListString(String[] attackerUsersListString) {
-        Application.attackerUsersListString = attackerUsersListString;
+        ApplicationData.attackerUsersListString = attackerUsersListString;
     }
 
     public static String[] getEnemyUsersListString() {
@@ -57,7 +59,7 @@ public class Application {
     }
 
     public static void setEnemyUsersListString(String[] enemyUsersListString) {
-        Application.enemyUsersListString = enemyUsersListString;
+        ApplicationData.enemyUsersListString = enemyUsersListString;
     }
     public static void decreaseHostHP(int loss){host.setHP(host.getHP()-loss);}
     public static void decreaseGuestHP(int loss){guest.setHP(guest.getHP()-loss);}
@@ -65,6 +67,20 @@ public class Application {
 
     public static Random getRandom() {
         return random;
+    }
+
+    public static ArrayList<User> getUserArrayList() {
+        return userArrayList;
+    }
+
+    public static void setUserArrayList(ArrayList<User> userArrayList) {
+        ApplicationData.userArrayList = userArrayList;
+    }
+    public static void addToUserArrayList(User user) {
+        ApplicationData.userArrayList.add(user);
+    }
+    public static void removeFromUserArrayList(User user) {
+        ApplicationData.userArrayList.remove(user);
     }
 
     public void setRandom(Random random) {

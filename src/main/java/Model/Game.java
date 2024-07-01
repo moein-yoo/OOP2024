@@ -18,8 +18,8 @@ public class Game {
     private int hostRemainingTurns;
     private int guestRemainingTurns;
     Game(){
-        int a = Application.getRandom().nextInt(21);
-        int b = Application.getRandom().nextInt(21);
+        int a = ApplicationData.getRandom().nextInt(21);
+        int b = ApplicationData.getRandom().nextInt(21);
         hostRowCards =new Card[21];
         guestRowCards =new Card[21];
         hostRowStatus =new String[21];
@@ -51,18 +51,18 @@ public class Game {
         guestRemainingTurns =4;
     }
     boolean randomHostStart(){//1:guest starts-2host starts
-        int a=Application.getRandom().nextInt(3);
+        int a= ApplicationData.getRandom().nextInt(3);
         if(a==0)
             return false;
         return true;
     }
     public Card randomCardReplace(boolean ishost){
 
-        int a=Application.getRandom().nextInt(20);
+        int a= ApplicationData.getRandom().nextInt(20);
         if(ishost)
-           return Application.getHost().getTwentyCardsAtDeck().get(a);
+           return ApplicationData.getHost().getTwentyCardsAtDeck().get(a);
         else{
-            return Application.getGuest().getTwentyCardsAtDeck().get(a);
+            return ApplicationData.getGuest().getTwentyCardsAtDeck().get(a);
         }
         //bayad barresi konim type special ziad nabashe too dast
     }

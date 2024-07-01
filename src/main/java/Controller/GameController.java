@@ -1,9 +1,8 @@
 package Controller;
 
-import Model.Application;
+import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
-import javafx.scene.control.cell.TextFieldTreeTableCell;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -58,13 +57,13 @@ public class GameController {
         System.out.println("Timeline created!");
         for(int i=0;i<21;i++){
             if(game.getHostRowStatus()[i].equals("card"))
-                Application.decreaseGuestHP(game.getHostRowCards()[i].getDamage());
+                ApplicationData.decreaseGuestHP(game.getHostRowCards()[i].getDamage());
             if(game.getGuestRowStatus()[i].equals("card"))
-                Application.decreaseHostHP(game.getGuestRowCards()[i].getDamage());
-            if(Application.getHost().getHP()<=0)
-                return "player "+Application.getGuest().getNickname()+" wins!";
-            if(Application.getGuest().getHP()<0)
-                return "player "+Application.getHost().getNickname()+" wins!";
+                ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage());
+            if(ApplicationData.getHost().getHP()<=0)
+                return "player "+ ApplicationData.getGuest().getNickname()+" wins!";
+            if(ApplicationData.getGuest().getHP()<0)
+                return "player "+ ApplicationData.getHost().getNickname()+" wins!";
         }
         game.setHostRemainingTurns(4);
         game.setGuestRemainingTurns(4);
