@@ -57,14 +57,26 @@ public class Game {
         return true;
     }
     public Card randomCardReplace(boolean ishost){
-
-        int a= ApplicationData.getRandom().nextInt(20);
-        if(ishost)
-           return ApplicationData.getHost().getTwentyCardsAtDeck().get(a);
-        else{
-            return ApplicationData.getGuest().getTwentyCardsAtDeck().get(a);
+        if(ishost){
+            int r=0;
+            for(Card card:hostCardsAtHand){if(card.isSpecial())r++;}
+            Card card2= ApplicationData.getHost().getTwentyCardsAtDeck().get(ApplicationData.getRandom().nextInt(20));
+            if(r>=2){
+                while(card2.isSpecial())
+                    card2=ApplicationData.getHost().getTwentyCardsAtDeck().get(ApplicationData.getRandom().nextInt(20));
+            }
+           return card2;
         }
-        //bayad barresi konim type special ziad nabashe too dast
+        else{
+            int r=0;
+            for(Card card:guestCardsAtHand){if(card.isSpecial())r++;}
+            Card card2= ApplicationData.getGuest().getTwentyCardsAtDeck().get(ApplicationData.getRandom().nextInt(20));
+            if(r>=2){
+                while(card2.isSpecial())
+                    card2=ApplicationData.getGuest().getTwentyCardsAtDeck().get(ApplicationData.getRandom().nextInt(20));
+            }
+            return card2;
+        }
     }
     public Card nullCard(){
         Card card=new Card(0,0,0,"-1",0);

@@ -97,7 +97,7 @@ public class Card {
             guestRowCards = GameController.getGame().getGuestRowCards();
             guestRowStatus = GameController.getGame().getGuestRowStatus();
             guestRowStatus[index] = "broken";
-            guestRowCards[index] = null;
+//            guestRowCards[index] = null;
             GameController.getGame().setGuestRowCards(guestRowCards);
             GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
@@ -105,7 +105,7 @@ public class Card {
             hostRowCards = GameController.getGame().getHostRowCards();
             hostRowStatus = GameController.getGame().getHostRowStatus();
             hostRowStatus[index] = "broken";
-            hostRowCards[index] = null;
+//            hostRowCards[index] = null;
             GameController.getGame().setHostRowCards(hostRowCards);
             GameController.getGame().setHostRowStatus(hostRowStatus);
         }
@@ -154,6 +154,12 @@ public class Card {
         if (player==1)
             GameController.getGame().setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
         else GameController.getGame().setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
+    }
+    public boolean isSpecial(){
+        String str=this.kind;
+        if(str.equals("HPInstaller") || str.equals("holeRemover") || str.equals("holeChanger") || str.equals("separInstaller"))
+            return true;
+        return false;
     }
 
 }

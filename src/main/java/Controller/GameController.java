@@ -18,7 +18,8 @@ public class GameController {
     }
 
     private static Game game;
-    public boolean run(Game game,Scanner scan,String command){
+
+    public boolean run(Game game, Scanner scan, String command){
         Pattern exit=Pattern.compile("exit");
         Pattern back=Pattern.compile("back");
         Pattern selectcard=Pattern.compile("select card number (\\d+) player (\\s+)");
@@ -26,7 +27,6 @@ public class GameController {
         while(true){
             command=scan.nextLine();
 
-//eruyfhhieckjuy
             Matcher exitm=exit.matcher(command);
             Matcher backm= back.matcher(command);
             Matcher selectcardm=selectcard.matcher(command);
@@ -122,12 +122,27 @@ public class GameController {
     }
     public void checkBrakes(){
         for(int i=0;i<21;i++){
-            if(game.getGuestRowStatus()[i].equals("nothing") || game.getGuestRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing") || game.getHostRowStatus()[i].equals("hole")){continue;}
-            if(game.getHostRowCards()[i].getAccuracy() <=game.getGuestRowCards()[i].getAccuracy()){
-                game.setHostRowStatus("broken",i);
+            if(game.getGuestRowStatus()[i].equals("nothing") || game.getGuestRowStatus()[i].equals("hole") ){
+                if(game.getHostRowStatus()[i].equals("broken"))
+                    game.setHostRowStatus("card",i);
             }
-            if(game.getHostRowCards()[i].getAccuracy() >=game.getGuestRowCards()[i].getAccuracy()){
-                game.setGuestRowStatus("broken",i);
+            else if(game.getHostRowStatus()[i].equals("nothing") || game.getHostRowStatus()[i].equals("hole")){
+                if(game.getGuestRowStatus()[i].equals("broken"))
+                    game.setGuestRowStatus("card",i);
+            }
+            else{
+                if(game.getHostRowCards()[i].getAccuracy() ==game.getGuestRowCards()[i].getAccuracy()){
+                    game.setHostRowStatus("broken",i);
+                    game.setGuestRowStatus("broken",i);
+                }
+                if(game.getHostRowCards()[i].getAccuracy() > game.getGuestRowCards()[i].getAccuracy()){
+                    game.setGuestRowStatus("broken",i);
+                    game.setHostRowStatus("card",i);
+                }
+                if(game.getHostRowCards()[i].getAccuracy() < game.getGuestRowCards()[i].getAccuracy()){
+                    game.setGuestRowStatus("card",i);
+                    game.setHostRowStatus("broken",i);
+                }
             }
         }
     }
