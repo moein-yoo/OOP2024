@@ -4,6 +4,7 @@ import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,10 +57,14 @@ public class GameController {
     public String createTimeline(){
         System.out.println("Timeline created!");
         for(int i=0;i<21;i++){
-            if(game.getHostRowStatus()[i].equals("card"))
-                ApplicationData.decreaseGuestHP(game.getHostRowCards()[i].getDamage());
-            if(game.getGuestRowStatus()[i].equals("card"))
+            if(game.getHostRowStatus()[i].equals("card")){
+                ApplicationData.decreaseGuestHP(game.getHostRowCards()[i].getDamage()/game.getHostRowCards()[i].getDuration());
+                System.out.println("Guest HP decreased by "+ game.getHostRowCards()[i].getDamage()/game.getHostRowCards()[i].getDuration()+" at block "+ i);
+            }
+            if(game.getGuestRowStatus()[i].equals("card")){
                 ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage());
+                System.out.println("Host HP decreased by "+ game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration()+" at block "+ i);
+            }
             if(ApplicationData.getHost().getHP()<=0)
                 return "player "+ ApplicationData.getGuest().getNickname()+" wins!";
             if(ApplicationData.getGuest().getHP()<0)
@@ -94,10 +99,14 @@ public class GameController {
                 game.setHostRowStatus("card", j);
                 game.setHostRowCards(i, j);
             }
+            if(game.getHostCardsAtHand().size()>5)
+                game.getHostCardsAtHand().removeLast();
             game.removeCardFromHostCardsAtHand(i);
             game.addCardToHostCardsAtHand(game.randomCardReplace(true));
             checkBrakes();
             nextTurn();
+            if(checkPossibleBonusForHost())
+                giveBonus(true);
             String str="Card "+i.getKind()+" placed successfully";
             return str;
         }
@@ -111,10 +120,14 @@ public class GameController {
                 game.setGuestRowStatus("card",j);
                 game.setGuestRowCards(i,j);
             }
+            if(game.getGuestCardsAtHand().size()>5)
+                game.getGuestCardsAtHand().removeLast();
             game.removeCardFromGuestCardsAtHand(i);
             game.addCardToGuestCardsAtHand(game.randomCardReplace(false));
             checkBrakes();
             nextTurn();
+            if(checkPossibleBonusForGuest())
+                giveBonus(false);
             String str="Card "+i.getKind()+" placed successfully";
             return str;
         }
@@ -146,7 +159,94 @@ public class GameController {
             }
         }
     }
-    public void checkPossibleBonus(){
-
+    public boolean checkPossibleBonusForGuest(){
+        ArrayList<Integer> startindexes=new ArrayList<>();
+        ArrayList<Integer> endindexes=new ArrayList<>();
+        int i=0;
+        while(i<21){
+            if(game.getHostRowStatus()[i].equals("card") || game.getHostRowStatus()[i].equals("broken")){
+                startindexes.add(i);
+                i+=game.getHostRowCards()[i].getDuration();
+                i--;
+                endindexes.add(i);
+            }
+            i++;
+        }
+        for(int c=0;c<startindexes.size();c++){
+            if(numInArrayList(startindexes.get(c),game.getBonusCollectedindexesInHostRow()))
+                continue;
+            boolean bonus=true;
+            for(int d=startindexes.get(c);d<=endindexes.get(c);d++){
+                if(game.getHostRowStatus()[d].equals("card"))
+                    bonus=false;
+            }
+            if(bonus){
+                game.addSthHost(c);
+                return true;}
+        }
+        return false;
+    }
+    public boolean checkPossibleBonusForHost(){
+        ArrayList<Integer> startindexes=new ArrayList<>();
+        ArrayList<Integer> endindexes=new ArrayList<>();
+        int i=0;
+        while(i<21){
+            if(game.getGuestRowStatus()[i].equals("card") || game.getGuestRowStatus()[i].equals("broken")){
+                startindexes.add(i);
+                i+=game.getGuestRowCards()[i].getDuration();
+                i--;
+                endindexes.add(i);
+            }
+            i++;
+        }
+        for(int c=0;c<startindexes.size();c++){
+            if(numInArrayList(startindexes.get(c),game.getBonusCollectedindexesInGuestRow()))
+                continue;
+            boolean bonus=true;
+            for(int d=startindexes.get(c);d<=endindexes.get(c);d++){
+                if(game.getGuestRowStatus()[d].equals("card"))
+                    bonus=false;
+            }
+            if(bonus){
+                game.addSthGuest(c);
+                return true;}
+        }
+        return false;
+    }
+    public void giveBonus(boolean forHost){
+        if(forHost)
+         System.out.println("Bonus activated for host!");
+        if(!forHost)
+            System.out.println("Bonus activated for guest!");
+        int a=ApplicationData.getRandom().nextInt(4);
+        if(a==0 || a==1){
+            System.out.println("extra card this round!");
+            Card card=game.randomCardReplace(forHost);
+            if(forHost)
+                game.getHostCardsAtHand().add(card);
+            else
+                game.getGuestCardsAtHand().add(card);
+        }
+        if(a==2){
+            System.out.println("Xp earned!");
+            if(forHost)
+                ApplicationData.getHost().increaseXP(1000);
+            if(!forHost)
+                ApplicationData.getGuest().increaseXP(1000);
+        }
+        if(a==3){
+            System.out.println("Coin earned!");
+            if(forHost)
+                ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+20);
+            if(!forHost)
+                ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+20);
+        }
+    }
+    private boolean numInArrayList(int a,ArrayList<Integer> arrlist){
+        for(int i=0;i<arrlist.size();i++){
+            if(a== arrlist.get(i))
+                return true;
+        }
+        return false;
     }
 }

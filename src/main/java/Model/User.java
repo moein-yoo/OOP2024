@@ -95,7 +95,7 @@ public class User {
     public String getPasswordRecoveryQuestion(){
         return this.passwordRecoveryQuestion;
     }
-    public int setCoins(){
+    public int getCoins(){
         return this.coins;
     }
     public int getLevel(){

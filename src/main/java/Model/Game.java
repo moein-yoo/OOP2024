@@ -17,9 +17,14 @@ public class Game {
     private boolean hostTurn;
     private int hostRemainingTurns;
     private int guestRemainingTurns;
+    private ArrayList<Integer> bonusCollectedindexesInHostRow;
+    private ArrayList<Integer> bonusCollectedindexesInGuestRow;
+
     Game(){
         int a = ApplicationData.getRandom().nextInt(21);
         int b = ApplicationData.getRandom().nextInt(21);
+        bonusCollectedindexesInHostRow=new ArrayList<>();
+        bonusCollectedindexesInGuestRow=new ArrayList<>();
         hostRowCards =new Card[21];
         guestRowCards =new Card[21];
         hostRowStatus =new String[21];
@@ -188,4 +193,12 @@ public class Game {
     }
 
 
+    public ArrayList<Integer> getBonusCollectedindexesInGuestRow() {
+        return bonusCollectedindexesInGuestRow;
+    }
+    public void addSthGuest(int a){this.getBonusCollectedindexesInGuestRow().add(a);}
+    public void addSthHost(int a){this.getBonusCollectedindexesInHostRow().add(a);}
+    public ArrayList<Integer> getBonusCollectedindexesInHostRow() {
+        return bonusCollectedindexesInHostRow;
+    }
 }
