@@ -1,6 +1,6 @@
 package View;
 
-import Controller.RegistryMenu;
+import Controller.RegistryMenuController;
 import Model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -54,7 +54,7 @@ public class RegistryMenuView extends Menu{
                     matcher = getCommandMatcher(input,String.valueOf(patterns[5]));
                     matcher.find();
                     entered[5] = matcher.group("answer");
-                    RegistryMenu.signin(entered);
+                    RegistryMenuController.signin(entered);
                 }else {
                     ejra = false;
                 }
@@ -65,7 +65,7 @@ public class RegistryMenuView extends Menu{
                 String[] entered = new String[2];
                 entered[0] = matcher.group("username");
                 entered[1] = matcher.group("password");
-                String outcome = RegistryMenu.login(entered);
+                String outcome = RegistryMenuController.login(entered);
                 System.out.println(outcome);
                 if (outcome.contains("successfully")) {
                     if (!MainMenu.run())
@@ -76,7 +76,7 @@ public class RegistryMenuView extends Menu{
             else if (input.matches(String.valueOf(patterns[4]))) {
                 Matcher matcher = getCommandMatcher(input,String.valueOf(patterns[4]));
                 matcher.find();
-                ArrayList<String> outcome = RegistryMenu.userList();
+                ArrayList<String> outcome = RegistryMenuController.userList();
                 for (String s : outcome) {
                     System.out.print(s);
                 }

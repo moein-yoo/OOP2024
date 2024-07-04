@@ -1,9 +1,5 @@
 package View;
 
-import Controller.RegistryMenu;
-import Model.User;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

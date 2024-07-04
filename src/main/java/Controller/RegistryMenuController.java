@@ -2,13 +2,11 @@ package Controller;
 
 
 import Model.*;
-import View.Menu;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistryMenu {
+public class RegistryMenuController {
 
     public static String signin(String[] enteredUser) {
         String tempUsername = enteredUser[0];
