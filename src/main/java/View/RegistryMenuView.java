@@ -15,7 +15,7 @@ public class RegistryMenuView extends Menu{
         patterns[0] = Pattern.compile("exit");
         patterns[1] = Pattern.compile("show current menu");
         //(String username,String nickname,String password,String email,String passwordRecoveryQuestion,int character)
-        patterns[2] = Pattern.compile("register u (?<username>[\\S]+) n (?<nickname>[\\S\\s]+) p (?<password>[\\S]+) em (?<email>[\\S]+) t (?<type>[\\d]))");
+        patterns[2] = Pattern.compile("register u (?<username>[\\S]+) n (?<nickname>[\\S\\s]+) p (?<password>[\\S]+) em (?<email>[\\S]+) t (?<type>[\\d])");
         patterns[5] = Pattern.compile("ans (?<answer>[\\S\\s]+)");
         patterns[3] = Pattern.compile("login u (?<username>[\\S]+) p (?<password>[\\S]+)");
         patterns[4] = Pattern.compile("list of users");
@@ -68,7 +68,7 @@ public class RegistryMenuView extends Menu{
                 String outcome = RegistryMenuController.login(entered);
                 System.out.println(outcome);
                 if (outcome.contains("successfully")) {
-                    if (!MainMenu.run())
+                    if (!MainMenuView.run())
                         return;
                 }
                 ejra = true;
