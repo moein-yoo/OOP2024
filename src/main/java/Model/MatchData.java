@@ -52,6 +52,34 @@ public class MatchData {
             throw new RuntimeException(e);
         }
     }
+    public void addToList(MatchData matchData){
+        matchDatas.add(matchData);
+        String str1=matchData.getWinner();
+        String str2=matchData.getLoser();
+        String str3=matchData.getAward();
+        String str4=matchData.getPenalty();
+        String str5=matchData.getDate();
+        int int1=matchData.getWinnerLevel();
+        int int2=matchData.getLoserLevel();
+        String query="INSERT INTO MatchData(Winner, Loser, Award , Penalty,Date , WinnerLevel , LoserLevel) VALUES ("+str1+","+str2+","+str3+","+str4+","+str5+","+ int1 +","+ int2+")";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(query);
+//
+            stmt.setString(1, str1);
+            stmt.setString(2, str2);
+            stmt.setString(3, str3);
+            stmt.setString(4, str4);
+            stmt.setString(5, str5);
+            stmt.setInt(6, int1);
+            stmt.setInt(7, int2);
+
+//            stmt.setDate(3, new Date());
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+
+    }
     public String getWinner(){return Winner;}
 
     public String getLoser() {
