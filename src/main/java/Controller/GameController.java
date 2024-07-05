@@ -20,7 +20,9 @@ public class GameController {
 
     private static Game game;
 
-    public boolean run(Game game, Scanner scan, String command){
+    public boolean run(Game game){
+        Scanner scan=ApplicationData.getScanner();
+        String command;
         Pattern exit=Pattern.compile("exit");
         Pattern back=Pattern.compile("back");
         Pattern selectcard=Pattern.compile("select card number (\\d+) player (\\s+)");

@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class HistoryMenuController {
-    public ArrayList<MatchData> getWinnerMatches(){
+    public static ArrayList<MatchData> getWinnerMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
         try {
             String query="SELECT * FROM MatchData WHERE Winner= ?";
@@ -36,7 +36,7 @@ public class HistoryMenuController {
 
         return ans;
     }
-    public ArrayList<MatchData> getLoserMatches(){
+    public static ArrayList<MatchData> getLoserMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
         try {
             String query="SELECT * FROM MatchData WHERE Loser= ?";
@@ -59,13 +59,13 @@ public class HistoryMenuController {
 
         return ans;
     }
-    public ArrayList<MatchData> getAllMatches(){
+    public static ArrayList<MatchData> getAllMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
         ans.addAll(getLoserMatches());
         ans.addAll(getWinnerMatches());
         return ans;
     }
-    public String showResult(MatchData matchData, User user){
+    public static String showResult(MatchData matchData, User user){
         if(matchData.getWinner().equals(user.getNickname())){
             String str="Result: Winner, Opponent: " + matchData.getLoser()+" Your level: "+matchData.getWinnerLevel()+" Opponent level: "+matchData.getLoserLevel()+" \nYour Reward: "+matchData.getAward()+"Match Date: "+matchData.getDate().toString();
             return str;
@@ -75,7 +75,7 @@ public class HistoryMenuController {
             return str;
         }
     }
-    public void sortOnDate(ArrayList<MatchData> matchData,boolean ascending){
+    public static void sortOnDate(ArrayList<MatchData> matchData,boolean ascending){
         Collections.sort(matchData, new Comparator<MatchData>() {
             @Override
             public int compare(MatchData o1, MatchData o2) {
@@ -87,7 +87,8 @@ public class HistoryMenuController {
             }
         });
     }
-    public void sortOnName(ArrayList<MatchData> matchData,User user,boolean ascending){
+    public static void sortOnName(ArrayList<MatchData> matchData,boolean ascending){
+        User user=ApplicationData.getHost();
         Collections.sort(matchData, new Comparator<MatchData>() {
             @Override
             public int compare(MatchData o1, MatchData o2) {
@@ -116,7 +117,30 @@ public class HistoryMenuController {
             }
         });
     }
-    public void sortOnLevel(ArrayList<MatchData> matchData,User user,boolean ascending){
+    public static void sortOnWin(ArrayList<MatchData> matchData,boolean ascending) {
+        User user = ApplicationData.getHost();
+        Collections.sort(matchData, new Comparator<MatchData>() {
+            @Override
+            public int compare(MatchData o1, MatchData o2) {
+                if (ascending) {
+                    if (o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                        return 1;
+                    if (o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                        return -1;
+                    return 1;
+                }
+                else {
+                    if (o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                        return -1;
+                    if (o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                        return 1;
+                    return 1;
+                }
+            }
+        });
+    }
+    public static void sortOnLevel(ArrayList<MatchData> matchData,boolean ascending){
+        User user=ApplicationData.getHost();
         Collections.sort(matchData, new Comparator<MatchData>() {
             @Override
             public int compare(MatchData o1, MatchData o2) {
@@ -144,5 +168,28 @@ public class HistoryMenuController {
                 }
             }
         });
+    }
+    public static boolean showAll(ArrayList<MatchData> matchDataArr,int pageNum){
+        if(matchDataArr.size()<=(pageNum-1)*10){
+            if(pageNum==1){
+                System.out.println("You have not played any matches");
+                return true;
+            }
+            else{
+                System.out.println("Invalid Page");
+                return false;
+            }
+        }
+            for(int a=10*(pageNum-1);a<10*pageNum;a++){
+                int b=a+1;
+                System.out.println(b+". "+showResult(matchDataArr.get(a),ApplicationData.getHost()));
+            }
+
+        int totalPages=matchDataArr.size()-(matchDataArr.size()%10);
+        totalPages/=10;
+        if(matchDataArr.size()%10!=0)
+            totalPages+=1;
+        System.out.println("page "+pageNum+" of "+totalPages);
+        return true;
     }
 }

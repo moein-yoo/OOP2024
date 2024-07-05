@@ -3,6 +3,7 @@ package Controller;
 import Model.ApplicationData;
 import Model.User;
 import View.GameMenuView;
+import View.HistoryMenuView;
 import View.ProfileMenuView;
 
 public class MainMenuController {
