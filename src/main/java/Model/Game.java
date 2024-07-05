@@ -19,8 +19,13 @@ public class Game {
     private int guestRemainingTurns;
     private ArrayList<Integer> bonusCollectedindexesInHostRow;
     private ArrayList<Integer> bonusCollectedindexesInGuestRow;
+    private int betAmount;
+    private int hostInitialHP;
+    private int guestInitialHP;
 
     Game(){
+        hostInitialHP=ApplicationData.getHost().getHP();
+        guestInitialHP=ApplicationData.getGuest().getHP();
         int a = ApplicationData.getRandom().nextInt(21);
         int b = ApplicationData.getRandom().nextInt(21);
         bonusCollectedindexesInHostRow=new ArrayList<>();
@@ -54,6 +59,43 @@ public class Game {
         }
         hostRemainingTurns =4;
         guestRemainingTurns =4;
+        betAmount=0;
+    }
+    Game(int betAmount){
+        int a = ApplicationData.getRandom().nextInt(21);
+        int b = ApplicationData.getRandom().nextInt(21);
+        bonusCollectedindexesInHostRow=new ArrayList<>();
+        bonusCollectedindexesInGuestRow=new ArrayList<>();
+        hostRowCards =new Card[21];
+        guestRowCards =new Card[21];
+        hostRowStatus =new String[21];
+        guestRowStatus =new String[21];
+        for(int i=0;i<21;i++){
+            hostRowCards[i]=nullCard();
+            guestRowCards[i]=nullCard();
+            hostRowStatus[i]="nothing";
+            guestRowStatus[i]="nothing";
+        }
+        hostRowStatus[a]="hole";
+        guestRowStatus[b]="hole";
+        hostCardsAtHand=new ArrayList<>();
+        guestCardsAtHand=new ArrayList<>();
+        for(int i=0;i<5;i++){
+            hostCardsAtHand.add(randomCardReplace(true));
+            guestCardsAtHand.add(randomCardReplace(false));
+        }
+        boolean startt= randomHostStart();
+        if(startt)
+            hostTurn =true;
+        else
+            hostTurn =false;
+        for(int i=0;i<6;i++){
+            int x=1;
+            //fill deck for first time
+        }
+        hostRemainingTurns =4;
+        guestRemainingTurns =4;
+        this.betAmount=betAmount;
     }
     boolean randomHostStart(){//1:guest starts-2host starts
         int a= ApplicationData.getRandom().nextInt(3);
@@ -84,7 +126,7 @@ public class Game {
         }
     }
     public Card nullCard(){
-        Card card=new Card(0,0,0,"-1",0);
+        Card card=new Card("1",0,0,0,"1",0);
         return card;
     }
 
@@ -200,5 +242,13 @@ public class Game {
     public void addSthHost(int a){this.getBonusCollectedindexesInHostRow().add(a);}
     public ArrayList<Integer> getBonusCollectedindexesInHostRow() {
         return bonusCollectedindexesInHostRow;
+    }
+
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    public void setBetAmount(int betAmount) {
+        this.betAmount = betAmount;
     }
 }

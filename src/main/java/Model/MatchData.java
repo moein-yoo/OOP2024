@@ -12,9 +12,9 @@ public class MatchData {
     private Timestamp Date;
     private int WinnerLevel;
     private int LoserLevel;
-    static String url="jdbc:mysql//localhost:3306/project";
-    static String username="root";
-    static String password="soroush1384";
+    private static String url="jdbc:mysql//localhost:3306/project";
+    private static String username="root";
+    private static String password="soroush1384";
     private static Connection connection;
     private static java.sql.Statement statement;
     public MatchData(String Winner,String Loser,String Award,String Penalty,Timestamp Date,int WinnerLevel,int LoserLevel){
@@ -33,7 +33,7 @@ public class MatchData {
         statement=connection.createStatement();
         }
         catch (SQLException e){throw new RuntimeException(e);}
-        System.out.println("Database connected");
+        System.out.println("Matches Database connected");
         try{
             ResultSet resultSet=statement.executeQuery("SELECT * FROM MatchData");
             while(resultSet.next()){

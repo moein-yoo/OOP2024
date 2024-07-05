@@ -96,4 +96,5 @@ public class ApplicationData {
     public void setRandom(Random random) {
         this.random = random;
     }
+    public static void newUserArrayList(){userArrayList=new ArrayList<>();}
 }

@@ -53,7 +53,7 @@ public class GameController {
         if(!game.isHostTurn())
             game.setGuestRemainingTurns(game.getGuestRemainingTurns()-1);
         game.setHostTurn();
-        if(game.getHostRemainingTurns()==0 || game.getGuestRemainingTurns()==0)
+        if(game.getHostRemainingTurns()==0 && game.getGuestRemainingTurns()==0)
             createTimeline();
     }
     public String createTimeline(){
@@ -64,13 +64,15 @@ public class GameController {
                 System.out.println("Guest HP decreased by "+ game.getHostRowCards()[i].getDamage()/game.getHostRowCards()[i].getDuration()+" at block "+ i);
             }
             if(game.getGuestRowStatus()[i].equals("card")){
-                ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage());
+                ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration());
                 System.out.println("Host HP decreased by "+ game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration()+" at block "+ i);
             }
-            if(ApplicationData.getHost().getHP()<=0)
+            if(ApplicationData.getHost().getHP()<=0){
                 return "player "+ ApplicationData.getGuest().getNickname()+" wins!";
-            if(ApplicationData.getGuest().getHP()<0)
+            }
+            if(ApplicationData.getGuest().getHP()<0){
                 return "player "+ ApplicationData.getHost().getNickname()+" wins!";
+            }
         }
         game.setHostRemainingTurns(4);
         game.setGuestRemainingTurns(4);
@@ -109,7 +111,7 @@ public class GameController {
             nextTurn();
             if(checkPossibleBonusForHost())
                 giveBonus(true);
-            String str="Card "+i.getKind()+" placed successfully";
+            String str="Card "+i.getName()+" placed successfully";
             return str;
         }
         if(!game.isHostTurn()){
@@ -130,7 +132,7 @@ public class GameController {
             nextTurn();
             if(checkPossibleBonusForGuest())
                 giveBonus(false);
-            String str="Card "+i.getKind()+" placed successfully";
+            String str="Card "+i.getName()+" placed successfully";
             return str;
         }
         return "salam";
@@ -250,5 +252,11 @@ public class GameController {
                 return true;
         }
         return false;
+    }
+    public void hostWins(){
+
+    }
+    public void guestWins(){
+
     }
 }

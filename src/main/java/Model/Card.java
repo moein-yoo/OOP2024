@@ -21,7 +21,8 @@ public class Card {
     private String[] hostRowStatus;
     private String[] guestRowStatus;
 
-    public Card(int duration, int accuracy, int damage, String kind, int HP) {
+    public Card(String name,int duration, int accuracy, int damage, String kind, int HP) {
+        this.name=name;
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;

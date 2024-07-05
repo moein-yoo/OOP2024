@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 public class User {
@@ -16,6 +17,11 @@ public class User {
     private int character;//1-2-3-4
     private int level;
     private int xp;
+    private static String url="jdbc:mysql//localhost:3306/project";
+    private static String Username="root";
+    private static String Password="soroush1384";
+    private static Connection connection;
+    private static java.sql.Statement statement;
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType, int character){
         this.passwordRecoveryType = passwordRecoveryType;
         this.character=character;
@@ -23,8 +29,8 @@ public class User {
         this.level=1;
         this.hp=100;
         this.coins=100;
-        this.username=username;
-        this.password=password;
+        this.username =username;
+        this.password =password;
         this.nickname=nickname;
         this.email=email;
         this.passwordRecoveryQuestion = passwordRecoveryQuestion;
@@ -32,6 +38,46 @@ public class User {
         StarterPack(this.allPossessedCards);
         this.twentyCardsAtDeck=new ArrayList<>();
         twentyCardsAtDeck.addAll(allPossessedCards);
+    }
+    public static void initialize(){
+        ApplicationData.newUserArrayList();
+        try{
+            connection= DriverManager.getConnection(url,Username,Password);
+            statement=connection.createStatement();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+        System.out.println("User Database connected");
+        try{
+            ResultSet resultSet=statement.executeQuery("SELECT * FROM USER");
+            while(resultSet.next()){
+                String username=resultSet.getString(1);
+                String password=resultSet.getString(2);
+                String nickname=resultSet.getString(3);
+                String email=resultSet.getString(4);
+                String passwordRecoveryQuestion=resultSet.getString(5);
+                int passwordRecoveryType=resultSet.getInt(6);
+                int hp=resultSet.getInt(7);
+                int coins=resultSet.getInt(8);
+                int character=resultSet.getInt(9);
+                int level=resultSet.getInt(10);
+                int xp=resultSet.getInt(11);
+                String allPossesed=resultSet.getString(12);
+                String twenty=resultSet.getString(13);
+                ArrayList<Card> allPos=new ArrayList<>();
+
+                ArrayList<Card> twen=new ArrayList<>();
+
+                User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType,character);
+                user.setXp(xp);
+                user.setLevel(level);
+                user.setHP(hp);
+                user.setCoins(coins);
+                ApplicationData.getUserArrayList().add(user);
+            }
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
     public void StarterPack(ArrayList<Card> a){
         //fill arraylist with 20 cards
@@ -52,10 +98,10 @@ public class User {
         this.hp = HP;
     }
     public void setUsername(String username){
-        this.username=username;
+        this.username =username;
     }
     public void setPassword(String password){
-        this.password=password;
+        this.password =password;
     }
     public void setNickname(String nickname){
         this.nickname=nickname;
@@ -104,7 +150,8 @@ public class User {
     public int getXp(){
         return this.xp;
     }
-
+    public void setXp(int xp){this.xp=xp;}
+    public void setLevel(int level){this.level=level;}
 
     public int getCharacter() {
         return character;
