@@ -23,7 +23,7 @@ public class Game {
     private int hostInitialHP;
     private int guestInitialHP;
 
-    Game(){
+    public Game(){
         hostInitialHP=ApplicationData.getHost().getHP();
         guestInitialHP=ApplicationData.getGuest().getHP();
         int a = ApplicationData.getRandom().nextInt(21);
@@ -61,7 +61,7 @@ public class Game {
         guestRemainingTurns =4;
         betAmount=0;
     }
-    Game(int betAmount){
+    public Game(int betAmount){
         int a = ApplicationData.getRandom().nextInt(21);
         int b = ApplicationData.getRandom().nextInt(21);
         bonusCollectedindexesInHostRow=new ArrayList<>();

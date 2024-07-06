@@ -6,12 +6,19 @@ import Model.User;
 import java.util.Scanner;
 
 public class GameMenuController {
-    public static String selectCharacter(String character, User user) {
+    public static String selectCharacter(String character, String username) {
         if (!character.equals("Motreb") || !character.equals("Dalghak") || !character.equals("Divaneh") || !character.equals("Guguli")) {
             return "Character type is incorrect";
         }
-        user.setCharacter(character);
-        return "Character " + character + " assigned to " + user.getNickname() + " successfully!";
+        else {
+            for (User user : ApplicationData.getUserArrayList()) {
+                if (user.getUsername().equals(username)) {
+                    user.setCharacter(character);
+                    return "Character " + character + " assigned to " + user.getNickname() + " successfully!";
+                }
+            }
+        }
+        return "";
     }
     public static void guestLogin() {
         String tempUsername = "", tempPassword = "";
@@ -48,11 +55,12 @@ public class GameMenuController {
             }
             else break;
         } while (true);
+        ApplicationData.setSecondLogin(true);
         ApplicationData.setGuest(tempUser);
     }
-    public static String betChoose() {
+    public static String betChoose(int value) {
         ApplicationData.setBetStatus(true);
-        return "Bet mode on";
+        ApplicationData.setBetCost(value);
+        return "Bet mode on!";
     }
-
 }

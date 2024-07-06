@@ -8,9 +8,8 @@ public class Card {
     private int accuracy;
     private int damage;
     private int upgradeLevel;
-    private int upgradeCost;
     private String character;
-    private int cost;
+    private int upgradeCost;
     private int level = 0;
     //separ_shafa_powerSupply_hellChanger_
     //maintenance_roundDec_cardKiller_
@@ -24,13 +23,13 @@ public class Card {
 
     public Card() {}
 
-    public Card(String name, int duration, int accuracy, int damage, String character, int cost, int level) {
+    public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;
         this.character = character;
-        this.cost = cost;
+        this.upgradeCost = upgradeCost;
         this.level = level;
     }
 
@@ -87,14 +86,6 @@ public class Card {
 
     public void setUpgradeLevel(int upgradeLevel) {
         this.upgradeLevel = upgradeLevel;
-    }
-
-    public int getUpgradeCost() {
-        return upgradeCost;
-    }
-
-    public void setUpgradeCost(int upgradeCost) {
-        this.upgradeCost = upgradeCost;
     }
 
     public void separInstaller(int index,int player) {
@@ -167,11 +158,11 @@ public class Card {
         return false;
     }
 
-    public int getCost() {
-        return cost;
+    public int getUpgradeCost() {
+        return upgradeCost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setUpgradeCost(int upgradeCost) {
+        this.upgradeCost = upgradeCost;
     }
 }

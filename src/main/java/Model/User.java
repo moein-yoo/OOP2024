@@ -14,7 +14,7 @@ public class User {
     private int coins;
     private ArrayList<Card> allPossessedCards;
     private ArrayList<Card> twentyCardsAtDeck;
-    private String character;//1-2-3-4
+    private String character = "nothing";//1-2-3-4
     private int level;
     private int xp;
     private static String url="jdbc:mysql//localhost:3306/project";
