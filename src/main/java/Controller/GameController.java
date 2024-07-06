@@ -20,34 +20,8 @@ public class GameController {
 
     private static Game game;
 
-    public boolean run(Game game){
-        Scanner scan=ApplicationData.getScanner();
-        String command;
-        Pattern exit=Pattern.compile("exit");
-        Pattern back=Pattern.compile("back");
-        Pattern selectcard=Pattern.compile("select card number (\\d+) player (\\s+)");
-        Pattern placecard=Pattern.compile("place card number (\\d+) in block (\\d+)");
-        while(true){
-            command=scan.nextLine();
 
-            Matcher exitm=exit.matcher(command);
-            Matcher backm= back.matcher(command);
-            Matcher selectcardm=selectcard.matcher(command);
-            Matcher placecardm= placecard.matcher(command);
-
-            boolean exitb= exitm.find();
-            boolean backb=backm.find();
-            boolean selectcardb= selectcardm.find();
-            boolean placecardb= placecardm.find();
-
-            if(exitb)
-                break;
-            if(backb)
-                return true;
-        }
-        return false;
-    }
-    public void nextTurn(){
+    public static void nextTurn(){
         if(game.isHostTurn())
             game.setHostRemainingTurns(game.getHostRemainingTurns()-1);
         if(!game.isHostTurn())
@@ -56,7 +30,7 @@ public class GameController {
         if(game.getHostRemainingTurns()==0 && game.getGuestRemainingTurns()==0)
             createTimeline();
     }
-    public String createTimeline(){
+    public static String createTimeline(){
         System.out.println("Timeline created!");
         for(int i=0;i<21;i++){
             if(game.getHostRowStatus()[i].equals("card")){
@@ -78,7 +52,7 @@ public class GameController {
         game.setGuestRemainingTurns(4);
         return "New Round";
     }
-    public String placeCard(int cardnumber,int blocknumber){
+    public static String placeCard(int cardnumber, int blocknumber){
         Card i=null;
         if(game.isHostTurn()){
             if(cardnumber>game.getHostCardsAtHand().size())
@@ -108,6 +82,7 @@ public class GameController {
             game.removeCardFromHostCardsAtHand(i);
             game.addCardToHostCardsAtHand(game.randomCardReplace(true));
             checkBrakes();
+            buffCardPossibly(i);
             nextTurn();
             if(checkPossibleBonusForHost())
                 giveBonus(true);
@@ -129,6 +104,7 @@ public class GameController {
             game.removeCardFromGuestCardsAtHand(i);
             game.addCardToGuestCardsAtHand(game.randomCardReplace(false));
             checkBrakes();
+            buffCardPossibly(i);
             nextTurn();
             if(checkPossibleBonusForGuest())
                 giveBonus(false);
@@ -137,7 +113,30 @@ public class GameController {
         }
         return "salam";
     }
-    public void checkBrakes(){
+    public static String showCardProperty(Card card){
+        if(card.isSpecial()){
+            return "Spell name: "+card.getName();
+        }
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("Card name: ");
+        stringBuilder.append(card.getName());
+        stringBuilder.append("\n");
+        stringBuilder.append("Card accuracy: ");
+        stringBuilder.append(card.getAccuracy());
+        stringBuilder.append("\n");
+        stringBuilder.append("Card damage: ");
+        stringBuilder.append(card.getDamage());
+        stringBuilder.append("\n");
+        stringBuilder.append("Card duration: ");
+        stringBuilder.append(card.getDuration());
+        stringBuilder.append("\n");
+        stringBuilder.append("Card type: ");
+        stringBuilder.append(card.getKind());
+        stringBuilder.append("\n");
+        String string=stringBuilder.toString();
+        return string;
+    }
+    public static void checkBrakes(){
         for(int i=0;i<21;i++){
             if(game.getGuestRowStatus()[i].equals("nothing") || game.getGuestRowStatus()[i].equals("hole") ){
                 if(game.getHostRowStatus()[i].equals("broken"))
@@ -163,7 +162,7 @@ public class GameController {
             }
         }
     }
-    public boolean checkPossibleBonusForGuest(){
+    public static boolean checkPossibleBonusForGuest(){
         ArrayList<Integer> startindexes=new ArrayList<>();
         ArrayList<Integer> endindexes=new ArrayList<>();
         int i=0;
@@ -190,7 +189,31 @@ public class GameController {
         }
         return false;
     }
-    public boolean checkPossibleBonusForHost(){
+    public static void buffCardPossibly(Card card){
+        int a=0;
+        if(game.isHostTurn()){
+            if(game.getHostCardsAtHand().size()!=5)
+                return;
+            if(card.getKind().equals(game.getHostCardsAtHand().get(3)))
+                a=ApplicationData.getRandom().nextInt(6);
+            if(!card.getKind().equals(game.getHostCardsAtHand().get(3)))
+                a=ApplicationData.getRandom().nextInt(10);
+        }
+        else{
+            if(game.getGuestCardsAtHand().size()!=5)
+                return;
+            if(card.getKind().equals(game.getGuestCardsAtHand().get(3)))
+                a=ApplicationData.getRandom().nextInt(6);
+            if(!card.getKind().equals(game.getGuestCardsAtHand().get(3)))
+                a=ApplicationData.getRandom().nextInt(10);
+        }
+        if(a<4){
+            System.out.println("Card Buffed!");
+            card.setDamage(card.getDamage()+card.getDuration());
+            card.setAccuracy(card.getAccuracy()+3);
+        }
+    }
+    public static boolean checkPossibleBonusForHost(){
         ArrayList<Integer> startindexes=new ArrayList<>();
         ArrayList<Integer> endindexes=new ArrayList<>();
         int i=0;
@@ -217,7 +240,7 @@ public class GameController {
         }
         return false;
     }
-    public void giveBonus(boolean forHost){
+    public static void giveBonus(boolean forHost){
         if(forHost)
          System.out.println("Bonus activated for host!");
         if(!forHost)
@@ -246,7 +269,7 @@ public class GameController {
                 ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+20);
         }
     }
-    private boolean numInArrayList(int a,ArrayList<Integer> arrlist){
+    private static boolean numInArrayList(int a,ArrayList<Integer> arrlist){
         for(int i=0;i<arrlist.size();i++){
             if(a== arrlist.get(i))
                 return true;

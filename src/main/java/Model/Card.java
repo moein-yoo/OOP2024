@@ -157,7 +157,7 @@ public class Card {
         else GameController.getGame().setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
     }
     public boolean isSpecial(){
-        String str=this.kind;
+        String str=this.name;
         if(str.equals("HPInstaller") || str.equals("holeRemover") || str.equals("holeChanger") || str.equals("separInstaller"))
             return true;
         return false;
