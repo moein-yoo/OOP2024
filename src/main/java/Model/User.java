@@ -39,6 +39,11 @@ public class User {
         this.twentyCardsAtDeck=new ArrayList<>();
         twentyCardsAtDeck.addAll(allPossessedCards);
     }
+
+    public User() {
+        //nothing
+    }
+
     public static void initialize(){
         ApplicationData.newUserArrayList();
         try{
