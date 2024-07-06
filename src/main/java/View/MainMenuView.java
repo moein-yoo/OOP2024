@@ -56,6 +56,7 @@ public class MainMenuView extends Menu {
                 ejra = true;
             } else if (input.matches(String.valueOf(patterns[7]))) {
                 MainMenuController.logout();
+                System.out.println("user logged out successfully!");
                 return true;
             } else if (input.matches(String.valueOf(patterns[8]))) {
                 return true;

@@ -14,7 +14,7 @@ public class User {
     private int coins;
     private ArrayList<Card> allPossessedCards;
     private ArrayList<Card> twentyCardsAtDeck;
-    private int character;//1-2-3-4
+    private String character;//1-2-3-4
     private int level;
     private int xp;
     private static String url="jdbc:mysql//localhost:3306/project";
@@ -22,7 +22,7 @@ public class User {
     private static String Password="soroush1384";
     private static Connection connection;
     private static java.sql.Statement statement;
-    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType, int character){
+    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType, String character){
         this.passwordRecoveryType = passwordRecoveryType;
         this.character=character;
         this.xp=0;
@@ -66,8 +66,16 @@ public class User {
                 ArrayList<Card> allPos=new ArrayList<>();
 
                 ArrayList<Card> twen=new ArrayList<>();
-
-                User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType,character);
+                String charType = "";
+                if (character == 1)
+                    charType = "Motreb";
+                if (character == 2)
+                    charType = "Dalghak";
+                if (character == 3)
+                    charType = "Divaneh";
+                if (character == 4)
+                    charType = "Guguli";
+                User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType,charType);
                 user.setXp(xp);
                 user.setLevel(level);
                 user.setHP(hp);
@@ -153,11 +161,11 @@ public class User {
     public void setXp(int xp){this.xp=xp;}
     public void setLevel(int level){this.level=level;}
 
-    public int getCharacter() {
+    public String getCharacter() {
         return character;
     }
 
-    public void setCharacter(int character) {
+    public void setCharacter(String character) {
         this.character = character;
     }
 
