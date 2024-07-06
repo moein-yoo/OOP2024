@@ -126,7 +126,7 @@ public class Game {
         }
     }
     public Card nullCard(){
-        Card card=new Card("1",0,0,0,"1",0);
+        Card card=new Card("1",0,0,0,"1",0,1);
         return card;
     }
 
