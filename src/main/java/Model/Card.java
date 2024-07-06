@@ -9,8 +9,9 @@ public class Card {
     private int damage;
     private int upgradeLevel;
     private int upgradeCost;
-    private String kind;
-    private int HP = 0;
+    private String character;
+    private int cost;
+    private int level = 0;
     //separ_shafa_powerSupply_hellChanger_
     //maintenance_roundDec_cardKiller_
     //cardInjury_copier_visionLess
@@ -21,13 +22,16 @@ public class Card {
     private String[] hostRowStatus;
     private String[] guestRowStatus;
 
-    public Card(String name,int duration, int accuracy, int damage, String kind, int HP) {
+    public Card() {}
+
+    public Card(String name, int duration, int accuracy, int damage, String character, int cost, int level) {
         this.name=name;
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;
-        this.kind = kind;
-        this.HP = HP;
+        this.character = character;
+        this.cost = cost;
+        this.level = level;
     }
 
     public int getDuration() {
@@ -54,20 +58,20 @@ public class Card {
         this.damage = damage;
     }
 
-    public String getKind() {
-        return kind;
+    public String getCharacter() {
+        return character;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setCharacter(String character) {
+        this.character = character;
     }
 
-    public int getHP() {
-        return HP;
+    public int getLevel() {
+        return level;
     }
 
-    public void setHP(int HP) {
-        this.HP = HP;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getName() {
@@ -157,10 +161,17 @@ public class Card {
         else GameController.getGame().setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
     }
     public boolean isSpecial(){
-        String str=this.name;
+        String str=this.character;
         if(str.equals("HPInstaller") || str.equals("holeRemover") || str.equals("holeChanger") || str.equals("separInstaller"))
             return true;
         return false;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }
