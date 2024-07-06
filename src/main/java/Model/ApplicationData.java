@@ -21,6 +21,7 @@ public class ApplicationData {
     private static boolean betStatus;
     private static int betCost;
     private static boolean secondLogin = false;
+    private static Game game;
 
 
     public static User getHost() {
@@ -108,7 +109,7 @@ public class ApplicationData {
         ApplicationData.betStatus = betStatus;
     }
 
-    public static int isBetCost() {
+    public static int getBetCost() {
         return betCost;
     }
 
@@ -130,6 +131,14 @@ public class ApplicationData {
 
     public static void setAllCardsArraylist(ArrayList<Card> allCardsArraylist) {
         ApplicationData.allCardsArraylist = allCardsArraylist;
+    }
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void setGame(Game game) {
+        ApplicationData.game = game;
     }
 
     public void setRandom(Random random) {
