@@ -8,7 +8,8 @@ import static java.lang.Math.min;
 import static java.lang.Math.pow;
 
 public class ApplicationData {
-    private static ArrayList<User> userArrayList = new ArrayList<>();
+    private static ArrayList<User> userArrayList;
+    private static ArrayList<Card> allCardsArraylist;
     private static Scanner scanner = new Scanner(System.in);
     private static User host;
     private static User guest;
@@ -121,6 +122,14 @@ public class ApplicationData {
 
     public static void setSecondLogin(boolean secondLogin) {
         ApplicationData.secondLogin = secondLogin;
+    }
+
+    public static ArrayList<Card> getAllCardsArraylist() {
+        return allCardsArraylist;
+    }
+
+    public static void setAllCardsArraylist(ArrayList<Card> allCardsArraylist) {
+        ApplicationData.allCardsArraylist = allCardsArraylist;
     }
 
     public void setRandom(Random random) {
