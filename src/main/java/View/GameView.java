@@ -15,6 +15,7 @@ public class GameView extends Menu{
         Pattern back=Pattern.compile("back");
         Pattern selectCard=Pattern.compile("select card number (\\d+) player (\\s+)");
         Pattern placeCard=Pattern.compile("place card number (\\d+) in block (\\d+)");
+        Pattern showfield=Pattern.compile("show\\s*field");
         while(true){
             command=scan.nextLine();
 
@@ -22,11 +23,13 @@ public class GameView extends Menu{
             Matcher backm= back.matcher(command);
             Matcher selectCardm=selectCard.matcher(command);
             Matcher placeCardm= placeCard.matcher(command);
+            Matcher showfieldm=showfield.matcher(command);
 
             boolean exitb= exitm.find();
             boolean backb=backm.find();
             boolean selectcardb= selectCardm.find();
             boolean placecardb= placeCardm.find();
+            boolean showfieldb=showfieldm.find();
 
             if(exitb)
                 break;
@@ -40,6 +43,8 @@ public class GameView extends Menu{
                 if(selectCardm.group(2).equalsIgnoreCase("guest") || selectCardm.group(2).equalsIgnoreCase(ApplicationData.getGuest().getNickname()))
                     GameController.showCardProperty(GameController.getGame().getGuestCardsAtHand().get(Integer.parseInt(selectCardm.group(1))));
             }
+            if(showfieldb)
+                Game.showField();
         }
         return false;
     }
