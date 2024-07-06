@@ -22,7 +22,24 @@ public class User {
     private static String Password="soroush1384";
     private static Connection connection;
     private static java.sql.Statement statement;
-    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType, String character){
+    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType){
+        this.passwordRecoveryType = passwordRecoveryType;
+        this.character=null;
+        this.xp=0;
+        this.level=1;
+        this.hp=100;
+        this.coins=100;
+        this.username =username;
+        this.password =password;
+        this.nickname=nickname;
+        this.email=email;
+        this.passwordRecoveryQuestion = passwordRecoveryQuestion;
+        this.allPossessedCards =new ArrayList<>();
+        StarterPack(this.allPossessedCards);
+        this.twentyCardsAtDeck=new ArrayList<>();
+        twentyCardsAtDeck.addAll(allPossessedCards);
+    }
+    public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType,String character){
         this.passwordRecoveryType = passwordRecoveryType;
         this.character=character;
         this.xp=0;
@@ -63,24 +80,15 @@ public class User {
                 int passwordRecoveryType=resultSet.getInt(6);
                 int hp=resultSet.getInt(7);
                 int coins=resultSet.getInt(8);
-                int character=resultSet.getInt(9);
-                int level=resultSet.getInt(10);
-                int xp=resultSet.getInt(11);
-                String allPossesed=resultSet.getString(12);
-                String twenty=resultSet.getString(13);
+                int level=resultSet.getInt(9);
+                int xp=resultSet.getInt(10);
+                String allPossesed=resultSet.getString(11);
+                String twenty=resultSet.getString(12);
                 ArrayList<Card> allPos=new ArrayList<>();
 
                 ArrayList<Card> twen=new ArrayList<>();
-                String charType = "";
-                if (character == 1)
-                    charType = "Motreb";
-                if (character == 2)
-                    charType = "Dalghak";
-                if (character == 3)
-                    charType = "Divaneh";
-                if (character == 4)
-                    charType = "Guguli";
-                User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType,charType);
+
+                User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType);
                 user.setXp(xp);
                 user.setLevel(level);
                 user.setHP(hp);
