@@ -31,6 +31,7 @@ public class MatchData {
         try{
         connection=DriverManager.getConnection(url,username,password);
         statement=connection.createStatement();
+        connection.setAutoCommit(false);
         }
         catch (SQLException e){throw new RuntimeException(e);}
         System.out.println("Matches Database connected");
@@ -74,6 +75,8 @@ public class MatchData {
             stmt.setInt(5, int1);
             stmt.setInt(6, int2);
             stmt.setTimestamp(7,timestamp);
+            connection.commit();
+
 
 //            stmt.setDate(3, new Date());
 

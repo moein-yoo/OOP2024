@@ -84,21 +84,177 @@ public class User {
                 int xp=resultSet.getInt(10);
                 String allPossesed=resultSet.getString(11);
                 String twenty=resultSet.getString(12);
-                ArrayList<Card> allPos=new ArrayList<>();
 
+                ArrayList<Card> allPos=new ArrayList<>();
                 ArrayList<Card> twen=new ArrayList<>();
+
+                String [] str1=allPossesed.split(",",-1);
+                ArrayList<String> names1=new ArrayList<>();
+                ArrayList<Integer> levels1=new ArrayList<>();
+                for(int i=0;i< str1.length;i++){
+                    if(i%2==0)
+                        names1.add(str1[i]);
+                    if(i%2==1)
+                        levels1.add(Integer.parseInt(str1[i]));
+                }
+                for(int i=0;i< names1.size();i++){
+                    allPos.add(ApplicationData.cardTranslator(names1.get(i),levels1.get(i)));
+                }
+                String [] str2=twenty.split("#",-1);
+                ArrayList<String> names2=new ArrayList<>();
+                ArrayList<Integer> levels2=new ArrayList<>();
+                for(int i=0;i< str2.length;i++){
+                    if(i%2==0)
+                        names2.add(str2[i]);
+                    if(i%2==1)
+                        levels2.add(Integer.parseInt(str2[i]));
+                }
+                for(int i=0;i< names2.size();i++){
+                    twen.add(ApplicationData.cardTranslator(names2.get(i),levels2.get(i)));
+                }
+
 
                 User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType);
                 user.setXp(xp);
                 user.setLevel(level);
                 user.setHP(hp);
                 user.setCoins(coins);
+                user.setAllPossessedCards(allPos);
+                user.setTwentyCardsAtDeck(twen);
                 ApplicationData.getUserArrayList().add(user);
             }
         }
         catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+    public void addNewUserToSQL(User user){
+        String username=user.getUsername();
+        String password=user.getPassword();
+        String nickname=user.getNickname();
+        String email=user.getEmail();
+        String passwordRecoveryQuestion=user.getPasswordRecoveryQuestion();
+        int passwordRecoveryType=user.getPasswordRecoveryType();
+        int hp= user.getHP();
+        int coins=user.getCoins();
+        int level=user.getLevel();
+        int xp=user.getXp();
+        ArrayList<Card>allPos=user.getAllPossessedCards();
+        ArrayList<Card> deck=user.getTwentyCardsAtDeck();
+        StringBuilder stringBuilder=new StringBuilder();
+        boolean first=true;
+        for(Card card:allPos){
+            if(!first)
+                stringBuilder.append("#");
+            stringBuilder.append(card.getName());
+            stringBuilder.append("#");
+            stringBuilder.append(card.getLevel());
+            first=false;
+        }
+
+        String allPossessed=stringBuilder.toString();
+
+        stringBuilder=new StringBuilder();
+        first=true;
+        for(Card card:deck){
+            if(!first)
+                stringBuilder.append("#");
+            stringBuilder.append(card.getName());
+            stringBuilder.append("#");
+            stringBuilder.append(card.getLevel());
+            first=false;
+        }
+        String deckstr=stringBuilder.toString();
+        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(query2);
+
+            preparedStatement=connection.prepareStatement(query2);
+            preparedStatement.setString(1,username);
+            preparedStatement.setString(2,password);
+            preparedStatement.setString(3,nickname);
+            preparedStatement.setString(4,email);
+            preparedStatement.setString(5,passwordRecoveryQuestion);
+            preparedStatement.setInt(6,passwordRecoveryType);
+            preparedStatement.setInt(7,hp);
+            preparedStatement.setInt(8,coins);
+            preparedStatement.setInt(9,level);
+            preparedStatement.setInt(10,xp);
+            preparedStatement.setString(11,allPossessed);
+            preparedStatement.setString(12,deckstr);
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+
+    }
+    public void updateUserInSQL(User user){
+        String username=user.getUsername();
+        String password=user.getPassword();
+        String nickname=user.getNickname();
+        String email=user.getEmail();
+        String passwordRecoveryQuestion=user.getPasswordRecoveryQuestion();
+        int passwordRecoveryType=user.getPasswordRecoveryType();
+        int hp= user.getHP();
+        int coins=user.getCoins();
+        int level=user.getLevel();
+        int xp=user.getXp();
+        ArrayList<Card>allPos=user.getAllPossessedCards();
+        ArrayList<Card> deck=user.getTwentyCardsAtDeck();
+        StringBuilder stringBuilder=new StringBuilder();
+        boolean first=true;
+        for(Card card:allPos){
+            if(!first)
+                stringBuilder.append("#");
+            stringBuilder.append(card.getName());
+            stringBuilder.append("#");
+            stringBuilder.append(card.getLevel());
+            first=false;
+        }
+
+        String allPossessed=stringBuilder.toString();
+
+        stringBuilder=new StringBuilder();
+        first=true;
+        for(Card card:deck){
+            if(!first)
+                stringBuilder.append("#");
+            stringBuilder.append(card.getName());
+            stringBuilder.append("#");
+            stringBuilder.append(card.getLevel());
+            first=false;
+        }
+        String deckstr=stringBuilder.toString();
+        String query1="DELETE FROM USER WHERE username= ?";
+        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(query1);
+            preparedStatement.setString(1,user.username);
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+            preparedStatement=connection.prepareStatement(query2);
+            preparedStatement.setString(1,username);
+            preparedStatement.setString(2,password);
+            preparedStatement.setString(3,nickname);
+            preparedStatement.setString(4,email);
+            preparedStatement.setString(5,passwordRecoveryQuestion);
+            preparedStatement.setInt(6,passwordRecoveryType);
+            preparedStatement.setInt(7,hp);
+            preparedStatement.setInt(8,coins);
+            preparedStatement.setInt(9,level);
+            preparedStatement.setInt(10,xp);
+            preparedStatement.setString(11,allPossessed);
+            preparedStatement.setString(12,deckstr);
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+
     }
     public void StarterPack(ArrayList<Card> a){
         //fill arraylist with 20 cards
@@ -189,4 +345,5 @@ public class User {
     public void setPasswordRecoveryType(int passwordRecoveryType) {
         this.passwordRecoveryType = passwordRecoveryType;
     }
+    public void setAllPossessedCards(ArrayList<Card> allPossessedCards){this.allPossessedCards=allPossessedCards;}
 }
