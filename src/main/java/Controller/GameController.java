@@ -277,7 +277,27 @@ public class GameController {
         return false;
     }
     public void hostWins(){
-
+        StringBuilder reward=new StringBuilder();
+        StringBuilder pun=new StringBuilder();
+        ApplicationData.getHost().setHP(game.getHostInitialHP()+30);
+        ApplicationData.getGuest().setHP(game.getGuestInitialHP()-20);
+        reward.append("HP increase: ");reward.append(30);
+        if(ApplicationData.getGuest().getHP()<15)
+            ApplicationData.getGuest().setHP(game.getGuestInitialHP()-20);
+        int decline=game.getGuestInitialHP()-ApplicationData.getGuest().getHP();
+        pun.append("HP decrease: ");pun.append(decline);
+        ApplicationData.getHost().increaseXP(50 *ApplicationData.getGuest().getLevel());
+        reward.append(",XP increase: ");reward.append(50 *ApplicationData.getGuest().getLevel());
+        if(game.getBetAmount()==0){
+         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+15);
+        reward.append(",Coins increased by 15");
+        }
+        if(game.getBetAmount()!=0){
+            ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+game.getBetAmount());
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()-game.getBetAmount());
+            reward.append(",Coins increased by ");reward.append(game.getBetAmount());
+            pun.append(",Coins decreased by ");pun.append(game.getBetAmount());
+        }
     }
     public void guestWins(){
 

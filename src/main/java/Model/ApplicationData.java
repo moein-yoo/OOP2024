@@ -145,6 +145,7 @@ public class ApplicationData {
         this.random = random;
     }
     public static void newUserArrayList(){userArrayList=new ArrayList<>();}
+    public static void newAllCardsArrayList(){allCardsArraylist=new ArrayList<>();}
 
     public static Card cardTranslator(String name, int cardLevel) {
         int cost = 0, damage = 0, accuracy = 0, duration = 1;

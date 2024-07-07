@@ -252,4 +252,12 @@ public class Game {
     public void setBetAmount(int betAmount) {
         this.betAmount = betAmount;
     }
+
+    public int getHostInitialHP() {
+        return hostInitialHP;
+    }
+
+    public int getGuestInitialHP() {
+        return guestInitialHP;
+    }
 }

@@ -75,12 +75,12 @@ public class MatchData {
             stmt.setInt(5, int1);
             stmt.setInt(6, int2);
             stmt.setTimestamp(7,timestamp);
-            connection.commit();
 
 
 //            stmt.setDate(3, new Date());
 
             stmt.executeUpdate();
+            connection.commit();
         }
         catch (SQLException e){throw new RuntimeException(e);}
 

@@ -2,6 +2,9 @@ package Model;
 
 import Controller.GameController;
 
+import java.sql.*;
+import java.util.ArrayList;
+
 import static java.lang.Math.min;
 
 public class Card {
@@ -13,6 +16,12 @@ public class Card {
     private String character;
     private int upgradeCost;
     private int level = 0;
+
+    private static String url="jdbc:mysql//localhost:3306/project";
+    private static String username="root";
+    private static String password="soroush1384";
+    private static Connection connection;
+    private static java.sql.Statement statement;
     //separ_shafa_powerSupply_hellChanger_
     //maintenance_roundDec_cardKiller_
     //cardInjury_copier_visionLess
@@ -23,7 +32,50 @@ public class Card {
 //    private String[] guestRowStatus;
 
     public Card() {}
-
+    public static void initialize(){
+        ApplicationData.newAllCardsArrayList();
+        try{
+            connection= DriverManager.getConnection(url,username,password);
+            statement=connection.createStatement();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+        System.out.println("Card Database connected");
+        try{
+            ResultSet resultSet=statement.executeQuery("SELECT * FROM CARD");
+            while(resultSet.next()){
+                String name=resultSet.getString(1);
+                int dur=resultSet.getInt(2);
+                int acc=resultSet.getInt(3);
+                int damage=resultSet.getInt(4);
+                String character=resultSet.getString(5);
+                int upcost=resultSet.getInt(6);
+                Card card=new Card(name,dur,acc,damage,character,upcost,1);
+                ApplicationData.getAllCardsArraylist().add(card);
+            }
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+    }
+    public void addcardToSQL(Card card){
+        String name= card.getName();
+        int dur=card.getDuration();
+        int accuracy=card.getAccuracy();
+        int damage= card.getDamage();
+        String car=card.getCharacter();
+        int upgradeCost=card.getUpgradeCost();
+        String query="INSERT INTO CARD VALUES (?,?,?,?,?,?)";
+        try {
+            PreparedStatement prep = connection.prepareStatement(query);
+            prep.setString(1, name);
+            prep.setInt(2,dur);
+            prep.setInt(3,accuracy);
+            prep.setInt(4,damage);
+            prep.setString(5,car);
+            prep.setInt(6,upgradeCost);
+            prep.executeUpdate();
+            connection.commit();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+    }
     public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
         this.duration = duration;
