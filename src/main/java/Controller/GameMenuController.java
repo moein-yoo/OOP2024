@@ -2,6 +2,7 @@ package Controller;
 
 import Model.ApplicationData;
 import Model.User;
+import View.RegistryMenuView;
 
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class GameMenuController {
     public static void guestLogin() {
         String tempUsername = "", tempPassword = "";
         User tempUser = new User();
+        String captcha = "";
         do {
             System.out.println("username for guestPlayer: ");
             Scanner scanner = ApplicationData.getScanner();
@@ -52,7 +54,12 @@ public class GameMenuController {
                     }
                 }
             }
-            else break;
+            else {
+                captcha = RegistryMenuView.captchaAsciiArtChecker();
+                while (!captcha.contains("Not"))
+                    captcha = RegistryMenuView.captchaAsciiArtChecker();
+                break;
+            }
         } while (true);
         ApplicationData.setSecondLogin(true);
         ApplicationData.setGuest(tempUser);
