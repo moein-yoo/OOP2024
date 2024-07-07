@@ -81,7 +81,7 @@ public class User {
 
                 ArrayList<Card> allPos=new ArrayList<>();
 
-                String [] str1=allPossesed.split("#",-1);
+                String [] str1=allPossesed.split("#");
                 ArrayList<String> names1=new ArrayList<>();
                 ArrayList<Integer> levels1=new ArrayList<>();
                 for(int i=0;i< str1.length;i++){
