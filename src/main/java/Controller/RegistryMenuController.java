@@ -16,7 +16,6 @@ public class RegistryMenuController {
         String tempMail = enteredUser[3];
         String tempPasswordRecoveryQuestion = enteredUser[4];
         int tempPasswordRecoveryType = Integer.parseInt(enteredUser[5]);
-        int tempCharacter = Integer.parseInt(enteredUser[6]);
         if (!isUsernameCorrect(tempUsername)) {
             return "username's format is invalid!";
         }
@@ -34,7 +33,7 @@ public class RegistryMenuController {
         }
         else {
             User user = new User(tempUsername, tempNickName, tempPassword,
-                    tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, tempCharacter);
+                    tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, "nothing");
             ApplicationData.addToUserArrayList(user);
             return "user successfully created!";
         }
