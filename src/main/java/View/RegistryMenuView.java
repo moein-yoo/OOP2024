@@ -72,8 +72,11 @@ public class RegistryMenuView extends Menu{
                         return;
                 }
                 if (outcome.contains("successfully")) {
-                    if (!MainMenuView.run())
-                        return;
+                    String captcha = captchaChecker();
+                    System.out.println(captcha);
+                    if (captcha.contains("Not"))
+                        if (!MainMenuView.run())
+                            return;
                 }
                 ejra = true;
             }
@@ -91,6 +94,31 @@ public class RegistryMenuView extends Menu{
             }
             input = scanner.nextLine();
         }
+    }
 
+    public static String captchaChecker() {
+        int a = ApplicationData.getRandom().nextInt(5000);
+        int b = ApplicationData.getRandom().nextInt(5000);
+        int result = 0;
+        String[] sign = {"plus", "minus", "divide"};
+        int index = ApplicationData.getRandom().nextInt(3);
+        if (index == 0) {
+            result = a + b;
+        }
+        if (index == 1) {
+            result = a - b;
+        }
+        if (index == 2) {
+            result = a*b;
+        }
+        System.out.println(a + " " + sign[index] + " " + b " =");
+        Scanner scanner = ApplicationData.getScanner();
+        String input = scanner.nextLine();
+        if (Integer.parseInt(input)==result) {
+            return "Not a robot:)";
+        }
+        else {
+            return "It seems you are a robot:(";
+        }
     }
 }
