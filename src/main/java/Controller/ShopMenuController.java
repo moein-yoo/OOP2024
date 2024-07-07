@@ -25,7 +25,8 @@ public class ShopMenuController {
             System.out.println("Minimum level required to upgrade this card: "+card.getUpgradeLevel());
             System.out.println("price: "+card.getUpgradeCost());
             Card card1 = card.NextLevelCard();
-            System.out.println();
+            System.out.println("Next level properties:");
+            showCardProperty(card1);
         }
     }
     public static void upgradeCard(Card card){
