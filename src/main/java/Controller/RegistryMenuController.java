@@ -16,7 +16,6 @@ public class RegistryMenuController {
         String tempMail = enteredUser[3];
         String tempPasswordRecoveryQuestion = enteredUser[4];
         int tempPasswordRecoveryType = Integer.parseInt(enteredUser[5]);
-        int tempCharacter = Integer.parseInt(enteredUser[6]);
         if (!isUsernameCorrect(tempUsername)) {
             return "username's format is invalid!";
         }
@@ -34,7 +33,7 @@ public class RegistryMenuController {
         }
         else {
             User user = new User(tempUsername, tempNickName, tempPassword,
-                    tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, tempCharacter);
+                    tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, "nothing");
             ApplicationData.addToUserArrayList(user);
             return "user successfully created!";
         }
@@ -42,6 +41,8 @@ public class RegistryMenuController {
     public static String login(String[] enteredUser) {
         String tempUsername = enteredUser[0];
         String tempPassword = enteredUser[1];
+        if (tempPassword.equals("admin") && tempUsername.equals("admin"))
+            return "Admin user detected!, Logging into AdminMenu";
         if (!isUsernameCorrect(tempUsername)) {
             return "username's format is invalid!";
         }
@@ -52,7 +53,17 @@ public class RegistryMenuController {
             for (int i = 0; i < ApplicationData.getUserArrayList().size(); i++) {
                 if (ApplicationData.getUserArrayList().get(i).getUsername().equals(tempUsername)) {
                     if (!ApplicationData.getUserArrayList().get(i).getPassword().equals(tempPassword)) {
-                        return "incorrect password!";
+                        System.out.println("Password is not valid try again after 5 seconds!");
+                        for (int j = 0; j < 5; j++) {
+                            try {
+                                Thread.sleep(5000); // Delay for 1 second
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }finally {
+                                System.out.println(5-i + " seconds left for your next try");
+                            }
+                        }
+                        return "Now you should do it from first!";
                     }
                     else {
                         ApplicationData.setHost(ApplicationData.getUserArrayList().get(i));

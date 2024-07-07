@@ -41,11 +41,10 @@ public class GameMenuController {
             Scanner scanner = ApplicationData.getScanner();
             tempPassword = scanner.nextLine();
             if (!tempUser.getPassword().equals(tempPassword)) {
-                System.out.println("Password is not valid try again!");
+                System.out.println("Password is not valid try again after 5 seconds!");
                 for (int i = 0; i < 5; i++) {
                     try {
                         Thread.sleep(5000); // Delay for 1 second
-                        System.out.println();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }finally {

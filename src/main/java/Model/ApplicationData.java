@@ -132,6 +132,15 @@ public class ApplicationData {
     public static void setAllCardsArraylist(ArrayList<Card> allCardsArraylist) {
         ApplicationData.allCardsArraylist = allCardsArraylist;
     }
+    public static void addCardToAllCardsArraylist(Card card) {
+        ApplicationData.allCardsArraylist.add(card);
+    }
+    public static void removeCardFromAllCardsArraylist(int index) {
+        ApplicationData.allCardsArraylist.remove(index);
+    }
+    public static void setCardInAllCardsArraylist(int index, Card card) {
+        ApplicationData.allCardsArraylist.set(index, card);
+    }
 
     public static Game getGame() {
         return game;
@@ -148,93 +157,46 @@ public class ApplicationData {
     public static void newAllCardsArrayList(){allCardsArraylist=new ArrayList<>();}
 
     public static Card cardTranslator(String name, int cardLevel) {
-        int cost = 0, damage = 0, accuracy = 0, duration = 1;
-        //Card card = new Card();
-        switch (name) {
-            case "Yazd" -> {
-                duration = min(5, (cardLevel + 1) / 2);
-                damage = duration * 5;
-                accuracy = 10 * (cardLevel - duration + 1);
-                cost = 5 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Motreb", cost, cardLevel); //Motreb
+        String character = "";
+        int tempCost = 0, tempDamage = 0, tempAccuracy = 0, tempDuration = 1;
+        for (Card card : ApplicationData.getAllCardsArraylist()) {
+            if (card.getName().equals(name)) {
+                character = card.getCharacter();
+                tempCost = card.getUpgradeCost();
+                tempDamage = card.getDamage();
+                tempAccuracy = card.getAccuracy();
+                tempDuration = card.getDuration();
+                break;
             }
-            case "Kermanshah" -> {
-                duration = min(5, (cardLevel + 1) / 2);
-                damage = duration * 7;
-                accuracy = 13 * (cardLevel - duration + 1);
-                cost = 7 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Motreb", cost, cardLevel); //Motreb
-            }
-            case "Kerman" -> {
-                duration = min(5, (cardLevel + 1) / 2);
-                damage = duration * 9;
-                accuracy = 15 * (cardLevel - duration + 1);
-                cost = 8 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Motreb", cost, cardLevel); //Motreb
-            }
-            case "Tehran" -> {
-                duration = min(5, (cardLevel - 1) / 4 + 1);
-                damage = duration * 5;
-                accuracy = 10 * (cardLevel - duration + 1);
-                cost = 5 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Dalghak", cost, cardLevel);
-            }
-            case "Tabriz" -> {
-                duration = min(5, (cardLevel - 1) / 4 + 1);
-                damage = duration * 7;
-                accuracy = 13 * (cardLevel - duration + 1);
-                cost = 7 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Motreb", cost, cardLevel);
-            }
-            case "Isfahan" -> {
-                duration = min(5, (cardLevel - 1) / 4 + 1);
-                damage = duration * 9;
-                accuracy = 15 * (cardLevel - duration + 1);
-                cost = 8 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Motreb", cost, cardLevel);
-            }
-            case "Mashhad" -> {
-                duration = min(5, (cardLevel - 1) / 3 + 1);
-                damage = duration * 5;
-                accuracy = 10 * (cardLevel - duration + 1);
-                cost = 5 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Divaneh", cost, cardLevel);
-            }
-            case "Ahwaz" -> {
-                duration = min(5, (cardLevel - 1) / 3 + 1);
-                damage = duration * 7;
-                accuracy = 13 * (cardLevel - duration + 1);
-                cost = 7 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Divaneh", cost, cardLevel);
-            }
-            case "Zahedan" -> {
-                duration = min(5, (cardLevel - 1) / 3 + 1);
-                damage = duration * 9;
-                accuracy = 15 * (cardLevel - duration + 1);
-                cost = 8 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Divaneh", cost, cardLevel);
-            }
-            case "Rasht" -> {
-                duration = min(5, cardLevel);
-                damage = duration * 5;
-                accuracy = 10 * (cardLevel - duration + 1);
-                cost = 5 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Guguli", cost, cardLevel);
-            }
-            case "Bushehr" -> {
-                duration = min(5, cardLevel);
-                damage = duration * 7;
-                accuracy = 13 * (cardLevel - duration + 1);
-                cost = 7 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Guguli", cost, cardLevel);
-            }
-            default -> { // "Gorgan"
-                duration = min(5, cardLevel);
-                damage = duration * 9;
-                accuracy = 15 * (cardLevel - duration + 1);
-                cost = 8 * cardLevel * cardLevel;
-                return new Card(name, duration, accuracy, damage, "Guguli", cost, cardLevel);  //if (name.equals("Gorgan")) {
-            }
+        }
+
+        if (character.equals("Motreb")) {
+            tempDuration = min(5, (cardLevel + 1) / 2);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (cardLevel - tempDuration + 1);
+            tempCost = tempCost * cardLevel * cardLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, cardLevel);
+        }
+        else if (character.equals("Dalghak")) {
+            tempDuration = min(5, (cardLevel - 1) / 4 + 1);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (cardLevel - tempDuration + 1);
+            tempCost = tempCost * cardLevel * cardLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, cardLevel);
+        }
+        else if (character.equals("Divaneh")) {
+            tempDuration = (cardLevel - 1) / 3 + 1;
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (cardLevel - tempDuration + 1);
+            tempCost = tempCost * cardLevel * cardLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, cardLevel);
+        }
+        else {
+            tempDuration = min(5, cardLevel);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (cardLevel - tempDuration + 1);
+            tempCost = tempCost * cardLevel * cardLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, cardLevel); //Guguli
         }
     }
     public static boolean cardExists(Card card){
