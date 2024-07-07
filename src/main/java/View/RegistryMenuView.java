@@ -67,6 +67,10 @@ public class RegistryMenuView extends Menu{
                 entered[1] = matcher.group("password");
                 String outcome = RegistryMenuController.login(entered);
                 System.out.println(outcome);
+                if (outcome.contains("Admin")) {
+                    if (!AdminMenuView.run())
+                        return;
+                }
                 if (outcome.contains("successfully")) {
                     if (!MainMenuView.run())
                         return;
