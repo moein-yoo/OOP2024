@@ -44,7 +44,7 @@ public class GameView extends Menu{
                     GameController.showCardProperty(GameController.getGame().getGuestCardsAtHand().get(Integer.parseInt(selectCardm.group(1))));
             }
             if(showfieldb)
-                Game.showField();
+                GameController.showField();
         }
         return false;
     }

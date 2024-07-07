@@ -3,18 +3,18 @@ package Model;
 import java.util.ArrayList;
 
 public class Game {
-    private static String[] hostRowStatus;//nothing-hole-card-broken
-    private static String[] guestRowStatus;
-    private static Card[] hostRowCards;//card names
-    private static Card[] guestRowCards;
+    private  String[] hostRowStatus;//nothing-hole-card-broken
+    private  String[] guestRowStatus;
+    private  Card[] hostRowCards;//card names
+    private  Card[] guestRowCards;
 
 
-    private static ArrayList<Card> hostCardsAtHand;
-    private static ArrayList<Card> guestCardsAtHand;
+    private ArrayList<Card> hostCardsAtHand;
+    private ArrayList<Card> guestCardsAtHand;
 //    private User host;
 //    private User guest;
     //boolean bet;
-    private static boolean hostTurn;
+    private boolean hostTurn;
     private int hostRemainingTurns;
     private int guestRemainingTurns;
     private ArrayList<Integer> bonusCollectedindexesInHostRow;
@@ -129,40 +129,7 @@ public class Game {
         Card card=new Card("1",0,0,0,"1",0,1);
         return card;
     }
-    public static void showField(){
-        System.out.print("Host row:\t");
-        for(int i=0;i<21;i++){
-            if(hostRowStatus[i].equals("hole") || hostRowStatus[i].equals("nothing"))
-                System.out.print(hostRowStatus[i]+'\t');
-            if(hostRowStatus[i].equals("card"))
-                System.out.print(hostRowCards[i].getName()+'\t');
-            if(hostRowStatus[i].equals("broken"))
-                System.out.print(hostRowCards[i].getName()+"(broken)\t");
-        }
-        System.out.println();
-        System.out.print("Guest row:\t");
-        for(int i=0;i<21;i++){
-            if(guestRowStatus[i].equals("hole") || guestRowStatus[i].equals("nothing"))
-                System.out.print(guestRowStatus[i]+'\t');
-            if(guestRowStatus[i].equals("card"))
-                System.out.print(guestRowCards[i].getName()+'\t');
-            if(guestRowStatus[i].equals("broken"))
-                System.out.print(guestRowCards[i].getName()+"(broken)\t");
-        }
-        System.out.println();
-        System.out.print("Host cards to play:\t");
-        for(Card card:hostCardsAtHand)
-            System.out.print(card.getName()+'\t');
-        System.out.println();
-        System.out.print("Guest cards to play:\t");
-        for(Card card:guestCardsAtHand)
-            System.out.print(card.getName()+'\t');
-        System.out.println();
-        if(hostTurn)
-            System.out.println("Now is Host's turn to play");
-        if(!hostTurn)
-            System.out.println("Now is Guest's turn to play");
-    }
+
 
     public String getHostRowStatus(int index) {
         return hostRowStatus[index];

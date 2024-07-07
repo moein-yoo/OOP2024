@@ -131,7 +131,7 @@ public class GameController {
         stringBuilder.append(card.getDuration());
         stringBuilder.append("\n");
         stringBuilder.append("Card type: ");
-        stringBuilder.append(card.getKind());
+        stringBuilder.append(card.getCharacter());
         stringBuilder.append("\n");
         String string=stringBuilder.toString();
         return string;
@@ -194,17 +194,17 @@ public class GameController {
         if(game.isHostTurn()){
             if(game.getHostCardsAtHand().size()!=5)
                 return;
-            if(card.getKind().equals(game.getHostCardsAtHand().get(3)))
+            if(card.getCharacter().equals(game.getHostCardsAtHand().get(3).getCharacter()))
                 a=ApplicationData.getRandom().nextInt(6);
-            if(!card.getKind().equals(game.getHostCardsAtHand().get(3)))
+            if(!card.getCharacter().equals(game.getHostCardsAtHand().get(3).getCharacter()))
                 a=ApplicationData.getRandom().nextInt(10);
         }
         else{
             if(game.getGuestCardsAtHand().size()!=5)
                 return;
-            if(card.getKind().equals(game.getGuestCardsAtHand().get(3)))
+            if(card.getCharacter().equals(game.getGuestCardsAtHand().get(3).getCharacter()))
                 a=ApplicationData.getRandom().nextInt(6);
-            if(!card.getKind().equals(game.getGuestCardsAtHand().get(3)))
+            if(!card.getCharacter().equals(game.getGuestCardsAtHand().get(3).getCharacter()))
                 a=ApplicationData.getRandom().nextInt(10);
         }
         if(a<4){
@@ -281,5 +281,39 @@ public class GameController {
     }
     public void guestWins(){
 
+    }
+    public static void showField(){
+        System.out.print("Host row:\t");
+        for(int i=0;i<21;i++){
+            if(game.getHostRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing"))
+                System.out.print(game.getHostRowStatus()[i]+'\t');
+            if(game.getHostRowStatus()[i].equals("card"))
+                System.out.print(game.getHostRowCards()[i].getName()+'\t');
+            if(game.getHostRowStatus()[i].equals("broken"))
+                System.out.print(game.getHostRowCards()[i].getName()+"(broken)\t");
+        }
+        System.out.println();
+        System.out.print("Guest row:\t");
+        for(int i=0;i<21;i++){
+            if(game.getGuestRowStatus()[i].equals("hole") || game.getGuestRowStatus()[i].equals("nothing"))
+                System.out.print(game.getGuestRowStatus()[i]+'\t');
+            if(game.getGuestRowStatus()[i].equals("card"))
+                System.out.print(game.getGuestRowCards()[i].getName()+'\t');
+            if(game.getGuestRowStatus()[i].equals("broken"))
+                System.out.print(game.getGuestRowCards()[i].getName()+"(broken)\t");
+        }
+        System.out.println();
+        System.out.print("Host cards to play:\t");
+        for(Card card:game.getHostCardsAtHand())
+            System.out.print(card.getName()+'\t');
+        System.out.println();
+        System.out.print("Guest cards to play:\t");
+        for(Card card:game.getGuestCardsAtHand())
+            System.out.print(card.getName()+'\t');
+        System.out.println();
+        if(game.isHostTurn())
+            System.out.println("Now is Host's turn to play");
+        if(!game.isHostTurn())
+            System.out.println("Now is Guest's turn to play");
     }
 }

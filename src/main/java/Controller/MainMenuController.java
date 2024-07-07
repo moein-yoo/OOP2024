@@ -5,6 +5,7 @@ import Model.User;
 import View.GameMenuView;
 import View.HistoryMenuView;
 import View.ProfileMenuView;
+import View.ShopMenuView;
 
 public class MainMenuController {
     public static boolean goToGameMenu() {

@@ -14,12 +14,11 @@ public class Card {
     //separ_shafa_powerSupply_hellChanger_
     //maintenance_roundDec_cardKiller_
     //cardInjury_copier_visionLess
-    private User userInUse;
-    private User temporaryUser;
-    private Card[] hostRowCards;
-    private Card[] guestRowCards;
-    private String[] hostRowStatus;
-    private String[] guestRowStatus;
+//    private User userInUse;
+//    private User temporaryUser;
+
+//    private String[] hostRowStatus;
+//    private String[] guestRowStatus;
 
     public Card() {}
 
@@ -90,16 +89,16 @@ public class Card {
 
     public void separInstaller(int index,int player) {
         if (player == 1) {
-            guestRowCards = GameController.getGame().getGuestRowCards();
-            guestRowStatus = GameController.getGame().getGuestRowStatus();
+            Card [] guestRowCards = GameController.getGame().getGuestRowCards();
+            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             guestRowStatus[index] = "broken";
 //            guestRowCards[index] = null;
             GameController.getGame().setGuestRowCards(guestRowCards);
             GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
         else {
-            hostRowCards = GameController.getGame().getHostRowCards();
-            hostRowStatus = GameController.getGame().getHostRowStatus();
+            Card [] hostRowCards = GameController.getGame().getHostRowCards();
+            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             hostRowStatus[index] = "broken";
 //            hostRowCards[index] = null;
             GameController.getGame().setHostRowCards(hostRowCards);
@@ -116,7 +115,7 @@ public class Card {
     }
     public void holeChanger(int player,int oldIndex) {
         if (player==1) {
-            hostRowStatus = GameController.getGame().getHostRowStatus();
+            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
@@ -124,7 +123,7 @@ public class Card {
             GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
-            guestRowStatus = GameController.getGame().getGuestRowStatus();
+            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!guestRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
@@ -135,12 +134,12 @@ public class Card {
 
     public void holeRemover(int player, int index) {
         if (player==1) {
-            hostRowStatus = GameController.getGame().getHostRowStatus();
+            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             hostRowStatus[index] = "nothing";
             GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
-            guestRowStatus = GameController.getGame().getGuestRowStatus();
+            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
              guestRowStatus[index] = "nothing";
             GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
