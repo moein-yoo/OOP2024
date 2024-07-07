@@ -18,6 +18,7 @@ public class RegistryMenuView extends Menu{
         patterns[2] = Pattern.compile("register u (?<username>[\\S]+) n (?<nickname>[\\S\\s]+) p (?<password>[\\S]+) em (?<email>[\\S]+) t (?<type>[\\d])");
         patterns[5] = Pattern.compile("ans (?<answer>[\\S\\s]+)");
         patterns[3] = Pattern.compile("login u (?<username>[\\S]+) p (?<password>[\\S]+)");
+        patterns[6] = Pattern.compile("login u (?<username>[\\S]+) passForget");
         patterns[4] = Pattern.compile("list of users");
         input = scanner.nextLine();
         while (!input.equals("exit")){
@@ -79,6 +80,34 @@ public class RegistryMenuView extends Menu{
                             return;
                 }
                 ejra = true;
+            }
+            else if (input.matches(String.valueOf(patterns[6]))) {
+                Matcher matcher = getCommandMatcher(input,String.valueOf(patterns[6]));
+                matcher.find();
+                String entered;
+                entered = matcher.group("username");
+                if (RegistryMenuController.isUserValid(entered)) {
+                    for (User user : ApplicationData.getUserArrayList()) {
+                        if (user.getUsername().equals(entered)) {
+                            if (user.getPasswordRecoveryType()==1)
+                                System.out.println("Where is your hometown?");
+                            else if (user.getPasswordRecoveryType()==2)
+                                System.out.println("Who is your first school teacher?");
+                            else System.out.println("Who is your love?!");
+                            input = scanner.nextLine();
+                            if (input.equalsIgnoreCase(user.getPasswordRecoveryQuestion())) {
+                                System.out.println("Correct so you logged in");
+                                if (!MainMenuView.run())
+                                    return;
+                            }
+                            else {
+                                System.out.println("Incorrect Answer, It's better to visit a doctor!");
+                            }
+                        }
+                    }
+                }
+                ejra = true;
+
             }
             else if (input.matches(String.valueOf(patterns[4]))) {
                 Matcher matcher = getCommandMatcher(input,String.valueOf(patterns[4]));

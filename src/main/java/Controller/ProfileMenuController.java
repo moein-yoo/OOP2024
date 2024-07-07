@@ -2,7 +2,9 @@ package Controller;
 
 import Model.ApplicationData;
 import Model.User;
+import View.RegistryMenuView;
 
+import java.util.logging.SocketHandler;
 import java.util.regex.Matcher;
 
 import static View.Menu.isPasswordCorrect;
@@ -19,6 +21,12 @@ public class ProfileMenuController {
             return "newPassword is weak!";
         }
         else {
+            System.out.println("Captcha Time : ");
+            String captcha = RegistryMenuView.captchaAsciiArtChecker();
+            while (!captcha.contains("Not")) {
+                captcha = RegistryMenuView.captchaAsciiArtChecker();
+                System.out.println(captcha);
+            }
             System.out.println("password changed!");
             user.setPassword(tempNewPassword);
         }

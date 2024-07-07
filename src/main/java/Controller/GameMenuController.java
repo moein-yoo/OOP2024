@@ -56,8 +56,10 @@ public class GameMenuController {
             }
             else {
                 captcha = RegistryMenuView.captchaAsciiArtChecker();
-                while (!captcha.contains("Not"))
+                while (!captcha.contains("Not")) {
                     captcha = RegistryMenuView.captchaAsciiArtChecker();
+                    System.out.println(captcha);
+                }
                 break;
             }
         } while (true);
