@@ -13,7 +13,6 @@ public class User {
     private int hp;
     private int coins;
     private ArrayList<Card> allPossessedCards;
-    private ArrayList<Card> twentyCardsAtDeck;
     private String character = "nothing";//1-2-3-4
     private int level;
     private int xp;
@@ -121,7 +120,6 @@ public class User {
         int level=user.getLevel();
         int xp=user.getXp();
         ArrayList<Card>allPos=user.getAllPossessedCards();
-        ArrayList<Card> deck=user.getTwentyCardsAtDeck();
         StringBuilder stringBuilder=new StringBuilder();
         boolean first=true;
         for(Card card:allPos){
@@ -135,17 +133,6 @@ public class User {
 
         String allPossessed=stringBuilder.toString();
 
-        stringBuilder=new StringBuilder();
-        first=true;
-        for(Card card:deck){
-            if(!first)
-                stringBuilder.append("#");
-            stringBuilder.append(card.getName());
-            stringBuilder.append("#");
-            stringBuilder.append(card.getLevel());
-            first=false;
-        }
-        String deckstr=stringBuilder.toString();
         String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(query2);
@@ -182,7 +169,6 @@ public class User {
         int level=user.getLevel();
         int xp=user.getXp();
         ArrayList<Card>allPos=user.getAllPossessedCards();
-        ArrayList<Card> deck=user.getTwentyCardsAtDeck();
         StringBuilder stringBuilder=new StringBuilder();
         boolean first=true;
         for(Card card:allPos){
@@ -196,17 +182,7 @@ public class User {
 
         String allPossessed=stringBuilder.toString();
 
-        stringBuilder=new StringBuilder();
-        first=true;
-        for(Card card:deck){
-            if(!first)
-                stringBuilder.append("#");
-            stringBuilder.append(card.getName());
-            stringBuilder.append("#");
-            stringBuilder.append(card.getLevel());
-            first=false;
-        }
-        String deckstr=stringBuilder.toString();
+
         String query1="DELETE FROM USER WHERE username= ?";
         String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -240,11 +216,12 @@ public class User {
         ArrayList<Card> sample=new ArrayList<>();
         sample.addAll(ApplicationData.getAllCardsArraylist());
         for(int i=0;i<20;i++){
-
+            int r=ApplicationData.getRandom().nextInt(sample.size());
+            a.add(sample.get(r));
+            sample.remove(r);
         }
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
-    public ArrayList<Card> getTwentyCardsAtDeck(){return this.twentyCardsAtDeck;}
     public void buyCard(Card i){
         //age mikhay barresi kon card az ghabl mojoode ya na,age mojoode update she va...
         this.allPossessedCards.add(i);
@@ -327,6 +304,4 @@ public class User {
     public void setAllPossessedCards(ArrayList<Card> allPossessedCards){this.allPossessedCards=allPossessedCards;}
     public void addToPossessedCards(Card card){this.allPossessedCards.add(card);}
     public void removeFromPossessedCards(Card card){this.allPossessedCards.remove(card);}
-    public void addToDeck(Card card){this.twentyCardsAtDeck.add(card);}
-    public void removeFromDeck(Card card){this.twentyCardsAtDeck.remove(card);}
 }

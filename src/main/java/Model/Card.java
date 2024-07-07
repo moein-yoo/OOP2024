@@ -41,6 +41,7 @@ public class Card {
             statement=connection.createStatement();
         }
         catch (SQLException e){throw new RuntimeException(e);}
+
         System.out.println("Card Database connected");
         try{
             ResultSet resultSet=statement.executeQuery("SELECT * FROM CARD");
