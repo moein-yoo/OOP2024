@@ -298,7 +298,9 @@ public class Game {
             roundDecreaseOfPlayer(a);
     }
     public void separInstaller(int index,int player) {
-        if (player == 1) {
+        if (index>20)
+            System.out.println("Out of Bounds");
+        else if (player == 1) {
             guestRowStatus[index] = "broken";
 //            guestRowCards[index] = null;
         }
@@ -316,7 +318,9 @@ public class Game {
         }
     }
     public void holeChanger(int player,int oldIndex) {
-        if (player==1) {
+        if (oldIndex>20)
+            System.out.println("Out of Bounds");
+        else if (player==1) {
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
@@ -331,7 +335,9 @@ public class Game {
     }
 
     public void holeRemover(int player, int index) {
-        if (player==1) {
+        if (index>20)
+            System.out.println("Out of Bounds");
+        else if (player==1) {
             hostRowStatus[index] = "nothing";
         }
         else {
@@ -407,10 +413,14 @@ public class Game {
         System.out.println("Choose the number to copy that : ");
         int index1 = scanner.nextInt();
         if (player==1) {
-            hostCardsAtHand.add(hostCardsAtHand.get(index1));
+            if (index1>=hostCardsAtHand.size())
+                System.out.println("Out of Bounds");
+            else hostCardsAtHand.add(hostCardsAtHand.get(index1));
         }
         else {
-            guestCardsAtHand.add(guestCardsAtHand.get(index1));
+            if (index1>=guestCardsAtHand.size())
+                System.out.println("Out of Bounds");
+            else guestCardsAtHand.add(guestCardsAtHand.get(index1));
         }
     }
     public void cardsAtHandHider(int player) {
