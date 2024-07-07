@@ -237,7 +237,11 @@ public class User {
     }
     public void StarterPack(ArrayList<Card> a){
         a=new ArrayList<>();
+        ArrayList<Card> sample=new ArrayList<>();
+        sample.addAll(ApplicationData.getAllCardsArraylist());
+        for(int i=0;i<20;i++){
 
+        }
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
     public ArrayList<Card> getTwentyCardsAtDeck(){return this.twentyCardsAtDeck;}
