@@ -283,6 +283,7 @@ public class Game {
         if(card.getName().equalsIgnoreCase("holeremover"))
             holeRemover(a,index);
         if(card.getName().equalsIgnoreCase("rounddec"))
+            roundDecreaseOfPlayer(a);
     }
     public void separInstaller(int index,int player) {
         if (player == 1) {
