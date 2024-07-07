@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegistryMenuView extends Menu{
-    public void run() {
+    public static void run() {
         Scanner scanner = ApplicationData.getScanner();
         String input;
         Pattern[] patterns = new Pattern[10];
