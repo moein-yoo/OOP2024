@@ -72,7 +72,7 @@ public class RegistryMenuView extends Menu{
                         return;
                 }
                 if (outcome.contains("successfully")) {
-                    String captcha = captchaChecker();
+                    String captcha = captchaAsciiArtChecker();
                     System.out.println(captcha);
                     if (captcha.contains("Not"))
                         if (!MainMenuView.run())
@@ -111,12 +111,228 @@ public class RegistryMenuView extends Menu{
         if (index == 2) {
             result = a*b;
         }
+        System.out.println("Now it's time to captcha");
         System.out.println(a + " " + sign[index] + " " + b + " =");
         Scanner scanner = ApplicationData.getScanner();
         String input = scanner.nextLine();
         if (Integer.parseInt(input)==result) {
             return "Not a robot:)";
         }
+        else {
+            return "It seems you are a robot:(";
+        }
+    }
+    public static String captchaAsciiArtChecker() {
+        String[] ascii_art = new String[10];
+        ascii_art[0] = "                        ,     ,\n" +
+                "                        |\\---/|\n" +
+                "                       /  , , |\n" +
+                "                  __.-'|  / \\ /\n" +
+                "         __ ___.-'        ._O|\n" +
+                "      .-'  '        :      _/\n" +
+                "     / ,    .        .     |\n" +
+                "    :  ;    :        :   _/\n" +
+                "    |  |   .'     __:   /\n" +
+                "    |  :   /'----'| \\  |\n" +
+                "    \\  |\\  |      | /| |\n" +
+                "     '.'| /       || \\ |\n" +
+                "     | /|.'       '.l \\\\_\n" +
+                "     || ||             '-'\n" +
+                "     '-''-' \n";//wolf
+        ascii_art[1] = "        _\n" +
+                "    .--' |\n" +
+                "   /___^ |     .--.\n" +
+                "       ) |    /    \\\n" +
+                "      /  |  /`      '.\n" +
+                "     |   '-'    /     \\\n" +
+                "     \\         |      |\\\n" +
+                "      \\    /   \\      /\\|\n" +
+                "       \\  /'----`\\   /\n" +
+                "       |||       \\\\ |\n" +
+                "       ((|        ((|\n" +
+                "       |||        |||\n" +
+                "jgs   //_(       //_( \n";//camel
+        ascii_art[2] = "                                    _\n" +
+                "                               _.-~~.)\n" +
+                "         _.--~~~~~---....__  .' . .,'\n" +
+                "       ,'. . . . . . . . . .~- ._ (\n" +
+                "      ( .. .g. . . . . . . . . . .~-._\n" +
+                "   .~__.-~    ~`. . . . . . . . . . . -.\n" +
+                "   `----..._      ~-=~~-. . . . . . . . ~-.\n" +
+                "             ~-._   `-._ ~=_~~--. . . . . .~.\n" +
+                "              | .~-.._  ~--._-.    ~-. . . . ~-.\n" +
+                "               \\ .(   ~~--.._~'       `. . . . .~-.                ,\n" +
+                "                `._\\         ~~--.._    `. . . . . ~-.    .- .   ,'/\n" +
+                "_  . _ . -~\\        _ ..  _          ~~--.`_. . . . . ~-_     ,-','`  .\n" +
+                "             ` ._           ~                ~--. . . . .~=.-'. /. `\n" +
+                "       - . -~            -. _ . - ~ - _   - ~     ~--..__~ _,. /   \\  - ~\n" +
+                "              . __ ..                   ~-               ~~_. (  `\n" +
+                ")`. _ _               `-       ..  - .    . - ~ ~ .    \\    ~-` ` `  `. _\n" +
+                "      _      _ \n";//dolphin
+        ascii_art[3] = "                            _\n" +
+                "                          .' `'.__\n" +
+                "                         /      \\ `'\"-,\n" +
+                "        .-''''--...__..-/ .     |      \\\n" +
+                "      .'               ; :'     '.  a   |\n" +
+                "     /                 | :.       \\     =\\\n" +
+                "    ;                   \\':.      /  ,-.__;.-;`\n" +
+                "   /|     .              '--._   /-.7`._..-;`\n" +
+                "  ; |       '                |`-'      \\  =|\n" +
+                "  |/\\        .   -' /     /  ;         |  =/\n" +
+                "  (( ;.       ,_  .:|     | /     /\\   | =|\n" +
+                "   ) / `\\     | `\"\"`;     / |    | /   / =/\n" +
+                "     | ::|    |      \\    \\ \\    \\ `--' =/\n" +
+                "    /  '/\\    /       )    |/     `-...-`\n" +
+                "   /    | |  `\\    /-'    /;\n" +
+                "   \\  ,,/ |    \\   D    .'  \\\n" +
+                "jgs `\"\"`   \\  nnh  D_.-'L__nnh\n" +
+                "            `\"\"\"` \n";//elephant
+        ascii_art[4] = "       o                 o\n" +
+                "                  o\n" +
+                "         o   ______      o\n" +
+                "           _/  (   \\_\n" +
+                " _       _/  (       \\_  O\n" +
+                "| \\_   _/  (   (    0  \\\n" +
+                "|== \\_/  (   (          |\n" +
+                "|=== _ (   (   (        |\n" +
+                "|==_/ \\_ (   (          |\n" +
+                "|_/     \\_ (   (    \\__/\n" +
+                "          \\_ (      _/\n" +
+                "            |  |___/\n" +
+                "           /__/ \n";//fish
+        ascii_art[5] = "                                 |\\    /|\n" +
+                "                              ___| \\,,/_/\n" +
+                "                           ---__/ \\/    \\\n" +
+                "                          __--/     (D)  \\\n" +
+                "                          _ -/    (_      \\\n" +
+                "                         // /       \\_ /  -\\\n" +
+                "   __-------_____--___--/           / \\_ O o)\n" +
+                "  /                                 /   \\__/\n" +
+                " /                                 /\n" +
+                "||          )                   \\_/\\\n" +
+                "||         /              _      /  |\n" +
+                "| |      /--______      ___\\    /\\  :\n" +
+                "| /   __-  - _/   ------    |  |   \\ \\\n" +
+                " |   -  -   /                | |     \\ )\n" +
+                " |  |   -  |                 | )     | |\n" +
+                "  | |    | |                 | |    | |\n" +
+                "  | |    < |                 | |   |_/\n" +
+                "  < |    /__\\                <  \\\n" +
+                "  /__\\                       /___\\ \n";//horse
+        ascii_art[6] = "                         ___\n" +
+                "                     .-'`     `'.\n" +
+                "              __    /  .-. .-.   \\\n" +
+                "           .'`__`'.| /  ()|  ()\\  \\\n" +
+                "          / /`   `\\\\ |_ .-.-. _|  ;  __\n" +
+                "          ||     .-'`  (/`|`\\) `-./'`__`'.\n" +
+                "          \\ \\. .'                 `.`  `\\ \\\n" +
+                "           `-./  _______            \\    ||\n" +
+                "              | |\\      ''''---.__   |_./ /\n" +
+                "              ' \\ `'---..________/|  /.-'`\n" +
+                "               `.`._            _/  /\n" +
+                "                 `-._'-._____.-' _.`\n" +
+                "                  _,-''.__...--'`\n" +
+                "              _.-'_.    ,-. _ `'-._\n" +
+                "           .-' ,-' /   /   \\\\`'-._ `'.\n" +
+                "         <`  ,'   /   /     \\\\    / /\n" +
+                "          `.  \\  ;   ;       ;'  / /_\n" +
+                "    __   (`\\`. \\ |   |       ||.' // )\n" +
+                " .'`_ `\\(`'.`.\\_\\|   |    o  |/_,'/.' )\n" +
+                "/ .' `; |`-._ ` /;    \\     / \\   _.-'\n" +
+                "| |  (_/  (_..-' _\\    `'--' | `-.._)\n" +
+                "; \\        _.'_.' / /'.___.; \\\n" +
+                " \\ '-.__.-'_.'   ; '        \\ \\\n" +
+                "  `-.,__.-'      | ;         ; '\n" +
+                "                 | |         | |\n" +
+                "                 | |         / /mx\n" +
+                "               .-' '.      ,' `-._\n" +
+                "             /`    _ `.   /  _    `.\n" +
+                "            '-/ / / `\\_) (_/` \\  .`,)\n" +
+                "             | || |            | | |\n" +
+                "             `-'\\_'            (_/-'\n";//monkey
+        ascii_art[7] = "      .-.         .--''-.\n" +
+                "    .'   '.     /'       `.\n" +
+                "    '.     '. ,'          |\n" +
+                " o    '.o   ,'        _.-'\n" +
+                "  \\.--./'. /.:. :._:.'\n" +
+                " .'    '._-': ': ': ': ':\n" +
+                ":(#) (#) :  ': ': ': ': ':>-\n" +
+                " ' ____ .'_.:' :' :' :' :'\n" +
+                "  '\\__/'/ | | :' :' :'\n" +
+                "        \\  \\ \\\n" +
+                "        '  ' '    \n";//bee
+        ascii_art[8] = "                              __\n" +
+                "                     /\\    .-\" /\n" +
+                "                    /  ; .'  .' \n" +
+                "                   :   :/  .'   \n" +
+                "                    \\  ;-.'     \n" +
+                "       .--\"\"\"\"--..__/     `.    \n" +
+                "     .'           .'    `o  \\   \n" +
+                "    /                    `   ;  \n" +
+                "   :                  \\      :  \n" +
+                " .-;        -.         `.__.-'  \n" +
+                ":  ;          \\     ,   ;       \n" +
+                "'._:           ;   :   (        \n" +
+                "    \\/  .__    ;    \\   `-.     \n" +
+                " bug ;     \"-,/_..--\"`-..__)    \n" +
+                "     '\"\"--.._: \n";//rabbit
+        ascii_art[9] = "           ;               ,           \n" +
+                "         ,;                 '.         \n" +
+                "        ;:                   :;        \n" +
+                "       ::                     ::       \n" +
+                "       ::                     ::       \n" +
+                "       ':                     :        \n" +
+                "        :.                    :        \n" +
+                "     ;' ::                   ::  '     \n" +
+                "    .'  ';                   ;'  '.    \n" +
+                "   ::    :;                 ;:    ::   \n" +
+                "   ;      :;.             ,;:     ::   \n" +
+                "   :;      :;:           ,;\"      ::   \n" +
+                "   ::.      ':;  ..,.;  ;:'     ,.;:   \n" +
+                "    \"'\"...   '::,::::: ;:   .;.;\"\"'    \n" +
+                "        '\"\"\"....;:::::;,;.;\"\"\"         \n" +
+                "    .:::.....'\"':::::::'\",...;::::;.   \n" +
+                "   ;:' '\"\"'\"\";.,;:::::;.'\"\"\"\"\"\"  ':;   \n" +
+                "  ::'         ;::;:::;::..         :;  \n" +
+                " ::         ,;:::::::::::;:..       :: \n" +
+                " ;'     ,;;:;::::::::::::::;\";..    ':.\n" +
+                "::     ;:\"  ::::::\"\"\"'::::::  \":     ::\n" +
+                " :.    ::   ::::::;  :::::::   :     ; \n" +
+                "  ;    ::   :::::::  :::::::   :    ;  \n" +
+                "   '   ::   ::::::....:::::'  ,:   '   \n" +
+                "    '  ::    :::::::::::::\"   ::       \n" +
+                "       ::     ':::::::::\"'    ::       \n" +
+                "       ':       \"\"\"\"\"\"\"'      ::       \n" +
+                "        ::                   ;:        \n" +
+                "        ':;                 ;:\"        \n" +
+                "-hrr-     ';              ,;'          \n" +
+                "            \"'           '\"            \n" +
+                "              ' \n";//spider
+        int index = ApplicationData.getRandom().nextInt(10);
+        System.out.println(ascii_art[index]);
+        Scanner scanner = ApplicationData.getScanner();
+        String input = scanner.nextLine();
+        //wolf//camel//dolphin//elephant//fish//horse//monkey//bee//rabbit//spider
+        if (index == 0 && input.equalsIgnoreCase("wolf"))
+            return "Not a robot:)";
+        else if (index == 1 && input.equalsIgnoreCase("camel"))
+            return "Not a robot:)";
+        else if (index == 2 && input.equalsIgnoreCase("dolphin"))
+            return "Not a robot:)";
+        else if (index == 3 && input.equalsIgnoreCase("elephant"))
+            return "Not a robot:)";
+        else if (index == 4 && input.equalsIgnoreCase("fish"))
+            return "Not a robot:)";
+        else if (index == 5 && input.equalsIgnoreCase("horse"))
+            return "Not a robot:)";
+        else if (index == 6 && input.equalsIgnoreCase("monkey"))
+            return "Not a robot:)";
+        else if (index == 7 && input.equalsIgnoreCase("bee"))
+            return "Not a robot:)";
+        else if (index == 8 && input.equalsIgnoreCase("rabbit"))
+            return "Not a robot:)";
+        else if (index == 9 && input.equalsIgnoreCase("spider"))
+            return "Not a robot:)";
         else {
             return "It seems you are a robot:(";
         }

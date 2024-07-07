@@ -55,9 +55,9 @@ public class GameMenuController {
                 }
             }
             else {
-                captcha = RegistryMenuView.captchaChecker();
+                captcha = RegistryMenuView.captchaAsciiArtChecker();
                 while (!captcha.contains("Not"))
-                    captcha = RegistryMenuView.captchaChecker();
+                    captcha = RegistryMenuView.captchaAsciiArtChecker();
                 break;
             }
         } while (true);
