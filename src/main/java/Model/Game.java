@@ -218,10 +218,13 @@ public class Game {
     public void addCardToHostCardsAtHand(Card card) {
         this.hostCardsAtHand.add(card);
     }
+    public void removeCardFromHostCardsAtHand(int index) {
+        this.hostCardsAtHand.remove(index);
+    }
     public void removeCardFromHostCardsAtHand(Card card) {
         this.hostCardsAtHand.remove(card);
     }
-    public ArrayList<Card> getGuestCardsAtHand() {
+     public ArrayList<Card> getGuestCardsAtHand() {
         return guestCardsAtHand;
     }
 
@@ -233,6 +236,9 @@ public class Game {
     }
     public void removeCardFromGuestCardsAtHand(Card card) {
         this.guestCardsAtHand.remove(card);
+    }
+    public void removeCardFromGuestCardsAtHand(int index) {
+        this.guestCardsAtHand.remove(index);
     }
 
 

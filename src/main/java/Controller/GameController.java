@@ -192,20 +192,22 @@ public class GameController {
     public static void buffCardPossibly(Card card){
         int a=0;
         if(game.isHostTurn()){
-            if(game.getHostCardsAtHand().size()!=5)
+             int n = game.getHostCardsAtHand().size();
+            if(game.getHostCardsAtHand().size()%2!=1)
                 return;
-            if(card.getCharacter().equals(game.getHostCardsAtHand().get(3).getCharacter()))
-                a=ApplicationData.getRandom().nextInt(6);
-            if(!card.getCharacter().equals(game.getHostCardsAtHand().get(3).getCharacter()))
-                a=ApplicationData.getRandom().nextInt(10);
+            if(card.getCharacter().equals(game.getHostCardsAtHand().get(n/2).getCharacter()))
+                a=ApplicationData.getRandom().nextInt(n);
+            if(!card.getCharacter().equals(game.getHostCardsAtHand().get(n/2).getCharacter()))
+                a=ApplicationData.getRandom().nextInt(2*n);
         }
         else{
-            if(game.getGuestCardsAtHand().size()!=5)
+            int n = game.getGuestCardsAtHand().size();
+            if(game.getGuestCardsAtHand().size()%2!=1)
                 return;
-            if(card.getCharacter().equals(game.getGuestCardsAtHand().get(3).getCharacter()))
-                a=ApplicationData.getRandom().nextInt(6);
-            if(!card.getCharacter().equals(game.getGuestCardsAtHand().get(3).getCharacter()))
-                a=ApplicationData.getRandom().nextInt(10);
+            if(card.getCharacter().equals(game.getGuestCardsAtHand().get(n/2).getCharacter()))
+                a=ApplicationData.getRandom().nextInt(n);
+            if(!card.getCharacter().equals(game.getGuestCardsAtHand().get(n/2).getCharacter()))
+                a=ApplicationData.getRandom().nextInt(2*n);
         }
         if(a<4){
             System.out.println("Card Buffed!");
