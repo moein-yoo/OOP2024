@@ -24,7 +24,8 @@ public class ShopMenuController {
             showCardProperty(card);
             System.out.println("Minimum level required to upgrade this card: "+card.getUpgradeLevel());
             System.out.println("price: "+card.getUpgradeCost());
-            card.showNextLevelProperties();
+            Card card1 = card.NextLevelCard();
+            System.out.println();
         }
     }
     public static void upgradeCard(Card card){
@@ -38,10 +39,10 @@ public class ShopMenuController {
         return;}
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
         ApplicationData.getHost().removeFromPossessedCards(card);
-        ApplicationData.getHost().addToPossessedCards(card.upgradeToNextLevel());
+        ApplicationData.getHost().addToPossessedCards(card.NextLevelCard());
         if(found){
             ApplicationData.getHost().removeFromDeck(card);
-            ApplicationData.getHost().addToDeck(card.upgradeToNextLevel());
+            ApplicationData.getHost().addToDeck(card.NextLevelCard());
         }
         System.out.println("card upgraded successfully!");
     }

@@ -69,5 +69,6 @@ public class GameMenuView extends Menu {
             }
             input = scanner.nextLine();
         }
+        return false;
     }
 }

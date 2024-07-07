@@ -2,6 +2,8 @@ package Model;
 
 import Controller.GameController;
 
+import static java.lang.Math.min;
+
 public class Card {
     private String name;
     private int duration;
@@ -30,15 +32,47 @@ public class Card {
         this.character = character;
         this.upgradeCost = upgradeCost;
         this.level = level;
+        if(character.equals("Motreb"))
+            this.upgradeLevel = level + 2;
+        else if (character.equals("Dalghak"))
+            this.upgradeLevel = level + 4;
+        else if (character.equals("Divaneh"))
+            this.upgradeLevel = level + 3;
+        else this.upgradeLevel = level + 1;
     }
-    public void showNextLevelProperties(){
-
-
-
-    }
-
-    public Card upgradeToNextLevel(){
-
+    public Card NextLevelCard(){
+        if (character.equals("Motreb")) {
+            int tempCost = upgradeCost, tempDamage = damage, tempAccuracy = accuracy, tempDuration = duration, tempLevel = this.level + 2;
+            tempDuration = min(5, (tempLevel + 1) / 2);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (tempLevel - tempDuration + 1);
+            tempCost = tempCost * tempLevel * tempLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, tempLevel);
+        }
+        else if (character.equals("Dalghak")) {
+            int tempCost = upgradeCost, tempDamage = damage, tempAccuracy = accuracy, tempDuration = duration, tempLevel = this.level + 4;
+            tempDuration = min(5, (tempLevel - 1) / 4 + 1);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (tempLevel - tempDuration + 1);
+            tempCost = tempCost * tempLevel * tempLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, tempLevel);
+        }
+        else if (character.equals("Divaneh")) {
+            int tempCost = upgradeCost, tempDamage = damage, tempAccuracy = accuracy, tempDuration = duration, tempLevel = this.level + 3;
+            tempDuration = (tempLevel - 1) / 3 + 1;
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (tempLevel - tempDuration + 1);
+            tempCost = tempCost * tempLevel * tempLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, tempLevel);
+        }
+        else {
+            int tempCost = upgradeCost, tempDamage = damage, tempAccuracy = accuracy, tempDuration = duration, tempLevel = this.level + 1;
+            tempDuration = min(5, tempLevel);
+            tempDamage *= tempDuration;
+            tempAccuracy = tempAccuracy * (tempLevel - tempDuration + 1);
+            tempCost = tempCost * tempLevel * tempLevel;
+            return new Card(name, tempDuration, tempAccuracy, tempDamage, character, tempCost, tempLevel); //Guguli
+        }
     }
 
     public int getDuration() {
