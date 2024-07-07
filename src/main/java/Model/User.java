@@ -298,6 +298,7 @@ public class User {
         while(xp>level*100){
             xp-=level*100;
             level++;
+            coins+=10*level;
         }
     }
     public int getHP() {
@@ -346,4 +347,8 @@ public class User {
         this.passwordRecoveryType = passwordRecoveryType;
     }
     public void setAllPossessedCards(ArrayList<Card> allPossessedCards){this.allPossessedCards=allPossessedCards;}
+    public void addToPossessedCards(Card card){this.allPossessedCards.add(card);}
+    public void removeFromPossessedCards(Card card){this.allPossessedCards.remove(card);}
+    public void addToDeck(Card card){this.twentyCardsAtDeck.add(card);}
+    public void removeFromDeck(Card card){this.twentyCardsAtDeck.remove(card);}
 }

@@ -31,6 +31,15 @@ public class Card {
         this.upgradeCost = upgradeCost;
         this.level = level;
     }
+    public void showNextLevelProperties(){
+
+
+
+    }
+
+    public Card upgradeToNextLevel(){
+
+    }
 
     public int getDuration() {
         return duration;

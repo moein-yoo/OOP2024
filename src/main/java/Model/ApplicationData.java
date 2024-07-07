@@ -236,4 +236,12 @@ public class ApplicationData {
             }
         }
     }
+    public static boolean cardExists(Card card){
+        boolean exists=false;
+        for(Card a:allCardsArraylist){
+            if(a.getName().equals(card.getName()))
+                exists=true;
+        }
+        return exists;
+    }
 }
