@@ -111,7 +111,7 @@ public class RegistryMenuView extends Menu{
         if (index == 2) {
             result = a*b;
         }
-        System.out.println(a + " " + sign[index] + " " + b " =");
+        System.out.println(a + " " + sign[index] + " " + b + " =");
         Scanner scanner = ApplicationData.getScanner();
         String input = scanner.nextLine();
         if (Integer.parseInt(input)==result) {
