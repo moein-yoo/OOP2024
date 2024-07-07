@@ -185,7 +185,7 @@ public class Card {
     }
 
 
-    public static boolean isSpecial(){
+    public boolean isSpecial(){
         String str= this.character;
         if(str.equalsIgnoreCase("HPInstaller") || str.equalsIgnoreCase("holeRemover") || str.equalsIgnoreCase("holeChanger") || str.equalsIgnoreCase("separInstaller"))
             return true;

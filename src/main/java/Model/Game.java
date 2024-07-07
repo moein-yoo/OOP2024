@@ -294,23 +294,17 @@ public class Game {
             cardCopier(a);
         if(card.getName().equalsIgnoreCase("cardathandhider"))
             cardsAtHandHider(a);
+        if(card.getName().equalsIgnoreCase("rounddec"))
+            roundDecreaseOfPlayer(a);
     }
     public void separInstaller(int index,int player) {
         if (player == 1) {
-            Card [] guestRowCards = GameController.getGame().getGuestRowCards();
-            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             guestRowStatus[index] = "broken";
 //            guestRowCards[index] = null;
-            GameController.getGame().setGuestRowCards(guestRowCards);
-            GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
         else {
-            Card [] hostRowCards = GameController.getGame().getHostRowCards();
-            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             hostRowStatus[index] = "broken";
 //            hostRowCards[index] = null;
-            GameController.getGame().setHostRowCards(hostRowCards);
-            GameController.getGame().setHostRowStatus(hostRowStatus);
         }
     }
     public void HPInstaller(int cardHPScore,int player) {//host=1
@@ -323,85 +317,69 @@ public class Game {
     }
     public void holeChanger(int player,int oldIndex) {
         if (player==1) {
-            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
             hostRowStatus[index] = "hole";hostRowStatus[oldIndex] = "nothing";
-            GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
-            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!guestRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
             guestRowStatus[index] = "hole";guestRowStatus[oldIndex] = "nothing";
-            GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
     }
 
     public void holeRemover(int player, int index) {
         if (player==1) {
-            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             hostRowStatus[index] = "nothing";
-            GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
-            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             guestRowStatus[index] = "nothing";
-            GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
     }
 
     public void roundDecreaseOfPlayer(int player) {
         if (player==1)
-            GameController.getGame().setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
-        else GameController.getGame().setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
+            this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
+        else this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
     }
     public void powerIncrease(int player) {
         if (player==1) {
-            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("card")) {
                 index = ApplicationData.getRandom().nextInt(21);
             }
-            Card [] hostRowCards = GameController.getGame().getHostRowCards();
             hostRowCards[index].setDamage(hostRowCards[index].getDamage()+hostRowCards[index].getDuration());
             hostRowCards[index].setAccuracy(hostRowCards[index].getAccuracy()+3);
-            GameController.getGame().setHostRowStatus(hostRowStatus);
         }
         else {
-            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
             int index = ApplicationData.getRandom().nextInt(21);
             while (!guestRowStatus[index].equals("card")) {
                 index = ApplicationData.getRandom().nextInt(21);
             }
-            Card [] guestRowCards = GameController.getGame().getHostRowCards();
             guestRowCards[index].setDamage(guestRowCards[index].getDamage()+guestRowCards[index].getDuration());
             guestRowCards[index].setAccuracy(guestRowCards[index].getAccuracy()+3);
-            GameController.getGame().setGuestRowStatus(guestRowStatus);
         }
     }
     public void cardRemover(int player) {
         if (player==1) {
             int index = ApplicationData.getRandom().nextInt(GameController.getGame().getGuestCardsAtHand().size());
-            Card card = GameController.getGame().getGuestCardsAtHand().get(index);
-            GameController.getGame().removeCardFromGuestCardsAtHand(index);
-            GameController.getGame().addCardToHostCardsAtHand(card);
+            Card card = this.getGuestCardsAtHand().get(index);
+            this.removeCardFromGuestCardsAtHand(index);
+            this.addCardToHostCardsAtHand(card);
         }
         else {
             int index = ApplicationData.getRandom().nextInt(GameController.getGame().getHostCardsAtHand().size());
             Card card = GameController.getGame().getHostCardsAtHand().get(index);
-            GameController.getGame().removeCardFromHostCardsAtHand(index);
-            GameController.getGame().addCardToGuestCardsAtHand(card);
+            this.removeCardFromHostCardsAtHand(index);
+            this.addCardToGuestCardsAtHand(card);
         }
     }
     public void cardPowerDecrease(int player) {
         int index1 = ApplicationData.getRandom().nextInt(21);
         int index2 = ApplicationData.getRandom().nextInt(21);
         if (player==1) {
-            String [] guestRowStatus = GameController.getGame().getGuestRowStatus();
-            Card [] guestRowCards = GameController.getGame().getGuestRowCards();
             while (!guestRowStatus[index1].equals("card")) {
                 index1 = ApplicationData.getRandom().nextInt(21);
             }
@@ -410,11 +388,8 @@ public class Game {
             }
             guestRowCards[index1].setAccuracy(guestRowCards[index1].getAccuracy()-5);
             guestRowCards[index2].setDamage(guestRowCards[index1].getDamage()- 2*guestRowCards[index1].getDuration());
-            GameController.getGame().setGuestRowCards(guestRowCards);
         }
         else {
-            String [] hostRowStatus = GameController.getGame().getHostRowStatus();
-            Card [] hostRowCards = GameController.getGame().getHostRowCards();
             index1 = ApplicationData.getRandom().nextInt(21);
             index2 = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index1].equals("card")) {
@@ -425,7 +400,6 @@ public class Game {
             }
             hostRowCards[index1].setAccuracy(hostRowCards[index1].getAccuracy()-5);
             hostRowCards[index2].setDamage(hostRowCards[index1].getDamage()- 2*hostRowCards[index1].getDuration());
-            GameController.getGame().setHostRowCards(hostRowCards);
         }
     }
     public void cardCopier(int player) {
@@ -433,26 +407,18 @@ public class Game {
         System.out.println("Choose the number to copy that : ");
         int index1 = scanner.nextInt();
         if (player==1) {
-            ArrayList<Card> hostCardsAtHand = GameController.getGame().getHostCardsAtHand();
             hostCardsAtHand.add(hostCardsAtHand.get(index1));
-            GameController.getGame().setHostCardsAtHand(hostCardsAtHand);
         }
         else {
-            ArrayList<Card> guestCardsAtHand = GameController.getGame().getGuestCardsAtHand();
             guestCardsAtHand.add(guestCardsAtHand.get(index1));
-            GameController.getGame().setGuestCardsAtHand(guestCardsAtHand);
         }
     }
     public void cardsAtHandHider(int player) {
         if (player==1) {
-            ArrayList<Card> hostCardsAtHand = GameController.getGame().getHostCardsAtHand();
             Collections.shuffle(hostCardsAtHand);
-            GameController.getGame().setHostCardsAtHand(hostCardsAtHand);
         }
         else {
-            ArrayList<Card> guestCardsAtHand = GameController.getGame().getGuestCardsAtHand();
             Collections.shuffle(guestCardsAtHand);
-            GameController.getGame().setGuestCardsAtHand(guestCardsAtHand);
         }
     }
 }
