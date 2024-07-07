@@ -23,7 +23,7 @@ public class GameController {
     }
 
     private static Game game;
-
+    public static boolean gameover=false;
 
     public static void nextTurn(){
         if(game.isHostTurn())
@@ -285,6 +285,7 @@ public class GameController {
         return false;
     }
     public static void hostWins(){
+        gameover=true;
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
         ApplicationData.getHost().setHP(game.getHostInitialHP()+30);
@@ -315,6 +316,7 @@ public class GameController {
         MatchData.addToList(matchData);
     }
     public static void guestWins(){
+        gameover=true;
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
         ApplicationData.getGuest().setHP(game.getHostInitialHP()+30);

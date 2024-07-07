@@ -45,6 +45,10 @@ public class GameView extends Menu{
             }
             if(showfieldb)
                 GameController.showField();
+            if(GameController.gameover){
+                GameController.gameover=false;
+                return true;
+           }
         }
         return false;
     }

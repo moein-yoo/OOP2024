@@ -146,7 +146,7 @@ public class User {
             first=false;
         }
         String deckstr=stringBuilder.toString();
-        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(query2);
 
@@ -162,7 +162,6 @@ public class User {
             preparedStatement.setInt(9,level);
             preparedStatement.setInt(10,xp);
             preparedStatement.setString(11,allPossessed);
-            preparedStatement.setString(12,deckstr);
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -209,7 +208,7 @@ public class User {
         }
         String deckstr=stringBuilder.toString();
         String query1="DELETE FROM USER WHERE username= ?";
-        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query2="INSERT INTO USER VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(query1);
             preparedStatement.setString(1,user.username);
@@ -228,7 +227,6 @@ public class User {
             preparedStatement.setInt(9,level);
             preparedStatement.setInt(10,xp);
             preparedStatement.setString(11,allPossessed);
-            preparedStatement.setString(12,deckstr);
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -238,7 +236,8 @@ public class User {
 
     }
     public void StarterPack(ArrayList<Card> a){
-        //fill arraylist with 20 cards
+        a=new ArrayList<>();
+
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
     public ArrayList<Card> getTwentyCardsAtDeck(){return this.twentyCardsAtDeck;}

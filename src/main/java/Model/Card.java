@@ -19,11 +19,11 @@ public class Card {
     private int upgradeCost;
     private int level = 0;
 
-    private static String url="jdbc:mysql//localhost:3306/project";
-    private static String username="root";
-    private static String password="soroush1384";
-    private static Connection connection;
-    private static java.sql.Statement statement;
+     static String url="jdbc:mysql//localhost:3306/project";
+     static String username="root";
+     static String password="soroush1384";
+     static Connection connection;
+     static java.sql.Statement statement;
     //separ_shafa_powerSupply_hellChanger_
     //maintenance_roundDec_cardKiller_
     //cardInjury_copier_visionLess
