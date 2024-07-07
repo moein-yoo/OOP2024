@@ -53,7 +53,7 @@ public class MatchData {
             throw new RuntimeException(e);
         }
     }
-    public void addToList(MatchData matchData){
+    public static void addToList(MatchData matchData){
         matchDatas.add(matchData);
         String str1=matchData.getWinner();
         String str2=matchData.getLoser();
@@ -98,4 +98,5 @@ public class MatchData {
     public static ArrayList<MatchData> getMatchDatas(){return matchDatas;}
     public static java.sql.Statement getStatement(){return statement;}
     public static Connection getConnection(){return connection;}
+    public static void addToMatchData(MatchData matchData){matchDatas.add(matchData);}
 }

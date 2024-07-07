@@ -30,21 +30,14 @@ public class ShopMenuController {
         }
     }
     public static void upgradeCard(Card card){
-       boolean found=false;
-        for(Card e:ApplicationData.getHost().getTwentyCardsAtDeck()) {
-            if (card.getName().equals(e.getName()))
-                found = true;
-        }
+
         if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
             System.out.println("Not enough coins or low level");
         return;}
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
         ApplicationData.getHost().removeFromPossessedCards(card);
         ApplicationData.getHost().addToPossessedCards(card.NextLevelCard());
-        if(found){
-            ApplicationData.getHost().removeFromDeck(card);
-            ApplicationData.getHost().addToDeck(card.NextLevelCard());
-        }
+
         System.out.println("card upgraded successfully!");
     }
     public static void buyCard(Card card){

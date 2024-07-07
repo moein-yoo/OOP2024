@@ -19,6 +19,7 @@ public class HistoryMenuController {
             String query="SELECT * FROM MatchData WHERE Winner= ?";
             PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
             preparedStatement.setString(1, ApplicationData.getHost().getNickname());
+            preparedStatement.executeUpdate();
             ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
             while (resultSet.next()){
                 String win=resultSet.getString(1);
@@ -42,6 +43,7 @@ public class HistoryMenuController {
             String query="SELECT * FROM MatchData WHERE Loser= ?";
             PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
             preparedStatement.setString(1, ApplicationData.getHost().getNickname());
+            preparedStatement.executeUpdate();
             ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
             while (resultSet.next()){
                 String win=resultSet.getString(1);

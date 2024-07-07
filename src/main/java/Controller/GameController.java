@@ -3,11 +3,15 @@ package Controller;
 import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
+import Model.MatchData;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 public class GameController {
     public static Game getGame() {
@@ -42,9 +46,11 @@ public class GameController {
                 System.out.println("Host HP decreased by "+ game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration()+" at block "+ i);
             }
             if(ApplicationData.getHost().getHP()<=0){
+                guestWins();
                 return "player "+ ApplicationData.getGuest().getNickname()+" wins!";
             }
-            if(ApplicationData.getGuest().getHP()<0){
+            if(ApplicationData.getGuest().getHP()<=0){
+                hostWins();
                 return "player "+ ApplicationData.getHost().getNickname()+" wins!";
             }
         }
@@ -276,14 +282,14 @@ public class GameController {
         }
         return false;
     }
-    public void hostWins(){
+    public static void hostWins(){
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
         ApplicationData.getHost().setHP(game.getHostInitialHP()+30);
         ApplicationData.getGuest().setHP(game.getGuestInitialHP()-20);
         reward.append("HP increase: ");reward.append(30);
         if(ApplicationData.getGuest().getHP()<15)
-            ApplicationData.getGuest().setHP(game.getGuestInitialHP()-20);
+            ApplicationData.getGuest().setHP(15);
         int decline=game.getGuestInitialHP()-ApplicationData.getGuest().getHP();
         pun.append("HP decrease: ");pun.append(decline);
         ApplicationData.getHost().increaseXP(50 *ApplicationData.getGuest().getLevel());
@@ -298,9 +304,43 @@ public class GameController {
             reward.append(",Coins increased by ");reward.append(game.getBetAmount());
             pun.append(",Coins decreased by ");pun.append(game.getBetAmount());
         }
-    }
-    public void guestWins(){
+        String award=reward.toString();
+        String punishment=pun.toString();
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 
+        MatchData matchData=new MatchData(ApplicationData.getHost().getNickname(),ApplicationData.getGuest().getNickname(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
+        MatchData.addToMatchData(matchData);
+        MatchData.addToList(matchData);
+    }
+    public static void guestWins(){
+        StringBuilder reward=new StringBuilder();
+        StringBuilder pun=new StringBuilder();
+        ApplicationData.getGuest().setHP(game.getHostInitialHP()+30);
+        ApplicationData.getHost().setHP(game.getGuestInitialHP()-20);
+        reward.append("HP increase: ");reward.append(30);
+        if(ApplicationData.getHost().getHP()<15)
+            ApplicationData.getHost().setHP(15);
+        int decline=game.getHostInitialHP()-ApplicationData.getHost().getHP();
+        pun.append("HP decrease: ");pun.append(decline);
+        ApplicationData.getGuest().increaseXP(50 *ApplicationData.getHost().getLevel());
+        reward.append(",XP increase: ");reward.append(50 *ApplicationData.getHost().getLevel());
+        if(game.getBetAmount()==0){
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+15);
+            reward.append(",Coins increased by 15");
+        }
+        if(game.getBetAmount()!=0){
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+game.getBetAmount());
+            ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-game.getBetAmount());
+            reward.append(",Coins increased by ");reward.append(game.getBetAmount());
+            pun.append(",Coins decreased by ");pun.append(game.getBetAmount());
+        }
+        String award=reward.toString();
+        String punishment=pun.toString();
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+
+        MatchData matchData=new MatchData(ApplicationData.getGuest().getNickname(),ApplicationData.getHost().getNickname(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
+        MatchData.addToMatchData(matchData);
+        MatchData.addToList(matchData);
     }
     public static void showField(){
         System.out.print("Host row:\t");

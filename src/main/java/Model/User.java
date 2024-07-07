@@ -36,8 +36,6 @@ public class User {
         this.passwordRecoveryQuestion = passwordRecoveryQuestion;
         this.allPossessedCards =new ArrayList<>();
         StarterPack(this.allPossessedCards);
-        this.twentyCardsAtDeck=new ArrayList<>();
-        twentyCardsAtDeck.addAll(allPossessedCards);
     }
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType,String character){
         this.passwordRecoveryType = passwordRecoveryType;
@@ -53,8 +51,6 @@ public class User {
         this.passwordRecoveryQuestion = passwordRecoveryQuestion;
         this.allPossessedCards =new ArrayList<>();
         StarterPack(this.allPossessedCards);
-        this.twentyCardsAtDeck=new ArrayList<>();
-        twentyCardsAtDeck.addAll(allPossessedCards);
     }
 
     public User() {
@@ -83,12 +79,10 @@ public class User {
                 int level=resultSet.getInt(9);
                 int xp=resultSet.getInt(10);
                 String allPossesed=resultSet.getString(11);
-                String twenty=resultSet.getString(12);
 
                 ArrayList<Card> allPos=new ArrayList<>();
-                ArrayList<Card> twen=new ArrayList<>();
 
-                String [] str1=allPossesed.split(",",-1);
+                String [] str1=allPossesed.split("#",-1);
                 ArrayList<String> names1=new ArrayList<>();
                 ArrayList<Integer> levels1=new ArrayList<>();
                 for(int i=0;i< str1.length;i++){
@@ -100,18 +94,6 @@ public class User {
                 for(int i=0;i< names1.size();i++){
                     allPos.add(ApplicationData.cardTranslator(names1.get(i),levels1.get(i)));
                 }
-                String [] str2=twenty.split("#",-1);
-                ArrayList<String> names2=new ArrayList<>();
-                ArrayList<Integer> levels2=new ArrayList<>();
-                for(int i=0;i< str2.length;i++){
-                    if(i%2==0)
-                        names2.add(str2[i]);
-                    if(i%2==1)
-                        levels2.add(Integer.parseInt(str2[i]));
-                }
-                for(int i=0;i< names2.size();i++){
-                    twen.add(ApplicationData.cardTranslator(names2.get(i),levels2.get(i)));
-                }
 
 
                 User user=new User(username,nickname,password,email,passwordRecoveryQuestion,passwordRecoveryType);
@@ -120,7 +102,6 @@ public class User {
                 user.setHP(hp);
                 user.setCoins(coins);
                 user.setAllPossessedCards(allPos);
-                user.setTwentyCardsAtDeck(twen);
                 ApplicationData.getUserArrayList().add(user);
             }
         }
@@ -260,12 +241,6 @@ public class User {
         //fill arraylist with 20 cards
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
-    public void setTwentyCardsAtDeck(ArrayList<Card> a){
-        this.twentyCardsAtDeck=new ArrayList<>();
-        for(int i=0;i<20;i++){
-            this.twentyCardsAtDeck.add(a.get(i));
-        }
-    }
     public ArrayList<Card> getTwentyCardsAtDeck(){return this.twentyCardsAtDeck;}
     public void buyCard(Card i){
         //age mikhay barresi kon card az ghabl mojoode ya na,age mojoode update she va...
