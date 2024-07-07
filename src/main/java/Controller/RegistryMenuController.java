@@ -53,7 +53,17 @@ public class RegistryMenuController {
             for (int i = 0; i < ApplicationData.getUserArrayList().size(); i++) {
                 if (ApplicationData.getUserArrayList().get(i).getUsername().equals(tempUsername)) {
                     if (!ApplicationData.getUserArrayList().get(i).getPassword().equals(tempPassword)) {
-                        return "incorrect password!";
+                        System.out.println("Password is not valid try again after 5 seconds!");
+                        for (int j = 0; j < 5; j++) {
+                            try {
+                                Thread.sleep(5000); // Delay for 1 second
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }finally {
+                                System.out.println(5-i + " seconds left for your next try");
+                            }
+                        }
+                        return "Now you should do it from first!";
                     }
                     else {
                         ApplicationData.setHost(ApplicationData.getUserArrayList().get(i));
