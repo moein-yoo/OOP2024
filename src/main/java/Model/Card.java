@@ -185,19 +185,23 @@ public class Card {
     }
 
 
-    public boolean isSpecial(){
-        String str= this.character;
-        if(str.equalsIgnoreCase("HPInstaller") || str.equalsIgnoreCase("holeRemover") || str.equalsIgnoreCase("holeChanger") || str.equalsIgnoreCase("separInstaller"))
+    public boolean isSpecial(){    String str= this.character;
+        if(str.equalsIgnoreCase("HPInstaller")
+                || str.equalsIgnoreCase("holeRemover")
+                || str.equalsIgnoreCase("holeChanger")
+                || str.equalsIgnoreCase("separInstaller"))
             return true;
-        if(str.equalsIgnoreCase("rounddecreaseofplayer")|| str.equalsIgnoreCase("powerincrease"))
+        if(str.equalsIgnoreCase("roundDecreaseOfPlayer")
+                || str.equalsIgnoreCase("powerIncrease"))
             return true;
-        if(str.equalsIgnoreCase("cardRemover") || str.equalsIgnoreCase("cardpowerdecrease"))
+        if(str.equalsIgnoreCase("cardRemover")
+                || str.equalsIgnoreCase("cardPowerDecrease"))
             return true;
-        if(str.equalsIgnoreCase("cardCopier") || str.equalsIgnoreCase("cardathandhider"))
+        if(str.equalsIgnoreCase("cardCopier")
+                || str.equalsIgnoreCase("cardAtHandHider"))
             return true;
         return false;
     }
-
     public int getUpgradeCost() {
         return upgradeCost;
     }

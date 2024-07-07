@@ -421,4 +421,5 @@ public class Game {
             Collections.shuffle(guestCardsAtHand);
         }
     }
+
 }
