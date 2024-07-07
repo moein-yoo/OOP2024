@@ -70,6 +70,10 @@ public class GameController {
                 return "select a valid number";
             i=game.getGuestCardsAtHand().get(cardnumber);
         }
+        if(i.isSpecial()){
+            game.hitSpecialCards(i,blocknumber);
+            return "spell placed";
+        }
         if(blocknumber+i.getDuration()>20){
             return "invalid spot for card placement";
         }

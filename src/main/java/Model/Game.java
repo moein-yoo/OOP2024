@@ -274,15 +274,26 @@ public class Game {
         int a=1;
         if(!isHostTurn())
             a=2;
-        if(card.getName().equalsIgnoreCase("separ"))
+        if(card.getName().equalsIgnoreCase("separinstaller"))
             separInstaller(index,a);
-        if(card.getName().equalsIgnoreCase("HP"))
+        if(card.getName().equalsIgnoreCase("HPInstaller"))
             HPInstaller(card.getDamage(),a);
         if(card.getName().equalsIgnoreCase("holeChanger"))
             holeChanger(a,index);
         if(card.getName().equalsIgnoreCase("holeremover"))
             holeRemover(a,index);
-        if(card.getName().equalsIgnoreCase("rounddec"))
+        if(card.getName().equalsIgnoreCase("rounddecreaseofplayer"))
+            roundDecreaseOfPlayer(a);
+        if(card.getName().equalsIgnoreCase("powerincrease"))
+            powerIncrease(a);
+        if(card.getName().equalsIgnoreCase("cardRemover"))
+            cardRemover(a);
+        if(card.getName().equalsIgnoreCase("cardpowerdecrease"))
+            cardPowerDecrease(a);
+        if(card.getName().equalsIgnoreCase("cardCopier"))
+            cardCopier(a);
+        if(card.getName().equalsIgnoreCase("cardathandhider"))
+            cardsAtHandHider(a);
     }
     public void separInstaller(int index,int player) {
         if (player == 1) {

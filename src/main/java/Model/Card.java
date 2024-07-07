@@ -185,9 +185,15 @@ public class Card {
     }
 
 
-    public  boolean isSpecial(){
+    public static boolean isSpecial(){
         String str= this.character;
-        if(str.equals("HPInstaller") || str.equals("holeRemover") || str.equals("holeChanger") || str.equals("separInstaller"))
+        if(str.equalsIgnoreCase("HPInstaller") || str.equalsIgnoreCase("holeRemover") || str.equalsIgnoreCase("holeChanger") || str.equalsIgnoreCase("separInstaller"))
+            return true;
+        if(str.equalsIgnoreCase("rounddecreaseofplayer")|| str.equalsIgnoreCase("powerincrease"))
+            return true;
+        if(str.equalsIgnoreCase("cardRemover") || str.equalsIgnoreCase("cardpowerdecrease"))
+            return true;
+        if(str.equalsIgnoreCase("cardCopier") || str.equalsIgnoreCase("cardathandhider"))
             return true;
         return false;
     }
