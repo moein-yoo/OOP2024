@@ -72,11 +72,12 @@ public class GameController {
             return "spell placed";
         }
         if(blocknumber+i.getDuration()>20){
+            System.out.println(1);
             return "invalid spot for card placement";
         }
         if(game.isHostTurn()){
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++){
-                if(!game.getGuestRowStatus(j).equals("empty")){
+                if(!game.getHostRowStatus(j).equals("nothing")){
                    return "invalid spot for card placement";
                 }
             }
@@ -98,7 +99,7 @@ public class GameController {
         }
         if(!game.isHostTurn()){
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++){
-                if(!game.getHostRowStatus(j).equals("empty")){
+                if(!game.getGuestRowStatus(j).equals("nothing")){
                     return "invalid spot for card placement";
                 }
             }

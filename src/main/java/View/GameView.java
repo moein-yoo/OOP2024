@@ -9,11 +9,12 @@ import java.util.regex.Pattern;
 
 public class GameView extends Menu{
     public static boolean run(Game game){
+        GameController.setGame(game);
         Scanner scan= ApplicationData.getScanner();
         String command;
         Pattern exit=Pattern.compile("exit");
         Pattern back=Pattern.compile("back");
-        Pattern selectCard=Pattern.compile("select card number (\\d+) player (\\s+)");
+        Pattern selectCard=Pattern.compile("select card number (\\d+) player (\\S+)");
         Pattern placeCard=Pattern.compile("place card number (\\d+) in block (\\d+)");
         Pattern showfield=Pattern.compile("show\\s*field");
         while(true){
@@ -35,13 +36,13 @@ public class GameView extends Menu{
                 break;
             if(backb)
                 return true;
-            if(placecardb)
-                GameController.placeCard(Integer.parseInt(placeCardm.group(1)),Integer.parseInt(placeCardm.group(2)));
+            if(placecardb){
+                System.out.println(GameController.placeCard(Integer.parseInt(placeCardm.group(1)),Integer.parseInt(placeCardm.group(2))));}
             if(selectcardb){
                 if(selectCardm.group(2).equalsIgnoreCase("host") || selectCardm.group(2).equalsIgnoreCase(ApplicationData.getHost().getNickname()))
-                    GameController.showCardProperty(GameController.getGame().getHostCardsAtHand().get(Integer.parseInt(selectCardm.group(1))));
+                    System.out.println(GameController.showCardProperty(game.getHostCardsAtHand().get(Integer.parseInt(selectCardm.group(1)))));
                 if(selectCardm.group(2).equalsIgnoreCase("guest") || selectCardm.group(2).equalsIgnoreCase(ApplicationData.getGuest().getNickname()))
-                    GameController.showCardProperty(GameController.getGame().getGuestCardsAtHand().get(Integer.parseInt(selectCardm.group(1))));
+                    System.out.println(GameController.showCardProperty(game.getGuestCardsAtHand().get(Integer.parseInt(selectCardm.group(1)))));
             }
             if(showfieldb)
                 GameController.showField();

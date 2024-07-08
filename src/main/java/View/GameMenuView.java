@@ -55,8 +55,8 @@ public class GameMenuView extends Menu {
                 String tempUsername = matcher.group("username");
                 String tempCharacter = matcher.group("character");
                 if (!RegistryMenuController.isUserValid(tempUsername)
-                        || !ApplicationData.getHost().getUsername().equals(tempUsername)
-                        || !ApplicationData.getGuest().getUsername().equals(tempUsername)) {
+                        && !ApplicationData.getHost().getUsername().equals(tempUsername)
+                        && !ApplicationData.getGuest().getUsername().equals(tempUsername)) {
                     System.out.println("The entered username is invalid!");
                 }
                 System.out.println(GameMenuController.selectCharacter(tempCharacter, tempUsername));

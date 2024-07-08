@@ -111,20 +111,20 @@ public class Game {
         if(ishost){
             int r=0;
             for(Card card:hostCardsAtHand){if(card.isSpecial())r++;}
-            Card card2= ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(20));
+            Card card2= ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
             if(r>=2){
                 while(card2.isSpecial())
-                    card2=ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(20));
+                    card2=ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
             }
            return card2;
         }
         else{
             int r=0;
             for(Card card:guestCardsAtHand){if(card.isSpecial())r++;}
-            Card card2= ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(20));
+            Card card2= ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
             if(r>=2){
                 while(card2.isSpecial())
-                    card2=ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(20));
+                    card2=ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
             }
             return card2;
         }

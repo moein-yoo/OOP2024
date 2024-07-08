@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class GameMenuController {
     public static String selectCharacter(String character, String username) {
-        if (!character.equals("Motreb") || !character.equals("Dalghak") || !character.equals("Divaneh") || !character.equals("Guguli")) {
+        if (!character.equals("Motreb") && !character.equals("Dalghak") && !character.equals("Divaneh") && !character.equals("Guguli")) {
             return "Character type is incorrect";
         }
         else {
