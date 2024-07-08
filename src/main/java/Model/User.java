@@ -18,7 +18,7 @@ public class User {
     private int xp;
     private static String url="jdbc:mysql://localhost:3306/project";
     private static String Username="root";
-    private static String Password="@9984moeiN";
+    private static String Password="soroush1384";
     private static Connection connection;
     private static java.sql.Statement statement;
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType){
@@ -27,7 +27,7 @@ public class User {
         this.xp=0;
         this.level=1;
         this.hp=100;
-        this.coins=100;
+        this.coins=20;
         this.username =username;
         this.password =password;
         this.nickname=nickname;
@@ -42,7 +42,7 @@ public class User {
         this.xp=0;
         this.level=1;
         this.hp=100;
-        this.coins=100;
+        this.coins=20;
         this.username =username;
         this.password =password;
         this.nickname=nickname;
@@ -157,7 +157,7 @@ public class User {
         catch (SQLException e){throw new RuntimeException(e);}
 
     }
-    public void updateUserInSQL(User user){
+    public static void updateUserInSQL(User user){
         String username=user.getUsername();
         String password=user.getPassword();
         String nickname=user.getNickname();
@@ -215,7 +215,7 @@ public class User {
         a=new ArrayList<>();
         ArrayList<Card> sample=new ArrayList<>();
         sample.addAll(ApplicationData.getAllCardsArraylist());
-        for(int i=0;i<20;i++){
+        for(int i=0;i<15;i++){
             int r=ApplicationData.getRandom().nextInt(sample.size());
             a.add(sample.get(r));
             sample.remove(r);

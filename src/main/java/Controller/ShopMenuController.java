@@ -2,6 +2,7 @@ package Controller;
 
 import Model.ApplicationData;
 import Model.Card;
+import Model.User;
 
 import static Controller.GameController.showCardProperty;
 
@@ -39,6 +40,7 @@ public class ShopMenuController {
         ApplicationData.getHost().addToPossessedCards(card.NextLevelCard());
 
         System.out.println("card upgraded successfully!");
+        User.updateUserInSQL(ApplicationData.getHost());
     }
     public static void buyCard(Card card){
         boolean found=false;
@@ -54,5 +56,6 @@ public class ShopMenuController {
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
         ApplicationData.getHost().addToPossessedCards(card);
         System.out.println("card is bought");
+        User.updateUserInSQL(ApplicationData.getHost());
     }
 }

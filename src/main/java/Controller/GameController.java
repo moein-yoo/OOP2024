@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.ApplicationData;
-import Model.Card;
-import Model.Game;
-import Model.MatchData;
+import Model.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -318,6 +315,8 @@ public class GameController {
         MatchData matchData=new MatchData(ApplicationData.getHost().getNickname(),ApplicationData.getGuest().getNickname(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
+        User.updateUserInSQL(ApplicationData.getHost());
+        User.updateUserInSQL(ApplicationData.getGuest());
     }
     public static void guestWins(){
         gameover=true;
@@ -349,6 +348,8 @@ public class GameController {
         MatchData matchData=new MatchData(ApplicationData.getGuest().getNickname(),ApplicationData.getHost().getNickname(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
+        User.updateUserInSQL(ApplicationData.getHost());
+        User.updateUserInSQL(ApplicationData.getGuest());
     }
     public static void showField(){
         System.out.print("Host row:\t");

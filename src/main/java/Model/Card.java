@@ -22,7 +22,7 @@ public class Card {
      static String url="jdbc:mysql://localhost:3306/project";
      //static String url = "C:\\Users\\moein\\AppData\\Roaming\\JetBrains\\IntelliJIdea2023.3\\jdbc-drivers\\MySQL ConnectorJ\\8.2.0\\com\\mysql\\mysql-connector-j\\8.2.0\\mysql-connector-j-8.2.0.jar";
      static String username="root";
-     static String password="@9984moeiN";
+     static String password="soroush1384";
      static Connection connection;
      static java.sql.Statement statement;
     //separ_shafa_powerSupply_hellChanger_
@@ -80,7 +80,35 @@ public class Card {
         }
         catch (SQLException e){throw new RuntimeException(e);}
     }
-    public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
+    public void modifyCardInSQL(Card card){
+        String query="UPDATE CARD SET duration=?,accuracy=?,damage=?,charac=?,upgradeCost=? WHERE name = ?";
+        int dur=card.getDuration();int acc=card.getAccuracy();int dam=card.getDamage();String character= card.getCharacter();
+        int upcost=card.getUpgradeCost(); String name=card.getName();
+        try{
+            PreparedStatement prep=connection.prepareStatement(query);
+            prep.setString(6,name);
+            prep.setInt(1,dur);
+            prep.setInt(2,acc);
+            prep.setInt(3,dam);
+            prep.setString(4,character);
+            prep.setInt(5,upcost);
+            prep.executeUpdate();
+            connection.commit();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+    }
+    public void modifyCardName(String newName,String oldName){
+        String query="UPDATE CARD SET name=? WHERE name = ?";
+        try{
+            PreparedStatement prep=connection.prepareStatement(query);
+            prep.setString(1,newName);
+            prep.setString(2,oldName);
+            prep.executeUpdate();
+            connection.commit();
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+    }
+        public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
         this.duration = duration;
         this.accuracy = accuracy;
