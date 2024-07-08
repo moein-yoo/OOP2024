@@ -19,9 +19,10 @@ public class Card {
     private int upgradeCost;
     private int level = 0;
 
-     static String url="jdbc:mysql//localhost:3306/project";
+     static String url="jdbc:mysql://localhost:3306/project";
+     //static String url = "C:\\Users\\moein\\AppData\\Roaming\\JetBrains\\IntelliJIdea2023.3\\jdbc-drivers\\MySQL ConnectorJ\\8.2.0\\com\\mysql\\mysql-connector-j\\8.2.0\\mysql-connector-j-8.2.0.jar";
      static String username="root";
-     static String password="soroush1384";
+     static String password="@9984moeiN";
      static Connection connection;
      static java.sql.Statement statement;
     //separ_shafa_powerSupply_hellChanger_

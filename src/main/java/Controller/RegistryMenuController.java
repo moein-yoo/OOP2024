@@ -43,9 +43,6 @@ public class RegistryMenuController {
         String tempPassword = enteredUser[1];
         if (tempPassword.equals("admin") && tempUsername.equals("admin"))
             return "Admin user detected!, Logging into AdminMenu";
-        if (!isUsernameCorrect(tempUsername)) {
-            return "username's format is invalid!";
-        }
         else if (!isUserValid(tempUsername)) {
             return "username doesn't exist!";
         }

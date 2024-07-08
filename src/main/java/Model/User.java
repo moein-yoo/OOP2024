@@ -16,9 +16,9 @@ public class User {
     private String character = "nothing";//1-2-3-4
     private int level;
     private int xp;
-    private static String url="jdbc:mysql//localhost:3306/project";
+    private static String url="jdbc:mysql://localhost:3306/project";
     private static String Username="root";
-    private static String Password="soroush1384";
+    private static String Password="@9984moeiN";
     private static Connection connection;
     private static java.sql.Statement statement;
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType){
@@ -81,7 +81,7 @@ public class User {
 
                 ArrayList<Card> allPos=new ArrayList<>();
 
-                String [] str1=allPossesed.split("#",-1);
+                String [] str1=allPossesed.split("#");
                 ArrayList<String> names1=new ArrayList<>();
                 ArrayList<Integer> levels1=new ArrayList<>();
                 for(int i=0;i< str1.length;i++){
