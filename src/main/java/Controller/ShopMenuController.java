@@ -15,7 +15,7 @@ public class ShopMenuController {
                     found=true;
             }
             if(!found){
-                showCardProperty(card);
+                System.out.print(showCardProperty(card));
                 System.out.println("price: "+card.getUpgradeCost());
             }
         }

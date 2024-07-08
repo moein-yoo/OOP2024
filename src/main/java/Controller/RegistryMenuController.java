@@ -52,12 +52,13 @@ public class RegistryMenuController {
                     if (!ApplicationData.getUserArrayList().get(i).getPassword().equals(tempPassword)) {
                         System.out.println("Password is not valid try again after 5 seconds!");
                         for (int j = 0; j < 5; j++) {
+                            int finalI = i;
                             try {
-                                Thread.sleep(5000); // Delay for 1 second
+                                Thread.sleep(1000); // Delay for 1 second
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }finally {
-                                System.out.println(5-i + " seconds left for your next try");
+                                System.out.println(5-finalI + " seconds left for your next try");
                             }
                         }
                         return "Now you should do it from first!";
@@ -111,28 +112,32 @@ public class RegistryMenuController {
 
     public static boolean isPasswordCorrect(String tempPassword) {
         boolean digLet=false,upLet=false,loLet=false,charLet=false,cor=true;
-        if (tempPassword.length()<8 || tempPassword.length()>32)
-            return false;
-        for (int i = 0; i < tempPassword.length(); i++) {
-            if (tempPassword.charAt(i) > 47 && tempPassword.charAt(i) < 58)
-                digLet = true;
-            else if (tempPassword.charAt(i) > 64 && tempPassword.charAt(i) < 91)
-                upLet = true;
-            else if (tempPassword.charAt(i) > 96 && tempPassword.charAt(i) < 123)
-                loLet = true;
-            else if (tempPassword.charAt(i)== 33 || tempPassword.charAt(i)==46
-                    || (tempPassword.charAt(i)>35 && tempPassword.charAt(i)<39)
-                    || (tempPassword.charAt(i)>39 && tempPassword.charAt(i)<43)
-                    || tempPassword.charAt(i)==64 || tempPassword.charAt(i)==91
-                    || tempPassword.charAt(i)==93 || tempPassword.charAt(i)==94
-                    || tempPassword.charAt(i)==123 || tempPassword.charAt(i)==125)
-                charLet = true;
-            else
-                cor = false;
+        if (tempPassword.matches("[A-Za-z0-9@!#$%^&*]") && tempPassword.length()<40 && tempPassword.length()>8) {
+            return true;
         }
-        if(!digLet || !upLet || !loLet || !charLet || !cor)
-            return false;
-        return true;
+        return false;
+//        if (tempPassword.length()<8 || tempPassword.length()>32)
+//            return false;
+//        for (int i = 0; i < tempPassword.length(); i++) {
+//            if (tempPassword.charAt(i) > 47 && tempPassword.charAt(i) < 58)
+//                digLet = true;
+//            else if (tempPassword.charAt(i) > 64 && tempPassword.charAt(i) < 91)
+//                upLet = true;
+//            else if (tempPassword.charAt(i) > 96 && tempPassword.charAt(i) < 123)
+//                loLet = true;
+//            else if (tempPassword.charAt(i)== 33 || tempPassword.charAt(i)==46
+//                    || (tempPassword.charAt(i)>35 && tempPassword.charAt(i)<39)
+//                    || (tempPassword.charAt(i)>39 && tempPassword.charAt(i)<43)
+//                    || tempPassword.charAt(i)==64 || tempPassword.charAt(i)==91
+//                    || tempPassword.charAt(i)==93 || tempPassword.charAt(i)==94
+//                    || tempPassword.charAt(i)==123 || tempPassword.charAt(i)==125)
+//                charLet = true;
+//            else
+//                cor = false;
+//        }
+//        if(!digLet || !upLet || !loLet || !charLet || !cor)
+//            return false;
+//        return true;
     }
     public static boolean isMailValid(String tempMail) {
         Pattern[] pattern = new Pattern[1];

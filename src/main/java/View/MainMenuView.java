@@ -3,6 +3,7 @@ package View;
 import Controller.MainMenuController;
 import Controller.ProfileMenuController;
 import Model.ApplicationData;
+import Model.Card;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -34,7 +35,7 @@ public class MainMenuView extends Menu {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[1]));
                 matcher.find();
                 ejra = true;
-                System.out.println("Profile Menu");
+                System.out.println("MainMenu Menu");
             } else if (input.matches(String.valueOf(patterns[2]))) {
                 if (!MainMenuController.goToGameMenu())
                     return false;
@@ -70,6 +71,10 @@ public class MainMenuView extends Menu {
     }
 
     public static void showCards() {
-
+        int i = 1;
+        for (Card card : ApplicationData.getHost().getAllPossessedCards()) {
+            System.out.println(i + ".name : " + card.getName() + ", level : " + card.getLevel());
+            i++;
+        }
     }
 }

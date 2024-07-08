@@ -97,6 +97,7 @@ public class RegistryMenuView extends Menu{
                             input = scanner.nextLine();
                             if (input.equalsIgnoreCase(user.getPasswordRecoveryQuestion())) {
                                 System.out.println("Correct so you logged in");
+                                ApplicationData.setHost(user);
                                 if (!MainMenuView.run())
                                     return;
                             }

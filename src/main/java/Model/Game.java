@@ -274,28 +274,26 @@ public class Game {
         int a=1;
         if(!isHostTurn())
             a=2;
-        if(card.getName().equalsIgnoreCase("separinstaller"))
+        if(card.getName().equalsIgnoreCase("separInstaller"))
             separInstaller(index,a);
         if(card.getName().equalsIgnoreCase("HPInstaller"))
             HPInstaller(card.getDamage(),a);
         if(card.getName().equalsIgnoreCase("holeChanger"))
             holeChanger(a,index);
-        if(card.getName().equalsIgnoreCase("holeremover"))
+        if(card.getName().equalsIgnoreCase("holeRemover"))
             holeRemover(a,index);
-        if(card.getName().equalsIgnoreCase("rounddecreaseofplayer"))
-            roundDecreaseOfPlayer(a);
-        if(card.getName().equalsIgnoreCase("powerincrease"))
+        if(card.getName().equalsIgnoreCase("powerIncrease"))
             powerIncrease(a);
         if(card.getName().equalsIgnoreCase("cardRemover"))
             cardRemover(a);
-        if(card.getName().equalsIgnoreCase("cardpowerdecrease"))
+        if(card.getName().equalsIgnoreCase("cardPowerDecrease"))
             cardPowerDecrease(a);
         if(card.getName().equalsIgnoreCase("cardCopier"))
             cardCopier(a);
-        if(card.getName().equalsIgnoreCase("cardathandhider"))
+        if(card.getName().equalsIgnoreCase("cardAtHandHider"))
             cardsAtHandHider(a);
-        if(card.getName().equalsIgnoreCase("rounddec"))
-            roundDecreaseOfPlayer(a);
+        if(card.getName().equalsIgnoreCase("roundDec"))
+            roundDecreaseOfPlayer();
     }
     public void separInstaller(int index,int player) {
         if (index>20)
@@ -345,10 +343,9 @@ public class Game {
         }
     }
 
-    public void roundDecreaseOfPlayer(int player) {
-        if (player==1)
-            this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
-        else this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
+    public void roundDecreaseOfPlayer() {
+        this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
+        this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
     }
     public void powerIncrease(int player) {
         if (player==1) {

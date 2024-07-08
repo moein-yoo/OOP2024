@@ -18,8 +18,10 @@ public class ShopMenuView {
         Pattern buyCard=Pattern.compile("buy card (\\w+)");
         Pattern upgradeCard=Pattern.compile("upgrade card (\\w+)");
         Pattern exit=Pattern.compile("exit");
-        Pattern showCardsIdonthave=Pattern.compile("show unpossessed cards");
-        Pattern showupgrades=Pattern.compile("show upgrades");
+        Pattern showCardsDontHave=Pattern.compile("show unpossessed cards");
+        Pattern showUpgrades=Pattern.compile("show upgrades");
+        Pattern showMenu=Pattern.compile("show current menu");
+        Pattern back = Pattern.compile("back");
         String command;
 
         while(true){
@@ -27,34 +29,49 @@ public class ShopMenuView {
             Matcher upgradem=upgradeCard.matcher(command);
             Matcher buym= buyCard.matcher(command);
             Matcher exitm= exit.matcher(command);
-            Matcher showIdontm=showCardsIdonthave.matcher(command);
-            Matcher showupsm=showupgrades.matcher(command);
+            Matcher showIdontm=showCardsDontHave.matcher(command);
+            Matcher showupsm=showUpgrades.matcher(command);
+            Matcher showmenum = showMenu.matcher(command);
+            Matcher backm = back.matcher(command);
 
             boolean upgradeb=upgradem.find();
             boolean buyb=buym.find();
             boolean exitb= exitm.find();
             boolean showIdontb=showIdontm.find();
             boolean showupsb=showupsm.find();
+            boolean showmenub=showmenum.find();
+            boolean backb = backm.find();
             if(exitb)
                 break;
-            if(showIdontb){
+            else if (backb)
+                return true;
+            else if(showIdontb){
                 ShopMenuController.showUnpossessedCards();
             }
-            if(showupsb){
+            else if(showupsb){
                 ShopMenuController.showUpgrades();
             }
-            if(buyb){
+            else if (showmenub) {
+                System.out.println("Shop Menu");
+            }
+            else if(buyb){
+                int cardlevel=0;
                 boolean found=false;
-                for(Card card:ApplicationData.getAllCardsArraylist()){if(card.getName().equals(buym.group(1))) found=true;}
+                for(Card card:ApplicationData.getAllCardsArraylist()){
+                    if(card.getName().equals(buym.group(1))) {
+                        cardlevel=card.getLevel();
+                        found=true;
+                    }
+                }
                 if(!found){
                     System.out.println("invalid card!");
                 }
                 else{
-                    ShopMenuController.buyCard(cardTranslator(buym.group(1),1));
+                    ShopMenuController.buyCard(cardTranslator(buym.group(1),cardlevel));
                 }
 
             }
-            if(upgradeb){
+            else if(upgradeb){
                 int cardlevel=0;
                 boolean found=false;
                 for(Card e:ApplicationData.getHost().getAllPossessedCards()) {
@@ -68,6 +85,9 @@ public class ShopMenuView {
                 if(found){
                     ShopMenuController.upgradeCard(cardTranslator(upgradem.group(1),cardlevel));
                 }
+            }
+            else {
+                System.out.println("Invalid Command!");
             }
         }
         return false;

@@ -70,6 +70,10 @@ public class ProfileMenuView extends Menu {
                 System.out.printf("nickname : %s\n",ApplicationData.getHost().getNickname());
                 System.out.printf("email : %s\n",ApplicationData.getHost().getEmail());
                 System.out.printf("level : %d\n",ApplicationData.getHost().getLevel());
+                System.out.printf("coin : %d\n",ApplicationData.getHost().getCoins());
+                System.out.printf("xp : %d\n",ApplicationData.getHost().getXp());
+                System.out.printf("hp : %d\n",ApplicationData.getHost().getHP());
+
                 ejra = true;
             }
             else if (input.matches(String.valueOf(patterns[4]))) {
