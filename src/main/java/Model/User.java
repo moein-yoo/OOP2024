@@ -34,8 +34,8 @@ public class User {
         this.nickname=nickname;
         this.email=email;
         this.passwordRecoveryQuestion = passwordRecoveryQuestion;
-        this.allPossessedCards =new ArrayList<>();
-        StarterPack(this.allPossessedCards);
+        this.allPossessedCards = StarterPack(this.allPossessedCards);;
+
     }
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType,String character){
         this.passwordRecoveryType = passwordRecoveryType;
@@ -49,15 +49,14 @@ public class User {
         this.nickname=nickname;
         this.email=email;
         this.passwordRecoveryQuestion = passwordRecoveryQuestion;
-        this.allPossessedCards =new ArrayList<>();
-        StarterPack(this.allPossessedCards);
+        this.allPossessedCards = StarterPack(this.allPossessedCards);
     }
 
     public User() {
         //nothing
     }
 
-    public static void initialize(){
+    public static void initialize() throws SQLException {
         ApplicationData.newUserArrayList();
         try{
             connection= DriverManager.getConnection(url,Username,Password);
@@ -108,8 +107,9 @@ public class User {
         catch (SQLException e){
             throw new RuntimeException(e);
         }
+        connection.setAutoCommit(false);
     }
-    public void addNewUserToSQL(User user){
+    public static void addNewUserToSQL(User user){
         String username=user.getUsername();
         String password=user.getPassword();
         String nickname=user.getNickname();
@@ -212,7 +212,7 @@ public class User {
         catch (SQLException e){throw new RuntimeException(e);}
 
     }
-    public void StarterPack(ArrayList<Card> a){
+    public ArrayList<Card> StarterPack(ArrayList<Card> a){
         a=new ArrayList<>();
         ArrayList<Card> sample=new ArrayList<>();
         sample.addAll(ApplicationData.getAllCardsArraylist());
@@ -221,6 +221,7 @@ public class User {
             a.add(sample.get(r));
             sample.remove(r);
         }
+        return a;
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
     public void buyCard(Card i){

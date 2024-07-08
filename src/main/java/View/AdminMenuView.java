@@ -84,8 +84,12 @@ public class AdminMenuView extends Menu {
                 entered[5] = matcher.group("level");
                 entered[6] = matcher.group("upgradeCost");
                 int index = Integer.parseInt(matcher.group("cardNumber"));
+                boolean name = true;
                 index--;
-                if (entered[0]==null || entered[0].equals("")) entered[0] = ApplicationData.getAllCardsArraylist().get(index).getName();
+                if (entered[0]==null || entered[0].equals("")) {
+                    entered[0] = ApplicationData.getAllCardsArraylist().get(index).getName();
+                    name = false;
+                }
                 if (entered[1]==null || entered[1].equals("")) entered[1] = ApplicationData.getAllCardsArraylist().get(index).getCharacter();
                 if (entered[2]==null || entered[2].equals("")) entered[2] = String.valueOf(ApplicationData.getAllCardsArraylist().get(index).getAccuracy());
                 if (entered[3]==null || entered[3].equals("")) entered[3] = String.valueOf(ApplicationData.getAllCardsArraylist().get(index).getDuration());
@@ -94,7 +98,7 @@ public class AdminMenuView extends Menu {
                 if (entered[6]==null || entered[6].equals("")) entered[6] = String.valueOf(ApplicationData.getAllCardsArraylist().get(index).getUpgradeCost());
                 if (index >= ApplicationData.getAllCardsArraylist().size())
                     System.out.println("Invalid index");
-                else System.out.println(AdminMenuController.editCard(entered, index));
+                else System.out.println(AdminMenuController.editCard(entered, index, name));
                 ejra =  true;
             }
             else if (input.matches(String.valueOf(patterns[6]))) {

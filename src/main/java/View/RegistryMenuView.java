@@ -46,7 +46,7 @@ public class RegistryMenuView extends Menu{
                 entered[4] = matcher.group("type");
                 if (Integer.parseInt(entered[4]) == 1) {
                     System.out.println("Where is your hometown?");
-                } else if (Integer.parseInt(entered[5]) == 2) {
+                } else if (Integer.parseInt(entered[4]) == 2) {
                     System.out.println("Who is your first school teacher?");
                 }
                 else System.out.println("Who is your love?!");
@@ -55,7 +55,7 @@ public class RegistryMenuView extends Menu{
                     matcher = getCommandMatcher(input,String.valueOf(patterns[5]));
                     matcher.find();
                     entered[5] = matcher.group("answer");
-                    RegistryMenuController.signin(entered);
+                    System.out.println(RegistryMenuController.signin(entered));
                 }else {
                     ejra = false;
                 }

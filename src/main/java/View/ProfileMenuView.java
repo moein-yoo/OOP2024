@@ -39,28 +39,28 @@ public class ProfileMenuView extends Menu {
             else if (input.matches(String.valueOf(patterns[2]))) {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[2]));
                 matcher.find();
-                ProfileMenuController.changePassword(matcher, ApplicationData.getHost());
+                System.out.println(ProfileMenuController.changePassword(matcher, ApplicationData.getHost()));
                 ejra = true;
             }
             else if (input.matches(String.valueOf(patterns[6]))) {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[6]));
                 matcher.find();
                 String enter = matcher.group("newUsername");
-                ProfileMenuController.changeUsername(enter);
+                System.out.println(ProfileMenuController.changeUsername(enter));
                 ejra = true;
             }
             else if (input.matches(String.valueOf(patterns[7]))) {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[7]));
                 matcher.find();
                 String enter = matcher.group("newNickname");
-                ProfileMenuController.changeNickname(enter);
+                System.out.println(ProfileMenuController.changeNickname(enter));
                 ejra = true;
             }
             else if (input.matches(String.valueOf(patterns[8]))) {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[8]));
                 matcher.find();
                 String enter = matcher.group("newEmail");
-                ProfileMenuController.changeEmail(enter);
+                System.out.println(ProfileMenuController.changeEmail(enter));
                 ejra = true;
             }
             else if (input.matches(String.valueOf(patterns[3]))) {
@@ -80,8 +80,10 @@ public class ProfileMenuView extends Menu {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[4]));
                 matcher.find();
                 ejra = true;
-                if(ProfileMenuController.deleteAccount(matcher, ApplicationData.getHost()))
+                if(ProfileMenuController.deleteAccount(matcher, ApplicationData.getHost())) {
+                    System.out.println("Account deleted successfully");
                     return true;
+                }
             }
             else if (input.matches(String.valueOf(patterns[5]))) {
                 Matcher matcher = getCommandMatcher(input, String.valueOf(patterns[5]));

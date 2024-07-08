@@ -27,7 +27,7 @@ public class MatchData {
         this.WinnerLevel=WinnerLevel;
         this.LoserLevel=LoserLevel;
     }
-    public static void initialize(){
+    public static void initialize() throws SQLException {
         matchDatas=new ArrayList<>();
         try{
         connection=DriverManager.getConnection(url,username,password);
@@ -53,6 +53,7 @@ public class MatchData {
         catch (SQLException e){
             throw new RuntimeException(e);
         }
+        connection.setAutoCommit(false);
     }
     public static void addToList(MatchData matchData){
         matchDatas.add(matchData);

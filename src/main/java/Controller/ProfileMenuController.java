@@ -29,6 +29,7 @@ public class ProfileMenuController {
             }
             System.out.println("password changed!");
             user.setPassword(tempNewPassword);
+            User.updateUserInSQL(user);
         }
         return null;
     }
@@ -62,7 +63,8 @@ public class ProfileMenuController {
             return "nickname's format is invalid!";
         }
         else {
-            ApplicationData.getHost().setUsername(enteredUser);
+            ApplicationData.getHost().setNickname(enteredUser);
+            User.updateUserInSQL(ApplicationData.getHost());
             return "nickname changed to " + enteredUser + " successfully!";
         }
     }
@@ -72,6 +74,7 @@ public class ProfileMenuController {
         }
         else {
             ApplicationData.getHost().setEmail(enteredUser);
+            User.updateUserInSQL(ApplicationData.getHost());
             return "email changed to " + enteredUser + "successfully!";
         }
     }

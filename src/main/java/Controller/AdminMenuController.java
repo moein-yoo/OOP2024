@@ -32,10 +32,11 @@ public class AdminMenuController {
         else {
             //(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level)
             ApplicationData.addCardToAllCardsArraylist(new Card(name, duration, accuracy, damage, character, upgradeCost, level));
+            Card.addcardToSQL(new Card(name, duration, accuracy, damage, character, upgradeCost, level));
             return "The Card added to the list successfully";
         }
     }
-    public static String editCard(String[] entered, int index) {
+    public static String editCard(String[] entered, int index, boolean changeName) {
         String name = entered[0];
         String character = entered[1];
         int accuracy = Integer.parseInt(entered[2]);
@@ -62,9 +63,14 @@ public class AdminMenuController {
             System.out.println("Are you sure?(y/n)");
             Scanner scanner = ApplicationData.getScanner();
             String inp = scanner.nextLine();
-            if (inp.equalsIgnoreCase("y") || inp.equalsIgnoreCase("yes"))
+            if (inp.equalsIgnoreCase("y") || inp.equalsIgnoreCase("yes")) {
+                if (changeName) {
+                    Card.modifyCardName(name, ApplicationData.getAllCardsArraylist().get(index).getName());
+                }
                 ApplicationData.setCardInAllCardsArraylist(index, new Card(name, duration, accuracy, damage, character, upgradeCost, level));
-            return "The Card added to the list successfully";
+                Card.modifyCardInSQL(new Card(name, duration, accuracy, damage, character, upgradeCost, level));
+            }
+            return "The Card edited successfully";
         }
     }
 }

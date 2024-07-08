@@ -36,7 +36,7 @@ public class Card {
 //    private String[] guestRowStatus;
 
     public Card() {}
-    public static void initialize(){
+    public static void initialize() throws SQLException {
         ApplicationData.newAllCardsArrayList();
         try{
             connection= DriverManager.getConnection(url,username,password);
@@ -59,8 +59,9 @@ public class Card {
             }
         }
         catch (SQLException e){throw new RuntimeException(e);}
+        connection.setAutoCommit(false);
     }
-    public void addcardToSQL(Card card){
+    public static void addcardToSQL(Card card){
         String name= card.getName();
         int dur=card.getDuration();
         int accuracy=card.getAccuracy();
@@ -81,7 +82,7 @@ public class Card {
         }
         catch (SQLException e){throw new RuntimeException(e);}
     }
-    public void modifyCardInSQL(Card card){
+    public static void modifyCardInSQL(Card card){
         String query="UPDATE CARD SET duration=?,accuracy=?,damage=?,charac=?,upgradeCost=? WHERE name = ?";
         int dur=card.getDuration();int acc=card.getAccuracy();int dam=card.getDamage();String character= card.getCharacter();
         int upcost=card.getUpgradeCost(); String name=card.getName();
@@ -98,7 +99,7 @@ public class Card {
         }
         catch (SQLException e){throw new RuntimeException(e);}
     }
-    public void modifyCardName(String newName,String oldName){
+    public static void modifyCardName(String newName,String oldName){
         String query="UPDATE CARD SET name=? WHERE name = ?";
         try{
             PreparedStatement prep=connection.prepareStatement(query);

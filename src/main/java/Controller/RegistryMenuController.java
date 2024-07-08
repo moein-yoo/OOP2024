@@ -14,8 +14,8 @@ public class RegistryMenuController {
 //        (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int passType,int character)
         String tempPassword = enteredUser[2];
         String tempMail = enteredUser[3];
-        String tempPasswordRecoveryQuestion = enteredUser[4];
-        int tempPasswordRecoveryType = Integer.parseInt(enteredUser[5]);
+        String tempPasswordRecoveryQuestion = enteredUser[5];
+        int tempPasswordRecoveryType = Integer.parseInt(enteredUser[4]);
         if (!isUsernameCorrect(tempUsername)) {
             return "username's format is invalid!";
         }
@@ -35,6 +35,7 @@ public class RegistryMenuController {
             User user = new User(tempUsername, tempNickName, tempPassword,
                     tempMail, tempPasswordRecoveryQuestion, tempPasswordRecoveryType, "nothing");
             ApplicationData.addToUserArrayList(user);
+            User.addNewUserToSQL(user);
             return "user successfully created!";
         }
     }
@@ -82,15 +83,9 @@ public class RegistryMenuController {
         return outcome;
     }
     public static boolean isUsernameCorrect(String tempUsername) {
-        for (int i = 0; i < tempUsername.length(); i++) {
-            if (!((tempUsername.charAt(i) >= 48 && tempUsername.charAt(i) < 58)
-                    || (tempUsername.charAt(i) > 64 && tempUsername.charAt(i) < 91)
-                    || (tempUsername.charAt(i) > 96 && tempUsername.charAt(i) < 123)
-                    || tempUsername.charAt(i) == 32)) {
-                return false;
-            }
-        }
-        return true;
+        if (tempUsername.matches("[A-Za-z0-9_.]*"))
+            return true;
+        return false;
     }
     public static boolean isNicknameCorrect(String tempUsername) {
         for (int i = 0; i < tempUsername.length(); i++) {
@@ -112,7 +107,7 @@ public class RegistryMenuController {
 
     public static boolean isPasswordCorrect(String tempPassword) {
         boolean digLet=false,upLet=false,loLet=false,charLet=false,cor=true;
-        if (tempPassword.matches("[A-Za-z0-9@!#$%^&*]") && tempPassword.length()<40 && tempPassword.length()>8) {
+        if (tempPassword.matches("[A-Za-z0-9@!#$%^&*]*") && tempPassword.length()<40 && tempPassword.length()>8) {
             return true;
         }
         return false;
