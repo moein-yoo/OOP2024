@@ -61,7 +61,7 @@ public class GameMenuView extends Menu {
                 }
                 System.out.println(GameMenuController.selectCharacter(tempCharacter, tempUsername));
                 ejra = true;
-            } else if (input.matches(String.valueOf(patterns[8]))) {
+            } else if (input.matches(String.valueOf(patterns[5]))) {
                 return true;
             }
             if (!ejra) {

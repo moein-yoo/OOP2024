@@ -18,8 +18,8 @@ public class User {
     private int xp;
     private static String url="jdbc:mysql://localhost:3306/project";
     private static String Username="root";
-    //static String Password="soroush1384";
-    static String Password="@9984moeiN";
+    static String Password="soroush1384";
+//    static String Password="@9984moeiN";
     private static Connection connection;
     private static java.sql.Statement statement;
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType){
@@ -208,6 +208,18 @@ public class User {
             preparedStatement.executeUpdate();
             connection.commit();
 
+        }
+        catch (SQLException e){throw new RuntimeException(e);}
+
+    }
+    public static void deleteAccountInSQL(User user){
+        String username= user.getUsername();
+        String query="DELETE FROM USER WHERE username= ?";
+        try {
+            PreparedStatement prep=connection.prepareStatement(query);
+            prep.setString(1,username);
+            prep.executeUpdate();
+            connection.commit();
         }
         catch (SQLException e){throw new RuntimeException(e);}
 
