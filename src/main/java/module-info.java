@@ -8,3 +8,4 @@ module OOP2024 {
     exports ViewGraphic;
     opens ViewGraphic to javafx.fxml;
 }
+///
