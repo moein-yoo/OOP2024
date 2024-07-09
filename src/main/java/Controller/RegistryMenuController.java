@@ -4,6 +4,7 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class RegistryMenuController {
@@ -111,33 +112,21 @@ public class RegistryMenuController {
             return true;
         }
         return false;
-//        if (tempPassword.length()<8 || tempPassword.length()>32)
-//            return false;
-//        for (int i = 0; i < tempPassword.length(); i++) {
-//            if (tempPassword.charAt(i) > 47 && tempPassword.charAt(i) < 58)
-//                digLet = true;
-//            else if (tempPassword.charAt(i) > 64 && tempPassword.charAt(i) < 91)
-//                upLet = true;
-//            else if (tempPassword.charAt(i) > 96 && tempPassword.charAt(i) < 123)
-//                loLet = true;
-//            else if (tempPassword.charAt(i)== 33 || tempPassword.charAt(i)==46
-//                    || (tempPassword.charAt(i)>35 && tempPassword.charAt(i)<39)
-//                    || (tempPassword.charAt(i)>39 && tempPassword.charAt(i)<43)
-//                    || tempPassword.charAt(i)==64 || tempPassword.charAt(i)==91
-//                    || tempPassword.charAt(i)==93 || tempPassword.charAt(i)==94
-//                    || tempPassword.charAt(i)==123 || tempPassword.charAt(i)==125)
-//                charLet = true;
-//            else
-//                cor = false;
-//        }
-//        if(!digLet || !upLet || !loLet || !charLet || !cor)
-//            return false;
-//        return true;
     }
     public static boolean isMailValid(String tempMail) {
         Pattern[] pattern = new Pattern[1];
         pattern[0] = Pattern.compile("(\\S+@\\S+\\.\\S+)");
         return tempMail.matches(String.valueOf(pattern[0]));
+    }
+    public static String randomPasswordMaker() {
+        String string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+        Random random = ApplicationData.getRandom();
+        StringBuilder tempPassword = new StringBuilder(String.valueOf(string.charAt(random.nextInt(26)) + string.charAt(random.nextInt(26, 52))
+                + string.charAt(random.nextInt(52, 62)) + string.charAt(random.nextInt(62, 80))));
+        for (int i = 0; i < 4; i++) {
+            tempPassword.append(string.charAt(random.nextInt(80)));
+        }
+        return tempPassword.toString();
     }
 
 }

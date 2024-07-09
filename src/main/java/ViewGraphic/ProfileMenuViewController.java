@@ -1,6 +1,6 @@
 package ViewGraphic;
 
-import Controller.LoginMenuController;
+import Controller.*;
 import Model.ApplicationData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

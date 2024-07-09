@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
 public class SignUpMenuViewController {
+    @FXML
+    private Label randomPassword;
     @FXML
     private TextField nickNameLabel;
     @FXML
@@ -54,4 +57,16 @@ public class SignUpMenuViewController {
         });
     }
 
+    public void randomPasswordGenerator(MouseEvent mouseEvent) {
+        String tempPassword = RegistryMenuController.randomPasswordMaker();
+        randomPassword.setText(tempPassword);
+    }
+
+    public void goBack(MouseEvent mouseEvent) {
+        Stage stage = ApplicationData.getStage();
+        stage.setScene(LoginMenu.getScene());
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.show();
+    }
 }

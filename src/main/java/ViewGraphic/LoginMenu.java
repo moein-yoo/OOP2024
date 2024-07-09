@@ -12,9 +12,18 @@ import javafx.stage.Stage;
 
 public class LoginMenu extends Application {
     private LoginMenuViewController controller;
+    private static Scene scene;
 
     public static void main(String[] args){
         launch(args);
+    }
+
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static void setScene(Scene scene) {
+        LoginMenu.scene = scene;
     }
 
     @Override
@@ -26,7 +35,8 @@ public class LoginMenu extends Application {
         ApplicationData.setLoginMenu(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
         Pane pane = fxmlLoader.load(LoginMenu.class.getResource("/FXML/LoginMenu.fxml"));
-        stage.setScene(new Scene(pane));
+        scene = new Scene(pane);
+        stage.setScene(scene);
         stage.setResizable(false);
         pane.setBackground(new Background(createBackgroundImage()));
         stage.centerOnScreen();
