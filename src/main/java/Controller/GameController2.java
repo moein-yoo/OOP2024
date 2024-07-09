@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class GameController2 {
     private static Game game;
     public static boolean gameover=false;
+    boolean flag=false;
     public Button backbutton;
     public Label hostUsername;
     public Label hosthp;
@@ -211,13 +212,39 @@ public class GameController2 {
 
 
         for(int j=0;j<21;j++) {
+            int finalJ1 = j;
+            hostCells[j].setOnDragDropped(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent dragEvent) {
+                    flag=true;
+                    int r = 0;
+                    while (!selection[r] && r < 6)
+                        r++;
+                    if (r == 6)
+                        return;
+                    try {
+                        placeCard(r, finalJ1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            hostCells[j].setOnDragOver(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent dragEvent) {
+                    Dragboard db = dragEvent.getDragboard();
+                    if (db.hasString()) {
+                        dragEvent.acceptTransferModes( TransferMode.COPY_OR_MOVE);}
+                }
+            });
 
             int finalJ = j;
-            hostCells[j].setOnDragOver(new EventHandler<DragEvent>() {
+            hostCells[j].setOnDragEntered(new EventHandler<DragEvent>() {
                 @Override
                 public void handle(DragEvent dragEvent) {
                     if (!game.isHostTurn())
                         return;
+                    flag=false;
                     int r = 0;
                     while (!selection[r] && r < 6)
                         r++;
@@ -236,7 +263,7 @@ public class GameController2 {
             hostCells[j].setOnDragExited(new EventHandler<DragEvent>() {
                 @Override
                 public void handle(DragEvent dragEvent) {
-                    if (!game.isHostTurn())
+                    if (!game.isHostTurn() || flag)
                         return;
                     int r = 0;
                     while (!selection[r] && r < 6)
@@ -259,13 +286,39 @@ public class GameController2 {
             });
         }
         for(int j=0;j<21;j++) {
+            int finalJ1 = j;
+            guestCells[j].setOnDragDropped(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent dragEvent) {
+                    flag=true;
+                    int r = 0;
+                    while (!selection[r] && r < 6)
+                        r++;
+                    if (r == 6)
+                        return;
+                    try {
+                        placeCard(r, finalJ1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            guestCells[j].setOnDragOver(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent dragEvent) {
+                    Dragboard db = dragEvent.getDragboard();
+                    if (db.hasString()) {
+                        dragEvent.acceptTransferModes( TransferMode.COPY_OR_MOVE);}
+                }
+            });
 
             int finalJ = j;
-            guestCells[j].setOnDragOver(new EventHandler<DragEvent>() {
+            guestCells[j].setOnDragEntered(new EventHandler<DragEvent>() {
                 @Override
                 public void handle(DragEvent dragEvent) {
                     if (game.isHostTurn())
                         return;
+                    flag=false;
                     int r = 0;
                     while (!selection[r] && r < 6)
                         r++;
@@ -284,7 +337,7 @@ public class GameController2 {
             guestCells[j].setOnDragExited(new EventHandler<DragEvent>() {
                 @Override
                 public void handle(DragEvent dragEvent) {
-                    if (game.isHostTurn())
+                    if (game.isHostTurn() || flag)
                         return;
                     int r = 0;
                     while (!selection[r] && r < 6)
@@ -532,7 +585,7 @@ public class GameController2 {
             checkBrakes();
             buffCardPossibly(i);
             nextTurn();
-            if(checkPossibleBonusForHost())
+            if(checkPossibleBonusForHost());
                 giveBonus(true);
         }
         if(!game.isHostTurn()){
@@ -558,8 +611,54 @@ public class GameController2 {
             checkBrakes();
             buffCardPossibly(i);
             nextTurn();
-            if(checkPossibleBonusForGuest())
-                giveBonus(false);
+            if(checkPossibleBonusForGuest());
+             giveBonus(false);
+        }
+    }
+    public void giveBonus(boolean forHost) throws InterruptedException {
+        String str=turnSolver.getText();
+        if(forHost){
+            turnSolver.setText("Bonus activated for host!");
+            Thread.sleep(1000);
+        }
+        if(!forHost){
+            turnSolver.setText("Bonus activated for guest!");
+            Thread.sleep(1000);
+        }
+        int a=ApplicationData.getRandom().nextInt(4);
+        if(a==0 || a==1){
+            turnSolver.setText("extra card this round!");
+            turnSolver.setTextFill(Paint.valueOf("#f54290"));
+            Thread.sleep(1000);
+            turnSolver.setTextFill(Paint.valueOf("#000000"));
+            turnSolver.setText(str);
+            Card card=game.randomCardReplace(forHost);
+            if(forHost)
+                game.getHostCardsAtHand().add(card);
+            else
+                game.getGuestCardsAtHand().add(card);
+        }
+        if(a==2){
+            turnSolver.setText("xp earned!");
+            turnSolver.setTextFill(Paint.valueOf("#f54290"));
+            Thread.sleep(1000);
+            turnSolver.setTextFill(Paint.valueOf("#000000"));
+            turnSolver.setText(str);
+            if(forHost)
+                ApplicationData.getHost().increaseXP(1000);
+            if(!forHost)
+                ApplicationData.getGuest().increaseXP(1000);
+        }
+        if(a==3){
+            turnSolver.setText("coin earned!");
+            turnSolver.setTextFill(Paint.valueOf("#f54290"));
+            Thread.sleep(1000);
+            turnSolver.setTextFill(Paint.valueOf("#000000"));
+            turnSolver.setText(str);
+            if(forHost)
+                ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+20);
+            if(!forHost)
+                ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+20);
         }
     }
     public void checkBrakes(){
@@ -616,7 +715,7 @@ public class GameController2 {
         if(a<4){
             String str=turnSolver.getText();
             turnSolver.setText("Card Buffed!");
-            TimeUnit.SECONDS.sleep(2);
+            Thread.sleep(2000);
             turnSolver.setText(str);
             card.setDamage(card.getDamage()+card.getDuration());
             card.setAccuracy(card.getAccuracy()+3);
