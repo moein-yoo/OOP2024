@@ -5,6 +5,6 @@ module OOP2024 {
     requires java.desktop;
     requires java.sql;
     requires mysql.connector.java;
-//    exports View;
-//    opens View to javafx.fxml;
+    exports ViewGraphic;
+    opens ViewGraphic to javafx.fxml;
 }
