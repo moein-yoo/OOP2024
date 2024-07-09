@@ -53,7 +53,7 @@ public class ProfileMenuViewController {
         nameLabel1.setText(ApplicationData.getHost().getUsername() + " Changing to ->");
         lastNameLabel1.setText(ApplicationData.getHost().getNickname() + " Changing to ->");
         mailLabel1.setText(ApplicationData.getHost().get() + " Changing to ->");
-        userNameLabel1.setText(ApplicationData.getHost().getUserName() + " Changing to ->");
+        userNameLabel1.setText(ApplicationData.getHost().getUsername() + " Changing to ->");
         passwordLabel1.setText(ApplicationData.getHost().getPassword() + " Changing to ->");
         birthCal1.setText(ApplicationData.getHost().getCalendar() + " Changing to ->");
         sexLabel1.setText(ApplicationData.getHost().getSex() + " Changing to ->");

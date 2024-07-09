@@ -1,5 +1,6 @@
 package View;
 import Controller.GameController;
+import Controller.GameController2;
 import Model.ApplicationData;
 import Model.Game;
 
@@ -49,7 +50,7 @@ public class GameView extends Menu{
             if(GameController.gameover){
                 GameController.gameover=false;
                 return true;
-           }
+            }
         }
         return false;
     }
