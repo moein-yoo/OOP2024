@@ -55,7 +55,7 @@ public class RegistryMenuView extends Menu{
                     matcher = getCommandMatcher(input,String.valueOf(patterns[5]));
                     matcher.find();
                     entered[5] = matcher.group("answer");
-                    System.out.println(RegistryMenuController.signin(entered));
+                    System.out.println(RegistryMenuController.signUp(entered));
                 }else {
                     ejra = false;
                 }

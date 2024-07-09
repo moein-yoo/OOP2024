@@ -1,11 +1,14 @@
 package Model;
 
+import Controller.GameController;
+import ViewGraphic.*;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.Math.min;
-import static java.lang.Math.pow;
 
 public class ApplicationData {
     private static ArrayList<User> userArrayList;
@@ -22,6 +25,13 @@ public class ApplicationData {
     private static int betCost;
     private static boolean secondLogin = false;
     private static Game game;
+
+    //Graphic Addition
+    private static Stage stage;
+    private static LoginMenu loginMenu;
+    private static ProfileMenu profileMenu;
+    private static SignUpMenu signUpMenu;
+    //
 
 
     public static User getHost() {
@@ -148,6 +158,38 @@ public class ApplicationData {
 
     public static void setGame(Game game) {
         ApplicationData.game = game;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        ApplicationData.stage = stage;
+    }
+
+    public static LoginMenu getLoginMenu() {
+        return loginMenu;
+    }
+
+    public static void setLoginMenu(LoginMenu loginMenu) {
+        ApplicationData.loginMenu = loginMenu;
+    }
+
+    public static ProfileMenu getProfileMenu() {
+        return profileMenu;
+    }
+
+    public static void setProfileMenu(ProfileMenu profileMenu) {
+        ApplicationData.profileMenu = profileMenu;
+    }
+
+    public static SignUpMenu getSignUpMenu() {
+        return signUpMenu;
+    }
+
+    public static void setSignUpMenu(SignUpMenu signUpMenu) {
+        ApplicationData.signUpMenu = signUpMenu;
     }
 
     public void setRandom(Random random) {

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class RegistryMenuController {
 
-    public static String signin(String[] enteredUser) {
+    public static String signUp(String[] enteredUser) {
         String tempUsername = enteredUser[0];
         String tempNickName= enteredUser[1];
 //        (String username,String nickname,String password,String email,String passwordRecoveryQuestion,int passType,int character)
