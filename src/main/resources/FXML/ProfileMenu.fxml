@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="644.0" prefWidth="717.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ProfileMenuViewController"
+<AnchorPane fx:id="anchorPane" prefHeight="644.0" prefWidth="717.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.ProfileMenuViewController"
 >
     <children>
         <TextField fx:id="nameLabel" layoutX="284.0" layoutY="117.0" promptText="Name" />
