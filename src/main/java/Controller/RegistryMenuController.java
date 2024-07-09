@@ -122,9 +122,9 @@ public class RegistryMenuController {
         String string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
         Random random = ApplicationData.getRandom();
         StringBuilder tempPassword = new StringBuilder(String.valueOf(string.charAt(random.nextInt(26)) + string.charAt(random.nextInt(26, 52))
-                + string.charAt(random.nextInt(52, 62)) + string.charAt(random.nextInt(62, 80))));
+                + string.charAt(random.nextInt(52, 62)) + string.charAt(random.nextInt(62, 70))));
         for (int i = 0; i < 4; i++) {
-            tempPassword.append(string.charAt(random.nextInt(80)));
+            tempPassword.append(string.charAt(random.nextInt(70)));
         }
         return tempPassword.toString();
     }

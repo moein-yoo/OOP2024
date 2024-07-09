@@ -31,6 +31,7 @@ public class ApplicationData {
     private static LoginMenu loginMenu;
     private static ProfileMenu profileMenu;
     private static SignUpMenu signUpMenu;
+    private static MainMenu mainMenu;
     //
 
 
@@ -190,6 +191,14 @@ public class ApplicationData {
 
     public static void setSignUpMenu(SignUpMenu signUpMenu) {
         ApplicationData.signUpMenu = signUpMenu;
+    }
+
+    public static MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    public static void setMainMenu(MainMenu mainMenu) {
+        ApplicationData.mainMenu = mainMenu;
     }
 
     public void setRandom(Random random) {
