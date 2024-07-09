@@ -6,8 +6,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="644.0" prefWidth="717.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.SignUpMenuViewController">
+<!--stylesheets="@../CSS/style.css"-->
+<AnchorPane prefHeight="644.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.SignUpMenuViewController">
    <children>
       <TextField fx:id="nickNameLabel" layoutX="290.0" layoutY="140.0" promptText="Nickname" />
       <TextField fx:id="userNameLabel" layoutX="290.0" layoutY="82.0" promptText="Usename" />
@@ -28,7 +28,7 @@
          </font></Label>
       <Button fx:id="signUpButton" layoutX="328.0" layoutY="591.0" mnemonicParsing="false" text="Signup" textFill="#ffa300">
          <font>
-            <Font name="Comic Sans MS" size="4.0" />
+            <Font name="Comic Sans MS" size="12.0" />
          </font></Button>
       <Label fx:id="warningLabel" layoutX="15.0" layoutY="550.0" textFill="RED">
          <font>
@@ -37,10 +37,13 @@
       </Label>
       <Button layoutX="14.0" layoutY="591.0" mnemonicParsing="false" onMouseClicked="#randomPasswordGenerator" text="Random Password Generator" />
       <Button layoutX="633.0" layoutY="591.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Back" />
-      <Label fx:id="randomPassword" layoutX="292.0" layoutY="240.0" />
-      <Label fx:id="captcha" layoutX="35.0" layoutY="222.0" text="Captcha :">
+      <Label fx:id="randomPassword" layoutX="292.0" layoutY="240.0" textFill="red">
          <font>
-            <Font size="6.0" />
+         <Font size="8.0" />
+         </font></Label>
+      <Label fx:id="captcha" layoutX="35.0" layoutY="222.0" text="Captcha :" textFill="RED">
+         <font>
+            <Font size="8.0" />
          </font>
       </Label>
       <TextField fx:id="captchaAnswer" layoutX="288.0" layoutY="396.0" promptText="captchaAnswer" />

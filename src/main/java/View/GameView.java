@@ -1,6 +1,5 @@
 package View;
 import Controller.GameController;
-import Controller.GameController2;
 import Model.ApplicationData;
 import Model.Game;
 

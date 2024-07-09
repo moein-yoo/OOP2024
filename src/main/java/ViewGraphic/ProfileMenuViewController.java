@@ -25,7 +25,7 @@ public class ProfileMenuViewController {
         ApplicationData.getProfileMenu().setController(this);
         choiceBox.getItems().addAll("Username", "Nickname", "Password", "Email");
         choiceBox.setOnAction(mouseEvent -> {
-            textField.setText(choiceBox.getValue());
+            textField.setPromptText(choiceBox.getValue());
         });
         save.setOnMouseClicked(mouseEvent -> {
             if (choiceBox.getValue().equals("Username")) {
@@ -42,7 +42,11 @@ public class ProfileMenuViewController {
             }
         });
         backButton.setOnMouseClicked(mouseEvent -> {
-
+            Stage stage = ApplicationData.getStage();
+            stage.setScene(MainMenu.getScene());
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.show();
         });
     }
 

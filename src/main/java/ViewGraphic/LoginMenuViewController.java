@@ -4,6 +4,8 @@ import Controller.ProfileMenuController;
 import Controller.RegistryMenuController;
 import Model.ApplicationData;
 import Model.User;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -11,6 +13,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class LoginMenuViewController {
     @FXML
@@ -28,24 +31,38 @@ public class LoginMenuViewController {
     @FXML
     private Label messageLabel;
     private boolean passForgetting = false;
+    private Timeline timeline;
+    @FXML
+    private Label timerLabel;
+    private int timeSeconds = 5;
+
+
     @FXML
     public void initialize() {
         ApplicationData.getLoginMenu().setController(this);
     }
 
     public void login(MouseEvent mouseEvent) {
+        timeSeconds = 5;
         if (!passForgetting) {
             String[] entered = {usernameLabel.getText(), passwordLabel.getText()};
-            String outcome = RegistryMenuController.login(entered);
+            String outcome = RegistryMenuController.loginGraphic(entered);
             if (outcome.contains("successfully")) {
                 for (User user : ApplicationData.getUserArrayList()) {
                     if (user.getUsername().equals(usernameLabel.getText())) {
                         ApplicationData.setHost(user);
+                        try {
+                            new MainMenu().start(ApplicationData.getStage());
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
             else {
+                passwordLabel.setDisable(true);
                 messageLabel.setText(outcome);
+                startTimer();
             }
         }
         else {
@@ -59,8 +76,16 @@ public class LoginMenuViewController {
                             String outcome = ProfileMenuController.changePassword(passwordLabel.getText(), user);
                             if (outcome.contains("successfully")) {
                                 ApplicationData.setHost(user);
+                                try {
+                                    new MainMenu().start(ApplicationData.getStage());
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
-                            else messageLabel.setText(outcome);
+                            else {
+                                messageLabel.setText(outcome);
+                                startTimer();
+                            }
                         }
                     }
                 }
@@ -117,4 +142,23 @@ public class LoginMenuViewController {
             recoveryQuestionAnswer.setDisable(false);
         }
     }
+
+    private void startTimer() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1), e -> {
+                    timeSeconds--;
+                    timerLabel.setText(timeSeconds + " seconds left");
+                    if (timeSeconds == 0) {
+                        timeline.stop();
+                    }
+                })
+        );
+        timeline.play();
+    }
+
 }

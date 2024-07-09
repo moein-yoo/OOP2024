@@ -74,6 +74,29 @@ public class RegistryMenuController {
         }
         return null;
     }
+    public static String loginGraphic(String[] enteredUser) {
+        String tempUsername = enteredUser[0];
+        String tempPassword = enteredUser[1];
+        if (tempPassword.equals("admin") && tempUsername.equals("admin"))
+            return "Admin user detected!, Logging into AdminMenu";
+        else if (!isUserValid(tempUsername)) {
+            return "username doesn't exist!";
+        }
+        else {
+            for (int i = 0; i < ApplicationData.getUserArrayList().size(); i++) {
+                if (ApplicationData.getUserArrayList().get(i).getUsername().equals(tempUsername)) {
+                    if (!ApplicationData.getUserArrayList().get(i).getPassword().equals(tempPassword)) {
+                        return "Password is not valid try again after 5 seconds!";
+                    }
+                    else {
+                        ApplicationData.setHost(ApplicationData.getUserArrayList().get(i));
+                        return "user successfully logged in!";
+                    }
+                }
+            }
+        }
+        return null;
+    }
     public static ArrayList<String> userList() {
         ArrayList<String> outcome = new ArrayList<>();
         outcome.add(ApplicationData.getUserArrayList().size() + " users have registered!\n");
@@ -108,7 +131,7 @@ public class RegistryMenuController {
 
     public static boolean isPasswordCorrect(String tempPassword) {
         boolean digLet=false,upLet=false,loLet=false,charLet=false,cor=true;
-        if (tempPassword.matches("[A-Za-z0-9@!#$%^&*]*") && tempPassword.length()<40 && tempPassword.length()>8) {
+        if (tempPassword.matches("[A-Za-z0-9@!#$%^&*]*") && tempPassword.length()<=40 && tempPassword.length()>=8) {
             return true;
         }
         return false;
@@ -121,8 +144,11 @@ public class RegistryMenuController {
     public static String randomPasswordMaker() {
         String string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
         Random random = ApplicationData.getRandom();
-        StringBuilder tempPassword = new StringBuilder(String.valueOf(string.charAt(random.nextInt(26)) + string.charAt(random.nextInt(26, 52))
-                + string.charAt(random.nextInt(52, 62)) + string.charAt(random.nextInt(62, 70))));
+        StringBuilder tempPassword = new StringBuilder();
+        tempPassword.append(string.charAt(random.nextInt(26)));
+        tempPassword.append(string.charAt(random.nextInt(26, 52)));
+        tempPassword.append(string.charAt(random.nextInt(52, 62)));
+        tempPassword.append(string.charAt(random.nextInt(62, 70)));
         for (int i = 0; i < 4; i++) {
             tempPassword.append(string.charAt(random.nextInt(70)));
         }

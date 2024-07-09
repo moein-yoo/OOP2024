@@ -43,6 +43,7 @@ public class SignUpMenuViewController {
         recoveryQuestionBox.getItems().addAll("Where is your hometown?", "Who is your first school teacher?", "Who is your love?!");
         captchaString = RegistryMenuView.captchaAsciiArtCheckerGraphic();
         captcha.setText(captchaString[0]);
+        recoveryQuestionBox.setValue("Where is your hometown?");
         ApplicationData.getSignUpMenu().setController(this);
         signUpButton.setOnMouseClicked(mouseEvent -> {
             String[] enteredUser = new String[6];
