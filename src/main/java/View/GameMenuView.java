@@ -4,6 +4,8 @@ import Controller.GameMenuController;
 import Controller.RegistryMenuController;
 import Model.ApplicationData;
 import Model.Game;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
