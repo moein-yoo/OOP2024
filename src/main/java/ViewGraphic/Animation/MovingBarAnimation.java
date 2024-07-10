@@ -31,7 +31,7 @@ public class MovingBarAnimation extends Transition {
     protected void interpolate(double v){
         System.out.println("entered interpolate func");
         double a=bar.getLayoutX();
-        a+=7;
+        a+=3;
         bar.setLayoutX(a);
         int i=getCell(a);
         if(i>20)

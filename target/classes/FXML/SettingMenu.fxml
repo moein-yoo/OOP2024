@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.SettingMenuViewController">
+    <children>
+        <Button fx:id="backButton" layoutX="270.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Back" />
+        <ProgressBar fx:id="songProgressBar" layoutY="296.0" prefHeight="18.0" prefWidth="600.0" progress="0.0" />
+        <Button fx:id="playButton" layoutX="300.0" layoutY="316.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="32.0" prefWidth="80.0" text="PLAY" />
+        <Button fx:id="pauseButton" layoutX="219.0" layoutY="316.0" mnemonicParsing="false" onAction="#pauseMedia" prefHeight="32.0" prefWidth="80.0" text="PAUSE" />
+        <Button fx:id="changeButton" layoutY="316.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="32.0" prefWidth="80.0" text="NEXT" />
+        <Slider fx:id="volumeSlider" blockIncrement="1" layoutX="223.0" layoutY="239.0" value="50.0" />
+        <Slider fx:id="songTimeSlider" layoutY="286.0" prefHeight="14.0" prefWidth="600.0" value="0.5" />
+        <Label fx:id="volumeSliderValue" layoutX="375.0" layoutY="237.0" prefHeight="17.0" />
+        <Label layoutX="272.0" layoutY="222.0" text="Volume" />
+      <Button fx:id="quitButton" layoutX="561.0" layoutY="345.0" mnemonicParsing="false" text="Quit" />
+    </children>
+
+</AnchorPane>

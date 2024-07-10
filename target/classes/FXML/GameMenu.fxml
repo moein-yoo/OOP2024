@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.GameMenuViewController">
+   <children>
+      <Label layoutX="35.0" layoutY="52.0" text="Username" />
+      <Label layoutX="37.0" layoutY="124.0" text="Password" />
+      <Label layoutX="23.0" layoutY="14.0" text="Guest Login" />
+      <Label fx:id="betAmountLabel" layoutX="261.0" layoutY="216.0" text="Bet Amount" />
+      <TextField fx:id="usernameText" layoutY="74.0" promptText="username" />
+      <TextField fx:id="betAmountText" layoutX="226.0" layoutY="238.0" promptText="password" />
+      <PasswordField fx:id="passwordText" layoutY="146.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="225.0" layoutY="146.0" prefWidth="150.0" />
+      <Button layoutX="251.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#startGame" text="Start Game" />
+      <Button layoutX="548.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#goBack" text="Back" />
+      <Label fx:id="warningLabel" layoutX="9.0" layoutY="378.0" />
+      <Label layoutX="34.0" layoutY="189.0" text="Character" />
+      <Label layoutX="472.0" layoutY="76.0" text="Character" />
+      <Label layoutX="420.0" layoutY="24.0" text="Host  Character Selection" />
+      <ChoiceBox fx:id="guestBox" layoutX="-1.0" layoutY="214.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="hostBox" layoutX="430.0" layoutY="97.0" prefWidth="150.0" />
+      <Label layoutX="282.0" layoutY="124.0" text="Mode" />
+      <Label fx:id="timerLabel" layoutY="297.0" />
+   </children>
+</AnchorPane>
