@@ -97,6 +97,29 @@ public class RegistryMenuController {
         }
         return null;
     }
+    public static String loginGraphicForGuest(String[] enteredUser) {
+        String tempUsername = enteredUser[0];
+        String tempPassword = enteredUser[1];
+        if (tempPassword.equals("admin") && tempUsername.equals("admin"))
+            return "Admin user detected!, Logging into AdminMenu";
+        else if (!isUserValid(tempUsername)) {
+            return "username doesn't exist!";
+        }
+        else {
+            for (int i = 0; i < ApplicationData.getUserArrayList().size(); i++) {
+                if (ApplicationData.getUserArrayList().get(i).getUsername().equals(tempUsername)) {
+                    if (!ApplicationData.getUserArrayList().get(i).getPassword().equals(tempPassword)) {
+                        return "Password is not valid try again after 5 seconds!";
+                    }
+                    else {
+                        ApplicationData.setGuest(ApplicationData.getUserArrayList().get(i));
+                        return "user successfully logged in!";
+                    }
+                }
+            }
+        }
+        return null;
+    }
     public static ArrayList<String> userList() {
         ArrayList<String> outcome = new ArrayList<>();
         outcome.add(ApplicationData.getUserArrayList().size() + " users have registered!\n");

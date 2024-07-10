@@ -39,9 +39,10 @@ public class GameMenuView extends Menu {
             } else if (input.matches(String.valueOf(patterns[2]))) {
                 if (ApplicationData.isSecondLogin() && !ApplicationData.getHost().getCharacter().equals("nothing")
                         && !ApplicationData.getGuest().getCharacter().equals("nothing")) {
-                    Game game = new Game();
+                    Game game;
                     if (ApplicationData.isBetStatus())
                         game = new Game(ApplicationData.getBetCost());
+                    else game = new Game();
                     ApplicationData.setGame(game);
                     return GameView.run(game);
                 }

@@ -18,6 +18,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static Controller.GameController.giveBonus;
+
 public class GameController2 {
     private static Game game;
     public static boolean gameover=false;

@@ -7,5 +7,7 @@ module OOP2024 {
     requires mysql.connector.java;
     exports ViewGraphic;
     opens ViewGraphic to javafx.fxml;
+    exports Controller;
+    opens Controller to javafx.fxml;
 }
 ///

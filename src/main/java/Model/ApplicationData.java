@@ -36,6 +36,7 @@ public class ApplicationData {
     private static HistoryMenu historyMenu;
     private static SettingMenu settingMenu;
     private static ShopMenu shopMenu;
+    private static ViewGraphic.Game gameGraphic;
     //
 
 
@@ -235,6 +236,14 @@ public class ApplicationData {
 
     public static void setShopMenu(ShopMenu shopMenu) {
         ApplicationData.shopMenu = shopMenu;
+    }
+
+    public static ViewGraphic.Game getGameGraphic() {
+        return gameGraphic;
+    }
+
+    public static void setGameGraphic(ViewGraphic.Game gameGraphic) {
+        ApplicationData.gameGraphic = gameGraphic;
     }
 
     public void setRandom(Random random) {

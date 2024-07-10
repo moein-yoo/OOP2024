@@ -60,7 +60,7 @@ public class LoginMenuViewController {
                 }
             }
             else {
-                passwordLabel.setDisable(true);
+                //passwordLabel.setDisable(true);
                 messageLabel.setText(outcome);
                 startTimer();
             }
@@ -110,7 +110,7 @@ public class LoginMenuViewController {
         if (!passForgetting) {
             passForgetting = true;
             recoveryQuestionAnswer.setOpacity(1);
-            recoveryQuestionAnswer.setDisable(true);
+            recoveryQuestionAnswer.setDisable(false);
             boolean vojood = false;
             for (User user : ApplicationData.getUserArrayList()) {
                 if (user.getUsername().equals(usernameLabel.getText())) {
@@ -130,7 +130,7 @@ public class LoginMenuViewController {
                 passForgetting = false;
                 radioButton.setDisable(false);
                 recoveryQuestionAnswer.setOpacity(0);
-                recoveryQuestionAnswer.setDisable(false);
+                recoveryQuestionAnswer.setDisable(true);
             }
         }
         else {
@@ -159,6 +159,9 @@ public class LoginMenuViewController {
                 })
         );
         timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+            passwordLabel.setDisable(false);
+        });
     }
 
 }
