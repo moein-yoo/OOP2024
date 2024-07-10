@@ -11,13 +11,13 @@
    <children>
       <TableView fx:id="historyTable" layoutY="-2.0" prefHeight="366.0" prefWidth="706.0">
         <columns>
-            <TableColumn prefWidth="105.14284956455231" text="Award" />
-            <TableColumn prefWidth="114.8571548461914" text="Penalty" />
-            <TableColumn prefWidth="191.4285888671875" text="Opponent" />
-          <TableColumn minWidth="6.857147216796875" prefWidth="72.0" text="Opp Level" />
-          <TableColumn prefWidth="74.28573608398438" text="Your Level" />
-            <TableColumn prefWidth="44.5714111328125" text="Result" />
-            <TableColumn prefWidth="106.85711669921875" text="Time" />
+            <TableColumn fx:id="awardColumn" prefWidth="105.14284956455231" text="Award" />
+            <TableColumn fx:id="penaltyColumn" prefWidth="114.8571548461914" text="Penalty" />
+            <TableColumn fx:id="oppColumn" prefWidth="191.4285888671875" text="Opponent" />
+          <TableColumn fx:id="oppLevColumn" minWidth="6.857147216796875" prefWidth="72.0" text="Opp Level" />
+          <TableColumn fx:id="hostLevColumn" prefWidth="74.28573608398438" text="Your Level" />
+            <TableColumn fx:id="resultColumn" prefWidth="44.5714111328125" text="Result" />
+            <TableColumn fx:id="timeColumn" prefWidth="106.85711669921875" text="Time" />
         </columns>
       </TableView>
       <Button fx:id="awardSort" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Sort" textFill="RED">
