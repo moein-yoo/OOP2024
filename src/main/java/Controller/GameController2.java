@@ -162,6 +162,7 @@ public class GameController2 {
     public boolean [] selection;
     @FXML
     public void initialize(){
+        setGame(ApplicationData.getGame());
         root.getChildren().remove(hostComment);
         root.getChildren().remove(guestComment);
         if(!game.isHostTurn())
