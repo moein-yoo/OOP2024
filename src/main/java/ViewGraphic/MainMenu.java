@@ -27,6 +27,7 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //MainMenu.makeSinger();
+        ApplicationData.setPlayingMode(false);
         ApplicationData.setStage(stage);
         ApplicationData.getStage().getIcons().add(new Image(LoginMenu.class.getResource("/Media/Images/Logo.jpeg").toExternalForm()));
         ApplicationData.getStage().setTitle("M&S Card Game");

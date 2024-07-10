@@ -67,7 +67,7 @@ public class ShopMenuView {
                     System.out.println("invalid card!");
                 }
                 else{
-                    ShopMenuController.buyCard(cardTranslator(buym.group(1),cardlevel));
+                    System.out.println(ShopMenuController.buyCard(cardTranslator(buym.group(1),cardlevel)));
                 }
 
             }
@@ -83,7 +83,7 @@ public class ShopMenuView {
                 if(!found){
                     System.out.println("You don't own ths card");}
                 if(found){
-                    ShopMenuController.upgradeCard(cardTranslator(upgradem.group(1),cardlevel));
+                    System.out.println(ShopMenuController.upgradeCard(cardTranslator(upgradem.group(1),cardlevel)));
                 }
             }
             else {

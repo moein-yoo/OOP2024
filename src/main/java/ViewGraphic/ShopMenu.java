@@ -41,8 +41,8 @@ public class ShopMenu extends Application {
         stage.show();
     }
 
-    private static BackgroundImage createBackgroundImage() {
-        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/ShopMenu.jpeg").toExternalForm(), 600, 400, false, false);
+    static BackgroundImage createBackgroundImage() {
+        Image image = new Image(ShopMenu.class.getResource("/Media/Images/Menus/ShopMenu.jpeg").toExternalForm(), 600, 400, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
