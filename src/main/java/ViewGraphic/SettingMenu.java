@@ -44,7 +44,7 @@ public class SettingMenu extends Application {
         stage.show();
     }
 
-    private static BackgroundImage createBackgroundImage() {
+    static BackgroundImage createBackgroundImage() {
         Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/SettingMenu.jpeg").toExternalForm(), 600, 400, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,

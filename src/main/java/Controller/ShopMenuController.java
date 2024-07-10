@@ -30,32 +30,33 @@ public class ShopMenuController {
             showCardProperty(card1);
         }
     }
-    public static void upgradeCard(Card card){
+    public static String upgradeCard(Card card){
 
         if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
-            System.out.println("Not enough coins or low level");
-        return;}
+            return ("Not enough coins or low level");
+        }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
         ApplicationData.getHost().removeFromPossessedCards(card);
         ApplicationData.getHost().addToPossessedCards(card.NextLevelCard());
 
-        System.out.println("card upgraded successfully!");
         User.updateUserInSQL(ApplicationData.getHost());
+        return ("card upgraded successfully!");
     }
-    public static void buyCard(Card card){
+    public static String buyCard(Card card){
         boolean found=false;
         for(Card e:ApplicationData.getHost().getAllPossessedCards()) {
             if (card.getName().equals(e.getName()))
                 found = true;
         }
         if(found){
-            System.out.println("You already have this card");return;}
+            return "You already have this card";
+        }
         if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
-            System.out.println("Not enough coins or low level");
-            return;}
+            return ("Not enough coins or low level");
+        }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
         ApplicationData.getHost().addToPossessedCards(card);
-        System.out.println("card is bought");
         User.updateUserInSQL(ApplicationData.getHost());
+        return ("card is bought");
     }
 }

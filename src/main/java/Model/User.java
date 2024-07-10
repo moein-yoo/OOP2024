@@ -236,6 +236,9 @@ public class User {
         return a;
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
+    public boolean isCardExist(Card card) {
+        return allPossessedCards.contains(card);
+    }
     public void buyCard(Card i){
         //age mikhay barresi kon card az ghabl mojoode ya na,age mojoode update she va...
         this.allPossessedCards.add(i);

@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.GameController;
+import javafx.scene.image.Image;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class Card {
     private String character;
     private int upgradeCost;
     private int level = 0;
+    private Image image;
 
      static String url="jdbc:mysql://localhost:3306/project";
-     //static String url = "C:\\Users\\moein\\AppData\\Roaming\\JetBrains\\IntelliJIdea2023.3\\jdbc-drivers\\MySQL ConnectorJ\\8.2.0\\com\\mysql\\mysql-connector-j\\8.2.0\\mysql-connector-j-8.2.0.jar";
      static String username="root";
 //     static String password="@9984moeiN";
      static String password="soroush1384";
@@ -112,6 +113,7 @@ public class Card {
     }
         public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
+        //this.image = new Image(Card.class.getResource("/Media/Images/Cards/" + name + ".jpeg").toExternalForm());
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;
@@ -240,5 +242,13 @@ public class Card {
 
     public void setUpgradeCost(int upgradeCost) {
         this.upgradeCost = upgradeCost;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

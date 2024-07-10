@@ -2,6 +2,8 @@ package Model;
 
 import Controller.GameController;
 import ViewGraphic.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ public class ApplicationData {
     private static SettingMenu settingMenu;
     private static ShopMenu shopMenu;
     private static ViewGraphic.Game gameGraphic;
+    private static Media media = new Media(ApplicationData.class.getResource("/Media/Music/0.mp3").toExternalForm());
+    private static int mediaIndex = 0;
+    private static MediaPlayer mediaPlayer;
+    private static boolean playingMode = false;
     //
 
 
@@ -244,6 +250,38 @@ public class ApplicationData {
 
     public static void setGameGraphic(ViewGraphic.Game gameGraphic) {
         ApplicationData.gameGraphic = gameGraphic;
+    }
+
+    public static Media getMedia() {
+        return media;
+    }
+
+    public static void setMedia(Media media) {
+        ApplicationData.media = media;
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public static void setMediaPlayer(MediaPlayer mediaPlayer) {
+        ApplicationData.mediaPlayer = mediaPlayer;
+    }
+
+    public static boolean isPlayingMode() {
+        return playingMode;
+    }
+
+    public static void setPlayingMode(boolean playingMode) {
+        ApplicationData.playingMode = playingMode;
+    }
+
+    public static int getMediaIndex() {
+        return mediaIndex;
+    }
+
+    public static void setMediaIndex(int mediaIndex) {
+        ApplicationData.mediaIndex = mediaIndex;
     }
 
     public void setRandom(Random random) {

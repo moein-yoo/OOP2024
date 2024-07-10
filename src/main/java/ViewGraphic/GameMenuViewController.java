@@ -78,6 +78,7 @@ public class GameMenuViewController {
             }
             else game = new Game();
             ApplicationData.setGame(game);
+            ApplicationData.setPlayingMode(true);
             Stage stage = ApplicationData.getStage();
             try {
                 new ViewGraphic.Game().start(stage);

@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class LoginMenu extends Application {
@@ -33,6 +34,8 @@ public class LoginMenu extends Application {
 //        Card.initialize();
 //        User.initialize();
 //        MatchData.initialize();
+        ApplicationData.setMediaPlayer(new MediaPlayer(ApplicationData.getMedia()));
+        ApplicationData.getMediaPlayer().play();
         ApplicationData.setStage(stage);
         ApplicationData.getStage().getIcons().add(new Image(LoginMenu.class.getResource("/Media/Images/Logo.jpeg").toExternalForm()));
         ApplicationData.getStage().setTitle("M&S Card Game");
