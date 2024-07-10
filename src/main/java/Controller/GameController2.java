@@ -4,6 +4,7 @@ import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
 import ViewGraphic.Animation.MovingBarAnimation;
+import ViewGraphic.LoginMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,15 +13,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameController2 {
+    javafx.scene.image.Image holeImage=new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/holeImage.png")));
+
     private static Game game;
     boolean flag=false;
     boolean commentOn=false;
+    @FXML
+    public Label hostTurnNum;
+    @FXML
+    public Label guestTurnNum;
     @FXML
     public Rectangle hostComment;
     @FXML
@@ -162,6 +171,8 @@ public class GameController2 {
     public boolean [] selection;
     @FXML
     public void initialize(){
+        hostTurnNum.toFront();
+        guestTurnNum.toFront();
         setGame(ApplicationData.getGame());
         root.getChildren().remove(hostComment);
         root.getChildren().remove(guestComment);
@@ -221,6 +232,10 @@ public class GameController2 {
 
 
         for(int j=0;j<21;j++) {
+            if(game.getHostRowStatus()[j].equals("hole"))
+                hostCells[j].setFill(new ImagePattern(holeImage));
+            if(game.getGuestRowStatus()[j].equals("hole"))
+                guestCells[j].setFill(new ImagePattern(holeImage));
             int finalJ1 = j;
             hostCells[j].setOnDragDropped(new EventHandler<DragEvent>() {
                 @Override
@@ -288,7 +303,7 @@ public class GameController2 {
                             //image shekasteh
                         }
                         if (game.getHostRowStatus()[i].equals("hole")) {
-                            //image hole
+                            hostCells[finalJ].setFill(new ImagePattern(holeImage));
                         }
                     }
                 }
@@ -362,7 +377,7 @@ public class GameController2 {
                             //image shekasteh
                         }
                         if (game.getGuestRowStatus()[i].equals("hole")) {
-                            //image hole
+                            guestCells[finalJ].setFill(new ImagePattern(holeImage));
                         }
                     }
                 }
@@ -537,11 +552,15 @@ public class GameController2 {
     public void nextTurn(){
         if(game.isHostTurn()){
             game.setHostRemainingTurns(game.getHostRemainingTurns()-1);
+            int a=Integer.parseInt(hostTurnNum.getText())-1;
+            hostTurnNum.setText(String.valueOf(a));
             turnSolver.setText("Now guest should play");
         }
         if(!game.isHostTurn()){
-            turnSolver.setText("Now guest should play");
+            turnSolver.setText("Now host should play");
             game.setGuestRemainingTurns(game.getGuestRemainingTurns()-1);
+            int a=Integer.parseInt(guestTurnNum.getText())-1;
+            guestTurnNum.setText(String.valueOf(a));
         }
         game.setHostTurn();
         if(game.getHostRemainingTurns()==0 && game.getGuestRemainingTurns()==0)
@@ -598,6 +617,7 @@ public class GameController2 {
             nextTurn();
             if(checkPossibleBonusForHost());
                 giveBonus(true);
+                return;
         }
         if(!game.isHostTurn()){
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++){
@@ -810,10 +830,11 @@ public class GameController2 {
     public void prop0(MouseEvent mouseEvent) {
         if(!commentOn){
             hostslot0.setLayoutY(hostslot0.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(0).getName()+"\ndur:"+game.getHostCardsAtHand().get(0).getDuration()
             +"\ndamage:"+game.getHostCardsAtHand().get(0).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(0).getAccuracy());
-            root.getChildren().add(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
             hostslot0.setLayoutY(hostslot0.getLayoutY()-10);
@@ -825,10 +846,11 @@ public class GameController2 {
     public void prop1(MouseEvent mouseEvent) {
         if(!commentOn){
             hostslot1.setLayoutY(hostslot1.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(1).getName()+"\ndur:"+game.getHostCardsAtHand().get(1).getDuration()
                     +"\ndamage:"+game.getHostCardsAtHand().get(1).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(1).getAccuracy());
-            root.getChildren().remove(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
             hostslot1.setLayoutY(hostslot1.getLayoutY()-10);
@@ -840,10 +862,11 @@ public class GameController2 {
     public void prop2(MouseEvent mouseEvent) {
         if(!commentOn){
             hostslot2.setLayoutY(hostslot2.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(2).getName()+"\ndur:"+game.getHostCardsAtHand().get(2).getDuration()
                     +"\ndamage:"+game.getHostCardsAtHand().get(2).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(2).getAccuracy());
-            root.getChildren().remove(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
             hostslot2.setLayoutY(hostslot2.getLayoutY()-10);
@@ -855,13 +878,14 @@ public class GameController2 {
     public void prop3(MouseEvent mouseEvent) {
         if(!commentOn){
             hostslot3.setLayoutY(hostslot3.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(3).getName()+"\ndur:"+game.getHostCardsAtHand().get(3).getDuration()
                     +"\ndamage:"+game.getHostCardsAtHand().get(3).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(3).getAccuracy());
-            root.getChildren().add(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
-            hostslot0.setLayoutY(hostslot3.getLayoutY()-10);
+            hostslot3.setLayoutY(hostslot3.getLayoutY()-10);
             commentOn=false;
             root.getChildren().remove(hostComment);
             comment1.setText("");
@@ -869,14 +893,15 @@ public class GameController2 {
     }
     public void prop4(MouseEvent mouseEvent) {
         if(!commentOn){
-            hostslot0.setLayoutY(hostslot4.getLayoutY()+10);
+            hostslot4.setLayoutY(hostslot4.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(4).getName()+"\ndur:"+game.getHostCardsAtHand().get(4).getDuration()
                     +"\ndamage:"+game.getHostCardsAtHand().get(4).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(4).getAccuracy());
-            root.getChildren().add(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
-            hostslot0.setLayoutY(hostslot4.getLayoutY()-10);
+            hostslot4.setLayoutY(hostslot4.getLayoutY()-10);
             commentOn=false;
             root.getChildren().remove(hostComment);
             comment1.setText("");
@@ -887,10 +912,11 @@ public class GameController2 {
             return;
         if(!commentOn){
             hostslot5.setLayoutY(hostslot5.getLayoutY()+10);
+            root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(5).getName()+"\ndur:"+game.getHostCardsAtHand().get(5).getDuration()
                     +"\ndamage:"+game.getHostCardsAtHand().get(5).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(5).getAccuracy());
-            root.getChildren().add(hostComment);
             commentOn=true;
+            comment1.toFront();
         }
         else{
             hostslot5.setLayoutY(hostslot5.getLayoutY()-10);
@@ -902,10 +928,11 @@ public class GameController2 {
     public void prop6(MouseEvent mouseEvent) {
         if(!commentOn){
             guestslot0.setLayoutY(guestslot0.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot0.setLayoutY(guestslot0.getLayoutY()+10);
@@ -917,10 +944,11 @@ public class GameController2 {
     public void prop7(MouseEvent mouseEvent) {
         if(!commentOn){
             guestslot1.setLayoutY(guestslot1.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(1).getName()+"\ndur:"+game.getGuestCardsAtHand().get(1).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(1).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(1).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot1.setLayoutY(guestslot1.getLayoutY()+10);
@@ -932,10 +960,11 @@ public class GameController2 {
     public void prop8(MouseEvent mouseEvent) {
         if(!commentOn){
             guestslot2.setLayoutY(guestslot2.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot2.setLayoutY(guestslot2.getLayoutY()+10);
@@ -947,10 +976,11 @@ public class GameController2 {
     public void prop9(MouseEvent mouseEvent) {
         if(!commentOn){
             guestslot3.setLayoutY(guestslot3.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(3).getName()+"\ndur:"+game.getGuestCardsAtHand().get(3).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(3).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(3).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot3.setLayoutY(guestslot3.getLayoutY()+10);
@@ -962,10 +992,11 @@ public class GameController2 {
     public void prop10(MouseEvent mouseEvent) {
         if(!commentOn){
             guestslot4.setLayoutY(guestslot4.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(4).getName()+"\ndur:"+game.getGuestCardsAtHand().get(4).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(4).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(4).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot4.setLayoutY(guestslot4.getLayoutY()+10);
@@ -979,10 +1010,11 @@ public class GameController2 {
             return;
         if(!commentOn){
             guestslot5.setLayoutY(guestslot5.getLayoutY()-10);
+            root.getChildren().add(guestComment);
             comment2.setText("name:"+game.getGuestCardsAtHand().get(5).getName()+"\ndur:"+game.getGuestCardsAtHand().get(5).getDuration()
                     +"\ndamage:"+game.getGuestCardsAtHand().get(5).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(5).getAccuracy());
-            root.getChildren().add(guestComment);
             commentOn=true;
+            comment2.toFront();
         }
         else{
             guestslot5.setLayoutY(guestslot5.getLayoutY()+10);
