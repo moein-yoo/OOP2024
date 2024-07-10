@@ -9,5 +9,7 @@ module OOP2024 {
     opens ViewGraphic to javafx.fxml;
     exports Controller;
     opens Controller to javafx.fxml;
+    exports ViewGraphic.Animation;
+    opens ViewGraphic.Animation to javafx.fxml;
 }
 ///

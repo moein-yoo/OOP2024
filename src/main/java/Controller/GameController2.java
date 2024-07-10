@@ -3,7 +3,7 @@ package Controller;
 import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
-import ViewGraphic.MovingBarAnimation;
+import ViewGraphic.Animation.MovingBarAnimation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,11 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
-import static Controller.GameController.giveBonus;
 
 public class GameController2 {
     private static Game game;
@@ -45,6 +41,8 @@ public class GameController2 {
     public Label guesthp;
     @FXML
     public Label turnSolver;
+    public static int guestHPint;
+    public static int hostHPint;
 
     @FXML
     AnchorPane root;

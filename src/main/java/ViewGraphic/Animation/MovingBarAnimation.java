@@ -1,4 +1,4 @@
-package ViewGraphic;
+package ViewGraphic.Animation;
 
 import Controller.GameController2;
 import Model.ApplicationData;
@@ -40,11 +40,11 @@ public class MovingBarAnimation extends Transition {
         if(!alreadyhit[i]){
             if(game.getHostRowStatus()[i].equals("card")){
                 ApplicationData.decreaseGuestHP(game.getHostRowCards()[i].getDamage()/game.getHostRowCards()[i].getDuration());
-                GameController2.guesthp.setText("HP:"+ApplicationData.getGuest().getHP());
+                ApplicationData.getGameGraphic().getController().guesthp.setText("HP:"+ApplicationData.getGuest().getHP());
             }
             if(game.getGuestRowStatus()[i].equals("card")){
                 ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration());
-                GameController2.hosthp.setText("HP:"+ApplicationData.getGuest().getHP());
+                ApplicationData.getGameGraphic().getController().hosthp.setText("HP:"+ApplicationData.getGuest().getHP());
             }
             if(ApplicationData.getHost().getHP()<=0){
                 //guestWins
