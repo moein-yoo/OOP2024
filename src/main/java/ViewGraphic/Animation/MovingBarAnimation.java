@@ -31,7 +31,8 @@ public class MovingBarAnimation extends Transition {
     protected void interpolate(double v){
         System.out.println("entered interpolate func");
         double a=bar.getLayoutX();
-        a+=5;
+        a+=7;
+        bar.setLayoutX(a);
         int i=getCell(a);
         if(i>20)
             ApplicationData.getGameGraphic().getController().newRound();
