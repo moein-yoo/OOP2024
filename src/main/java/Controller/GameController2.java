@@ -3,6 +3,7 @@ package Controller;
 import Model.ApplicationData;
 import Model.Card;
 import Model.Game;
+import ViewGraphic.MovingBarAnimation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -545,10 +546,12 @@ public class GameController2 {
         if(game.getHostRemainingTurns()==0 && game.getGuestRemainingTurns()==0)
             createTimeline();
     }
-    public static void createTimeline(){
-
-
-
+    public void createTimeline(){
+        Rectangle rect=new Rectangle(1,120,15,265);
+        rect.setFill(Paint.valueOf("#ffffff"));
+        root.getChildren().add(rect);
+        MovingBarAnimation movingBarAnimation=new MovingBarAnimation(root,rect,this.game);
+        movingBarAnimation.play();
     }
 
     public void placeCard(int cardnumber, int blocknumber) throws InterruptedException {
