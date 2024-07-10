@@ -43,6 +43,7 @@ public class SignUpMenuViewController {
         recoveryQuestionBox.getItems().addAll("Where is your hometown?", "Who is your first school teacher?", "Who is your love?!");
         captchaString = RegistryMenuView.captchaAsciiArtCheckerGraphic();
         captcha.setText(captchaString[0]);
+        recoveryQuestionBox.setValue("Where is your hometown?");
         ApplicationData.getSignUpMenu().setController(this);
         signUpButton.setOnMouseClicked(mouseEvent -> {
             String[] enteredUser = new String[6];
@@ -50,14 +51,15 @@ public class SignUpMenuViewController {
             enteredUser[1] = nickNameLabel.getText();
             enteredUser[2] = passwordLabel.getText();
             enteredUser[3] = mailLabel.getText();
-            enteredUser[4] = recoveryQuestionAnswer.getText();
+            enteredUser[5] = recoveryQuestionAnswer.getText();
             if (recoveryQuestionBox.getValue().contains("hometown")) type = 1;
             else if (recoveryQuestionBox.getValue().contains("school")) type = 2;
             else if (recoveryQuestionBox.getValue().contains("love")) type = 3;
-            enteredUser[5] = String.valueOf(type);
+            enteredUser[4] = String.valueOf(type);
             String outcome = RegistryMenuController.signUp(enteredUser);
-            if (!captchaAnswer.getText().equals(captchaString[1])) {
+            if (!captchaAnswer.getText().equalsIgnoreCase(captchaString[1])) {
                 captchaString = RegistryMenuView.captchaAsciiArtCheckerGraphic();
+                captcha.setText(captchaString[0]);
             }
             else if (outcome.contains("successfully")) {
                 Stage stage = ApplicationData.getStage();

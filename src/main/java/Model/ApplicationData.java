@@ -31,6 +31,12 @@ public class ApplicationData {
     private static LoginMenu loginMenu;
     private static ProfileMenu profileMenu;
     private static SignUpMenu signUpMenu;
+    private static MainMenu mainMenu;
+    private static GameMenu gameMenu;
+    private static HistoryMenu historyMenu;
+    private static SettingMenu settingMenu;
+    private static ShopMenu shopMenu;
+    private static ViewGraphic.Game gameGraphic;
     //
 
 
@@ -190,6 +196,54 @@ public class ApplicationData {
 
     public static void setSignUpMenu(SignUpMenu signUpMenu) {
         ApplicationData.signUpMenu = signUpMenu;
+    }
+
+    public static MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    public static void setMainMenu(MainMenu mainMenu) {
+        ApplicationData.mainMenu = mainMenu;
+    }
+
+    public static GameMenu getGameMenu() {
+        return gameMenu;
+    }
+
+    public static void setGameMenu(GameMenu gameMenu) {
+        ApplicationData.gameMenu = gameMenu;
+    }
+
+    public static HistoryMenu getHistoryMenu() {
+        return historyMenu;
+    }
+
+    public static void setHistoryMenu(HistoryMenu historyMenu) {
+        ApplicationData.historyMenu = historyMenu;
+    }
+
+    public static SettingMenu getSettingMenu() {
+        return settingMenu;
+    }
+
+    public static void setSettingMenu(SettingMenu settingMenu) {
+        ApplicationData.settingMenu = settingMenu;
+    }
+
+    public static ShopMenu getShopMenu() {
+        return shopMenu;
+    }
+
+    public static void setShopMenu(ShopMenu shopMenu) {
+        ApplicationData.shopMenu = shopMenu;
+    }
+
+    public static ViewGraphic.Game getGameGraphic() {
+        return gameGraphic;
+    }
+
+    public static void setGameGraphic(ViewGraphic.Game gameGraphic) {
+        ApplicationData.gameGraphic = gameGraphic;
     }
 
     public void setRandom(Random random) {

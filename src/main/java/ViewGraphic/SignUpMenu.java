@@ -26,7 +26,7 @@ public class SignUpMenu extends Application {
     }
 
     private BackgroundImage createBackgroundImage() {
-        Image image = new Image(LoginMenu.class.getResource("/Images/LoginMenu.jpeg").toExternalForm(), 717, 644, false, false);
+        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/LoginMenu.jpeg").toExternalForm(), 717, 644, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,

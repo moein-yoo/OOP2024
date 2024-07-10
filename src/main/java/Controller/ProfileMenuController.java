@@ -30,13 +30,24 @@ public class ProfileMenuController {
             System.out.println("password changed!");
             user.setPassword(tempNewPassword);
             User.updateUserInSQL(user);
+            return "successfully done";
         }
-        return null;
+    }
+    public static String changePassword(String tempNewPassword, User user) {
+        if (!isPasswordCorrect(tempNewPassword)) {
+            return "newPassword is weak!";
+        }
+        else {
+            user.setPassword(tempNewPassword);
+            User.updateUserInSQL(user);
+            return "successfully done";
+        }
     }
     public static boolean  deleteAccount(Matcher matcher, User user) {
         String tempPassword = matcher.group("currentPassword");
         if (user.getPassword().equals(tempPassword)) {
             ApplicationData.removeFromUserArrayList(user);
+            User.deleteAccountInSQL(user);
             System.out.println("account deleted!");
             return true;
         }
@@ -54,7 +65,11 @@ public class ProfileMenuController {
             return "username already exists!";
         }
         else {
+            User user = ApplicationData.getHost();
             ApplicationData.getHost().setUsername(enteredUser);
+            User.deleteAccountInSQL(user);
+            user = ApplicationData.getHost();
+            User.addNewUserToSQL(user);
             return "username changed to" + enteredUser + " successfully!";
         }
     }
