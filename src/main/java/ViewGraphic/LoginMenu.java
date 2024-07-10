@@ -30,9 +30,9 @@ public class LoginMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Card.initialize();
-        User.initialize();
-        MatchData.initialize();
+//        Card.initialize();
+//        User.initialize();
+//        MatchData.initialize();
         ApplicationData.setStage(stage);
         ApplicationData.getStage().getIcons().add(new Image(LoginMenu.class.getResource("/Media/Images/Logo.jpeg").toExternalForm()));
         ApplicationData.getStage().setTitle("M&S Card Game");
