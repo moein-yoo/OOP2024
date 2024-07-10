@@ -237,7 +237,12 @@ public class User {
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
     public boolean isCardExist(Card card) {
-        return allPossessedCards.contains(card);
+        for (Card card1 : ApplicationData.getAllCardsArraylist()) {
+            if(card1.getName().equals(card.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
     public void buyCard(Card i){
         //age mikhay barresi kon card az ghabl mojoode ya na,age mojoode update she va...

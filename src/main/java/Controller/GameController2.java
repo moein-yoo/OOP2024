@@ -5,6 +5,7 @@ import Model.Card;
 import Model.Game;
 import ViewGraphic.Animation.MovingBarAnimation;
 import ViewGraphic.LoginMenu;
+import ViewGraphic.SettingMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -1024,4 +1026,13 @@ public class GameController2 {
         }
     }
 
+    public void pause(MouseEvent mouseEvent) {
+        Stage stage = ApplicationData.getStage();
+        ApplicationData.setPlayingMode(true);
+        try {
+            new SettingMenu().start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -126,7 +126,8 @@ public class ShopMenuViewController {
         unlockedPane.prefWidth(ApplicationData.getHost().getAllPossessedCards().size() * 100);
         for (int i = 0; i < ApplicationData.getHost().getAllPossessedCards().size(); i++) {
             //Image image = new Image(MainMenu.class.getResource("/Images/" + ApplicationData.getUser().getSongs().get(i).getSinger().getName() + "/" + i + ".jpeg").toExternalForm(), 200, 200, false, false);
-            Image image = ApplicationData.getHost().getAllPossessedCards().get(i).getImage();
+            //Image image = ApplicationData.getHost().getAllPossessedCards().get(i).getImage();
+            Image image = new Image(ShopMenu.class.getResource("/Media/Images/Cards/" + ApplicationData.getHost().getAllPossessedCards().get(i).getName() + ".jpeg").toExternalForm(),100,100,false,false);
             ImageView tempImageView = new ImageView(image);
             tempImageView.setLayoutX(i*100);
             unlockedImageView.add(tempImageView);
@@ -134,9 +135,15 @@ public class ShopMenuViewController {
         }
         unlockedScrollPane.setContent(unlockedPane);
 
-        for (Card card : ApplicationData.getAllCardsArraylist()) {
-            if (!ApplicationData.getHost().isCardExist(card))
-                lockedCards.add(card);
+        lockedCards.addAll(ApplicationData.getAllCardsArraylist());
+        for (int i = 0; i < lockedCards.size(); i++) {
+            Card card = lockedCards.get(i);
+            for (Card allPossessedCard : ApplicationData.getHost().getAllPossessedCards()) {
+                if (card.getName().equals(allPossessedCard.getName())){
+                    lockedCards.remove(card);
+                    i--;
+                }
+            }
         }
 
         lockedScrollPane.prefWidth(600);
