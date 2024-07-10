@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,5 +66,10 @@ public class HistoryMenuViewController {
     }
 
     public void goBack(MouseEvent mouseEvent) {
+        Stage stage = ApplicationData.getStage();
+        stage.setScene(MainMenu.getScene());
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.show();
     }
 }
