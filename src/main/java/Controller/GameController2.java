@@ -17,11 +17,10 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class GameController2 {
-    javafx.scene.image.Image holeImage=new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/holeImage.png")));
+    javafx.scene.image.Image hole =new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/hole.png")));
 
     private static Game game;
     boolean flag=false;
@@ -233,9 +232,9 @@ public class GameController2 {
 
         for(int j=0;j<21;j++) {
             if(game.getHostRowStatus()[j].equals("hole"))
-                hostCells[j].setFill(new ImagePattern(holeImage));
+                hostCells[j].setFill(new ImagePattern(hole));
             if(game.getGuestRowStatus()[j].equals("hole"))
-                guestCells[j].setFill(new ImagePattern(holeImage));
+                guestCells[j].setFill(new ImagePattern(hole));
             int finalJ1 = j;
             hostCells[j].setOnDragDropped(new EventHandler<DragEvent>() {
                 @Override
@@ -303,7 +302,7 @@ public class GameController2 {
                             //image shekasteh
                         }
                         if (game.getHostRowStatus()[i].equals("hole")) {
-                            hostCells[finalJ].setFill(new ImagePattern(holeImage));
+                            hostCells[finalJ].setFill(new ImagePattern(hole));
                         }
                     }
                 }
@@ -377,7 +376,7 @@ public class GameController2 {
                             //image shekasteh
                         }
                         if (game.getGuestRowStatus()[i].equals("hole")) {
-                            guestCells[finalJ].setFill(new ImagePattern(holeImage));
+                            guestCells[finalJ].setFill(new ImagePattern(hole));
                         }
                     }
                 }
@@ -567,6 +566,7 @@ public class GameController2 {
             createTimeline();
     }
     public void createTimeline(){
+        System.out.println("time line created");
         Rectangle rect=new Rectangle(1,120,15,265);
         rect.setFill(Paint.valueOf("#ffffff"));
         root.getChildren().add(rect);
