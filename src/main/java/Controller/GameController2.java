@@ -1,10 +1,9 @@
 package Controller;
 
-import Model.ApplicationData;
-import Model.Card;
-import Model.Game;
+import Model.*;
 import ViewGraphic.Animation.MovingBarAnimation;
 import ViewGraphic.LoginMenu;
+import ViewGraphic.MainMenu;
 import ViewGraphic.SettingMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,12 +18,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class GameController2 {
     javafx.scene.image.Image hole =new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/hole.png")));
 
     private static Game game;
+    Bar bar;
     boolean flag=false;
     boolean commentOn=false;
     @FXML
@@ -51,8 +52,6 @@ public class GameController2 {
     public Label guesthp;
     @FXML
     public Label turnSolver;
-    public static int guestHPint;
-    public static int hostHPint;
 
     @FXML
     AnchorPane root;
@@ -172,6 +171,11 @@ public class GameController2 {
     public boolean [] selection;
     @FXML
     public void initialize(){
+        ApplicationData.getGameGraphic().setController(this);
+        bar=new Bar();
+        bar.setLayoutX(1);
+        bar.setLayoutY(120);
+        root.getChildren().add(bar);
         hostTurnNum.toFront();
         guestTurnNum.toFront();
         setGame(ApplicationData.getGame());
@@ -569,11 +573,12 @@ public class GameController2 {
     }
     public void createTimeline(){
         System.out.println("time line created");
-        Rectangle rect=new Rectangle(1,120,15,265);
-        rect.setFill(Paint.valueOf("#ffffff"));
-        root.getChildren().add(rect);
-        MovingBarAnimation movingBarAnimation=new MovingBarAnimation(root,rect,this.game);
-        movingBarAnimation.play();
+//        Rectangle rect=new Rectangle(1,120,15,265);
+//        rect.setFill(Paint.valueOf("#ffffff"));
+//        root.getChildren().add(rect);
+        bar.setMovingBarAnimation(new MovingBarAnimation(root,bar,game));
+        bar.getMovingBarAnimation().play();
+        bar.requestFocus();
     }
 
     public void placeCard(int cardnumber, int blocknumber) throws InterruptedException {
@@ -618,8 +623,8 @@ public class GameController2 {
             buffCardPossibly(i);
             nextTurn();
             if(checkPossibleBonusForHost());
-                giveBonus(true);
-                return;
+            giveBonus(true);
+            return;
         }
         if(!game.isHostTurn()){
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++){
@@ -640,12 +645,12 @@ public class GameController2 {
                 game.getGuestCardsAtHand().removeLast();
             game.removeCardFromGuestCardsAtHand(i);
             game.addCardToGuestCardsAtHand(game.randomCardReplace(false));
-                    //image
+            //image
             checkBrakes();
             buffCardPossibly(i);
             nextTurn();
             if(checkPossibleBonusForGuest());
-             giveBonus(false);
+            giveBonus(false);
         }
     }
     public void giveBonus(boolean forHost) throws InterruptedException {
@@ -834,7 +839,7 @@ public class GameController2 {
             hostslot0.setLayoutY(hostslot0.getLayoutY()+10);
             root.getChildren().add(hostComment);
             comment1.setText("name:"+game.getHostCardsAtHand().get(0).getName()+"\ndur:"+game.getHostCardsAtHand().get(0).getDuration()
-            +"\ndamage:"+game.getHostCardsAtHand().get(0).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(0).getAccuracy());
+                    +"\ndamage:"+game.getHostCardsAtHand().get(0).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(0).getAccuracy());
             commentOn=true;
             comment1.toFront();
         }
@@ -1024,6 +1029,82 @@ public class GameController2 {
             root.getChildren().remove(guestComment);
             comment2.setText("");
         }
+    }
+    public void guestWins(){
+        bar.getMovingBarAnimation().stop();
+        bar.setLayoutX(1);
+        bar.setLayoutY(120);
+        StringBuilder reward=new StringBuilder();
+        StringBuilder pun=new StringBuilder();
+        ApplicationData.getGuest().setHP(game.getHostInitialHP()+30);
+        ApplicationData.getHost().setHP(game.getGuestInitialHP()-20);
+        reward.append("HP increase: ");reward.append(30);
+        if(ApplicationData.getHost().getHP()<15)
+            ApplicationData.getHost().setHP(15);
+        int decline=game.getHostInitialHP()-ApplicationData.getHost().getHP();
+        pun.append("HP decrease: ");pun.append(decline);
+        ApplicationData.getGuest().increaseXP(50 *ApplicationData.getHost().getLevel());
+        reward.append(",XP increase: ");reward.append(50 *ApplicationData.getHost().getLevel());
+        if(game.getBetAmount()==0){
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+15);
+            reward.append(",Coins increased by 15");
+        }
+        if(game.getBetAmount()!=0){
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()+game.getBetAmount());
+            ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-game.getBetAmount());
+            reward.append(",Coins increased by ");reward.append(game.getBetAmount());
+            pun.append(",Coins decreased by ");pun.append(game.getBetAmount());
+        }
+        String award=reward.toString();
+        String punishment=pun.toString();
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+
+        MatchData matchData=new MatchData(ApplicationData.getGuest().getNickname(),ApplicationData.getHost().getNickname(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
+        MatchData.addToMatchData(matchData);
+        MatchData.addToList(matchData);
+        User.updateUserInSQL(ApplicationData.getHost());
+        User.updateUserInSQL(ApplicationData.getGuest());
+    }
+    public void hostWins(){
+        bar.getMovingBarAnimation().stop();
+        bar.setLayoutX(1);
+        bar.setLayoutY(120);
+        StringBuilder reward=new StringBuilder();
+        StringBuilder pun=new StringBuilder();
+        ApplicationData.getHost().setHP(game.getHostInitialHP()+30);
+        ApplicationData.getGuest().setHP(game.getGuestInitialHP()-20);
+        reward.append("HP increase: ");reward.append(30);
+        if(ApplicationData.getGuest().getHP()<15)
+            ApplicationData.getGuest().setHP(15);
+        int decline=game.getGuestInitialHP()-ApplicationData.getGuest().getHP();
+        pun.append("HP decrease: ");pun.append(decline);
+        ApplicationData.getHost().increaseXP(50 *ApplicationData.getGuest().getLevel());
+        reward.append(",XP increase: ");reward.append(50 *ApplicationData.getGuest().getLevel());
+        if(game.getBetAmount()==0){
+            ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+15);
+            reward.append(",Coins increased by 15");
+        }
+        if(game.getBetAmount()!=0){
+            ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+game.getBetAmount());
+            ApplicationData.getGuest().setCoins(ApplicationData.getGuest().getCoins()-game.getBetAmount());
+            reward.append(",Coins increased by ");reward.append(game.getBetAmount());
+            pun.append(",Coins decreased by ");pun.append(game.getBetAmount());
+        }
+        String award=reward.toString();
+        String punishment=pun.toString();
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+
+        MatchData matchData=new MatchData(ApplicationData.getHost().getNickname(),ApplicationData.getGuest().getNickname(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
+        MatchData.addToMatchData(matchData);
+        MatchData.addToList(matchData);
+        User.updateUserInSQL(ApplicationData.getHost());
+        User.updateUserInSQL(ApplicationData.getGuest());
+    }
+    public void newRound(){
+        System.out.println("new Round");
+        bar.getMovingBarAnimation().stop();
+        bar.setLayoutX(1);
+        bar.setLayoutY(120);
     }
 
     public void pause(MouseEvent mouseEvent) {
