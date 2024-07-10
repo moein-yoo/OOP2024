@@ -60,7 +60,7 @@ public class ShopMenuViewController {
         levelLabel.setText("");
         costLabel.setText("");
 
-        anchorPane.setBackground(new Background(ShopMenu.createBackgroundImage()));
+        //anchorPane.setBackground(new Background(ShopMenu.createBackgroundImage()));
         makeScrollPanes();
         for (int i = 0; i < unlockedImageView.size(); i++) {
             ImageView imageView = unlockedImageView.get(i);
@@ -114,7 +114,7 @@ public class ShopMenuViewController {
     }
 
     public void makeScrollPanes() {
-        unlockedPane.prefWidth(min(600, ApplicationData.getHost().getAllPossessedCards().size() * 100));
+        unlockedScrollPane.prefWidth(600);
         unlockedPane.prefWidth(ApplicationData.getHost().getAllPossessedCards().size() * 100);
         for (int i = 0; i < ApplicationData.getHost().getAllPossessedCards().size(); i++) {
             //Image image = new Image(MainMenu.class.getResource("/Images/" + ApplicationData.getUser().getSongs().get(i).getSinger().getName() + "/" + i + ".jpeg").toExternalForm(), 200, 200, false, false);
@@ -131,7 +131,7 @@ public class ShopMenuViewController {
                 lockedCards.add(card);
         }
 
-        lockedPane.prefWidth(min(600, lockedCards.size() * 100));
+        lockedScrollPane.prefWidth(600);
         lockedPane.prefWidth(lockedCards.size() * 100);
         for (int i = 0; i < lockedCards.size(); i++) {
             //Image image = new Image(MainMenu.class.getResource("/Images/" + ApplicationData.getUser().getSongs().get(i).getSinger().getName() + "/" + i + ".jpeg").toExternalForm(), 200, 200, false, false);

@@ -113,9 +113,7 @@ public class Card {
     }
         public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
-        if (name.equals("tehran")) {
-            this.image = new Image(Card.class.getResource("/Media/Images/Cards/" + name + ".jpeg").toExternalForm());
-        }
+        //this.image = new Image(Card.class.getResource("/Media/Images/Cards/" + name + ".jpeg").toExternalForm());
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;
