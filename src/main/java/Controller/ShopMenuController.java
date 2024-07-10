@@ -22,17 +22,17 @@ public class ShopMenuController {
     }
     public static void showUpgrades(){
         for(Card card:ApplicationData.getHost().getAllPossessedCards()){
-            showCardProperty(card);
+            System.out.println(showCardProperty(card));
             System.out.println("Minimum level required to upgrade this card: "+card.getUpgradeLevel());
             System.out.println("price: "+card.getUpgradeCost());
             Card card1 = card.NextLevelCard();
             System.out.println("Next level properties:");
-            showCardProperty(card1);
+            System.out.println(showCardProperty(card1));
         }
     }
     public static String upgradeCard(Card card){
 
-        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
+        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getLevel()){
             return ("Not enough coins or low level");
         }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
@@ -51,7 +51,7 @@ public class ShopMenuController {
         if(found){
             return "You already have this card";
         }
-        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
+        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getLevel()){
             return ("Not enough coins or low level");
         }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());

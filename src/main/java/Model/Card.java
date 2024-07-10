@@ -23,8 +23,8 @@ public class Card {
 
      static String url="jdbc:mysql://localhost:3306/project";
      static String username="root";
-//     static String password="@9984moeiN";
-     static String password="soroush1384";
+     static String password="@9984moeiN";
+//     static String password="soroush1384";
      static Connection connection;
      static java.sql.Statement statement;
     //separ_shafa_powerSupply_hellChanger_
@@ -113,7 +113,6 @@ public class Card {
     }
         public Card(String name, int duration, int accuracy, int damage, String character, int upgradeCost, int level) {
         this.name=name;
-        //this.image = new Image(Card.class.getResource("/Media/Images/Cards/" + name + ".jpeg").toExternalForm());
         this.duration = duration;
         this.accuracy = accuracy;
         this.damage = damage;
@@ -127,6 +126,7 @@ public class Card {
         else if (character.equals("Divaneh"))
             this.upgradeLevel = level + 3;
         else this.upgradeLevel = level + 1;
+        //image = new Image(Card.class.getResource(("/Media/Images/Cards/" + name + ".jpeg")).toExternalForm());
     }
     public Card NextLevelCard(){
         if (character.equals("Motreb")) {

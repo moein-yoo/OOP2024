@@ -68,12 +68,13 @@ public class ShopMenuViewController {
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = ApplicationData.getHost().getAllPossessedCards().get(finalI);
                 buyMode = true;
-                nameLabel.setText("Name : " + selectedCard.getName());
-                damageLabel.setText("Damage : " + selectedCard.getDamage());
-                accuracyLabel.setText("Accuracy : " + selectedCard.getAccuracy());
-                durationLabel.setText("Duration : " + selectedCard.getDuration());
-                levelLabel.setText("Level : " + selectedCard.getLevel());
-                costLabel.setText("Cost : " + selectedCard.getUpgradeCost());
+                Card upgradedCard = selectedCard.NextLevelCard();
+                nameLabel.setText("Name : " + upgradedCard.getName());
+                damageLabel.setText("Damage : " + upgradedCard.getDamage());
+                accuracyLabel.setText("Accuracy : " + upgradedCard.getAccuracy());
+                durationLabel.setText("Duration : " + upgradedCard.getDuration());
+                levelLabel.setText("Level : " + upgradedCard.getLevel());
+                costLabel.setText("Cost : " + upgradedCard.getUpgradeCost());
             });
         }
         for (int i = 0; i < lockedImageView.size(); i++) {
@@ -82,13 +83,12 @@ public class ShopMenuViewController {
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = lockedCards.get(finalI);
                 buyMode = false;
-                Card upgradedCard = selectedCard.NextLevelCard();
-                nameLabel.setText("Name : " + upgradedCard.getName());
-                damageLabel.setText("Damage : " + upgradedCard.getDamage());
-                accuracyLabel.setText("Accuracy : " + upgradedCard.getAccuracy());
-                durationLabel.setText("Duration : " + upgradedCard.getDuration());
-                levelLabel.setText("Level : " + upgradedCard.getLevel());
-                costLabel.setText("Cost : " + upgradedCard.getUpgradeCost());
+                nameLabel.setText("Name : " + selectedCard.getName());
+                damageLabel.setText("Damage : " + selectedCard.getDamage());
+                accuracyLabel.setText("Accuracy : " + selectedCard.getAccuracy());
+                durationLabel.setText("Duration : " + selectedCard.getDuration());
+                levelLabel.setText("Level : " + selectedCard.getLevel());
+                costLabel.setText("Cost : " + selectedCard.getUpgradeCost());
             });
         }
 
@@ -103,6 +103,7 @@ public class ShopMenuViewController {
             String outcome = ShopMenuController.upgradeCard(selectedCard);
             warningLabel.setText(outcome);
         }
+        makeScrollPanes();
     }
 
     public void goBack(MouseEvent mouseEvent) {
@@ -114,6 +115,13 @@ public class ShopMenuViewController {
     }
 
     public void makeScrollPanes() {
+        LoginMenu.makeImage();
+        unlockedPane.getChildren().clear();
+        lockedPane.getChildren().clear();
+        unlockedScrollPane.setContent(null);
+        lockedScrollPane.setContent(null);
+        unlockedImageView.clear();
+        lockedImageView.clear();
         unlockedScrollPane.prefWidth(600);
         unlockedPane.prefWidth(ApplicationData.getHost().getAllPossessedCards().size() * 100);
         for (int i = 0; i < ApplicationData.getHost().getAllPossessedCards().size(); i++) {

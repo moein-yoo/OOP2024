@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="644.0" prefWidth="717.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.ProfileMenuViewController">
+    <children>
+        <Button fx:id="save" layoutX="292.0" layoutY="566.0" mnemonicParsing="false" text="Save" />
+        <Label fx:id="warningLabel" layoutX="292.0" layoutY="613.0">
+        </Label>
+      <Button fx:id="backButton" layoutX="653.0" layoutY="566.0" mnemonicParsing="false" text="Back" />
+      <ChoiceBox fx:id="choiceBox" layoutX="275.0" layoutY="87.0" prefWidth="150.0" />
+      <TextField fx:id="textField" layoutX="276.0" layoutY="161.0" />
+    </children>
+
+
+</AnchorPane>

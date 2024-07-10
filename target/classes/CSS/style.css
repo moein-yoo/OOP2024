@@ -1,0 +1,21 @@
+.label {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14;
+    -fx-text-fill: RED;
+}
+
+.badLabel {
+    -fx-font-family: "Times New Roman";
+    -fx-background-color : "#e7e7e7";
+    -fx-font-size: 20;
+}
+
+.button {
+    -fx-font-family: "Times New Roman";
+    -fx-background-color : "#e7e7e7";
+    -fx-border-color: "#e7e7e7";
+    -fx-text-fill: "#555555";
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-cursor: "HAND";
+}
