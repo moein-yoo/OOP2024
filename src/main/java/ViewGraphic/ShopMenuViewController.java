@@ -67,7 +67,7 @@ public class ShopMenuViewController {
             int finalI = i;
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = ApplicationData.getHost().getAllPossessedCards().get(finalI);
-                buyMode = true;
+                buyMode = false;
                 Card upgradedCard = selectedCard.NextLevelCard();
                 nameLabel.setText("Name : " + upgradedCard.getName());
                 damageLabel.setText("Damage : " + upgradedCard.getDamage());
@@ -82,7 +82,7 @@ public class ShopMenuViewController {
             int finalI = i;
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = lockedCards.get(finalI);
-                buyMode = false;
+                buyMode = true;
                 nameLabel.setText("Name : " + selectedCard.getName());
                 damageLabel.setText("Damage : " + selectedCard.getDamage());
                 accuracyLabel.setText("Accuracy : " + selectedCard.getAccuracy());
@@ -103,7 +103,7 @@ public class ShopMenuViewController {
             String outcome = ShopMenuController.upgradeCard(selectedCard);
             warningLabel.setText(outcome);
         }
-        makeScrollPanes();
+        initialize();
     }
 
     public void goBack(MouseEvent mouseEvent) {
@@ -116,12 +116,13 @@ public class ShopMenuViewController {
 
     public void makeScrollPanes() {
         LoginMenu.makeImage();
-        unlockedPane.getChildren().clear();
-        lockedPane.getChildren().clear();
+        unlockedPane.getChildren().removeAll(unlockedPane);
+        lockedPane.getChildren().removeAll(lockedPane);
         unlockedScrollPane.setContent(null);
         lockedScrollPane.setContent(null);
-        unlockedImageView.clear();
-        lockedImageView.clear();
+        unlockedImageView.removeAll(unlockedImageView);
+        lockedImageView.removeAll(lockedImageView);
+
         unlockedScrollPane.prefWidth(600);
         unlockedPane.prefWidth(ApplicationData.getHost().getAllPossessedCards().size() * 100);
         for (int i = 0; i < ApplicationData.getHost().getAllPossessedCards().size(); i++) {
@@ -135,6 +136,7 @@ public class ShopMenuViewController {
         }
         unlockedScrollPane.setContent(unlockedPane);
 
+        lockedCards.clear();
         lockedCards.addAll(ApplicationData.getAllCardsArraylist());
         for (int i = 0; i < lockedCards.size(); i++) {
             Card card = lockedCards.get(i);

@@ -2,13 +2,12 @@ package Model;
 
 import Controller.GameController;
 import ViewGraphic.*;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.Math.min;
 
@@ -43,6 +42,7 @@ public class ApplicationData {
     private static int mediaIndex = 0;
     private static MediaPlayer mediaPlayer;
     private static boolean playingMode = false;
+    private static HashMap<String , Image> cardsImage = new HashMap<>();
     //
 
 
@@ -282,6 +282,17 @@ public class ApplicationData {
 
     public static void setMediaIndex(int mediaIndex) {
         ApplicationData.mediaIndex = mediaIndex;
+    }
+
+    public static HashMap<String, Image> getCardsImage() {
+        return cardsImage;
+    }
+
+    public static void addImageToCardsImage(String name, Image image) {
+        ApplicationData.cardsImage.put(name, image);
+    }
+    public static void setCardsImage(HashMap<String, Image> cardsImage) {
+        ApplicationData.cardsImage = cardsImage;
     }
 
     public void setRandom(Random random) {

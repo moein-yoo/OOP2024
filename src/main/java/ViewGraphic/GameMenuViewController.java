@@ -80,6 +80,8 @@ public class GameMenuViewController {
             ApplicationData.setGame(game);
             ApplicationData.setPlayingMode(true);
             Stage stage = ApplicationData.getStage();
+            ApplicationData.getHost().buffCardOnCharacter();
+            ApplicationData.getGuest().buffCardOnCharacter();
             try {
                 new ViewGraphic.Game().start(stage);
             } catch (Exception e) {

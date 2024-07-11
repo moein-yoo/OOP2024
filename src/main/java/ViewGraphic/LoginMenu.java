@@ -74,6 +74,7 @@ public class LoginMenu extends Application {
             try {
                 Image image = new Image(LoginMenu.class.getResource("/Media/Images/Cards/" + card.getName() + ".jpeg").toExternalForm(),100,100,false,false);
                 card.setImage(image);
+                ApplicationData.addImageToCardsImage(card.getName(), image);
             }catch (RuntimeException e) {
                 e.printStackTrace();
             }

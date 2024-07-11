@@ -31,10 +31,10 @@ public class LoginMenuViewController {
     @FXML
     private Label messageLabel;
     private boolean passForgetting = false;
-    private Timeline timeline;
+    private Timeline timeline = new Timeline();
     @FXML
     private Label timerLabel;
-    private int timeSeconds = 5;
+    private int timeSeconds = 0;
 
 
     @FXML
@@ -44,7 +44,11 @@ public class LoginMenuViewController {
 
     public void login(MouseEvent mouseEvent) {
         timeSeconds = 5;
-        if (!passForgetting) {
+        if (timeline.getCurrentTime().toMillis()!=0) {
+            timeSeconds += 5;
+            startTimer();
+        }
+        else if (!passForgetting) {
             String[] entered = {usernameLabel.getText(), passwordLabel.getText()};
             String outcome = RegistryMenuController.loginGraphic(entered);
             if (outcome.contains("successfully")) {
@@ -60,7 +64,7 @@ public class LoginMenuViewController {
                 }
             }
             else {
-                //passwordLabel.setDisable(true);
+                passwordLabel.setDisable(true);
                 messageLabel.setText(outcome);
                 startTimer();
             }
@@ -155,6 +159,7 @@ public class LoginMenuViewController {
                     timerLabel.setText(timeSeconds + " seconds left");
                     if (timeSeconds == 0) {
                         timeline.stop();
+                        passwordLabel.setDisable(false);
                     }
                 })
         );

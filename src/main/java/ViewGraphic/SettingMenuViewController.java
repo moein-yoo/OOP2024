@@ -51,6 +51,8 @@ public class SettingMenuViewController {
     public void initialize() {
         quitButton.setOnMouseClicked(mouseEvent -> {
             if (ApplicationData.isPlayingMode()) {
+                ApplicationData.getGuest().deBuffCard();
+                ApplicationData.getHost().deBuffCard();
                 Stage stage = ApplicationData.getStage();
                 stage.setScene(MainMenu.getScene());
                 stage.setResizable(false);
