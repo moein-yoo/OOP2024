@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static java.lang.Math.min;
+
 public class HistoryMenuController {
     public static ArrayList<MatchData> getWinnerMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
         for(MatchData match:MatchData.getMatchDatas()){
-            if(match.getWinner().equals(ApplicationData.getHost().getNickname()))
+            if(match.getWinner().equals(ApplicationData.getHost().getUsername()))
                 ans.add(match);
         }
 //        try {
@@ -44,7 +46,7 @@ public class HistoryMenuController {
     public static ArrayList<MatchData> getLoserMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
         for(MatchData match:MatchData.getMatchDatas()){
-            if(match.getLoser().equals(ApplicationData.getHost().getNickname()))
+            if(match.getLoser().equals(ApplicationData.getHost().getUsername()))
                 ans.add(match);
         }
 //        try {
@@ -180,7 +182,8 @@ public class HistoryMenuController {
         });
     }
     public static boolean showAll(ArrayList<MatchData> matchDataArr,int pageNum){
-        if(matchDataArr.size()<=(pageNum-1)*10){
+        int min = min(10,matchDataArr.size()-10*(pageNum-1));
+        if(matchDataArr.size()<=(pageNum-1)*min){
             if(pageNum==1){
                 System.out.println("You have not played any matches");
                 return true;
@@ -190,7 +193,7 @@ public class HistoryMenuController {
                 return false;
             }
         }
-            for(int a=10*(pageNum-1);a<10*pageNum;a++){
+            for(int a=10*(pageNum-1);a<min*pageNum;a++){
                 int b=a+1;
                 System.out.println(b+". "+showResult(matchDataArr.get(a),ApplicationData.getHost()));
             }

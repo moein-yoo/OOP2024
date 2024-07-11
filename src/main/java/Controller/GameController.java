@@ -341,7 +341,7 @@ public class GameController {
         String punishment=pun.toString();
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 
-        MatchData matchData=new MatchData(ApplicationData.getHost().getNickname(),ApplicationData.getGuest().getNickname(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
+        MatchData matchData=new MatchData(ApplicationData.getHost().getUsername(),ApplicationData.getGuest().getUsername(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
@@ -376,7 +376,7 @@ public class GameController {
         String punishment=pun.toString();
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 
-        MatchData matchData=new MatchData(ApplicationData.getGuest().getNickname(),ApplicationData.getHost().getNickname(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
+        MatchData matchData=new MatchData(ApplicationData.getGuest().getUsername(),ApplicationData.getHost().getUsername(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
