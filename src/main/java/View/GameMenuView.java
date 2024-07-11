@@ -1,5 +1,6 @@
 package View;
 
+import Controller.GameController;
 import Controller.GameMenuController;
 import Controller.RegistryMenuController;
 import Model.ApplicationData;
@@ -44,6 +45,7 @@ public class GameMenuView extends Menu {
                         game = new Game(ApplicationData.getBetCost());
                     else game = new Game();
                     ApplicationData.setGame(game);
+                    GameController.setGame(game);
                     return GameView.run(game);
                 }
                 ejra = true;
