@@ -15,49 +15,57 @@ import java.util.Comparator;
 public class HistoryMenuController {
     public static ArrayList<MatchData> getWinnerMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
-        try {
-            String query="SELECT * FROM MatchData WHERE Winner= ?";
-            PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, ApplicationData.getHost().getUsername());
-            preparedStatement.executeUpdate();
-            ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
-            while (resultSet.next()){
-                String win=resultSet.getString(1);
-                String lose=resultSet.getString(2);
-                String award=resultSet.getString(3);
-                String penalty=resultSet.getString(4);
-                Timestamp date=resultSet.getTimestamp(7);
-                int winlev=resultSet.getInt(5);
-                int loselev=resultSet.getInt(6);
-                MatchData matchData=new MatchData(win,lose,award,penalty,date,winlev,loselev);
-                ans.add(matchData);
-            }
+        for(MatchData match:MatchData.getMatchDatas()){
+            if(match.getWinner().equals(ApplicationData.getHost().getNickname()))
+                ans.add(match);
         }
-         catch (SQLException e){throw new RuntimeException(e);}
+//        try {
+//            String query="SELECT * FROM MatchData WHERE Winner= ?";
+//            PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
+//            preparedStatement.setString(1, ApplicationData.getHost().getUsername());
+//            preparedStatement.executeUpdate();
+//            ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
+//            while (resultSet.next()){
+//                String win=resultSet.getString(1);
+//                String lose=resultSet.getString(2);
+//                String award=resultSet.getString(3);
+//                String penalty=resultSet.getString(4);
+//                Timestamp date=resultSet.getTimestamp(7);
+//                int winlev=resultSet.getInt(5);
+//                int loselev=resultSet.getInt(6);
+//                MatchData matchData=new MatchData(win,lose,award,penalty,date,winlev,loselev);
+//                ans.add(matchData);
+//            }
+//        }
+//         catch (SQLException e){throw new RuntimeException(e);}
 
         return ans;
     }
     public static ArrayList<MatchData> getLoserMatches(){
         ArrayList<MatchData> ans=new ArrayList<>();
-        try {
-            String query="SELECT * FROM MatchData WHERE Loser= ?";
-            PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, ApplicationData.getHost().getUsername());
-            preparedStatement.executeUpdate();
-            ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
-            while (resultSet.next()){
-                String win=resultSet.getString(1);
-                String lose=resultSet.getString(2);
-                String award=resultSet.getString(3);
-                String penalty=resultSet.getString(4);
-                Timestamp date=resultSet.getTimestamp(7);
-                int winlev=resultSet.getInt(5);
-                int loselev=resultSet.getInt(6);
-                MatchData matchData=new MatchData(win,lose,award,penalty,date,winlev,loselev);
-                ans.add(matchData);
-            }
+        for(MatchData match:MatchData.getMatchDatas()){
+            if(match.getLoser().equals(ApplicationData.getHost().getNickname()))
+                ans.add(match);
         }
-        catch (SQLException e){e.printStackTrace();}
+//        try {
+//            String query="SELECT * FROM MatchData WHERE Loser= ?";
+//            PreparedStatement preparedStatement=MatchData.getConnection().prepareStatement(query);
+//            preparedStatement.setString(1, ApplicationData.getHost().getUsername());
+//            preparedStatement.executeUpdate();
+//            ResultSet resultSet=MatchData.getStatement().executeQuery(preparedStatement.toString());
+//            while (resultSet.next()){
+//                String win=resultSet.getString(1);
+//                String lose=resultSet.getString(2);
+//                String award=resultSet.getString(3);
+//                String penalty=resultSet.getString(4);
+//                Timestamp date=resultSet.getTimestamp(7);
+//                int winlev=resultSet.getInt(5);
+//                int loselev=resultSet.getInt(6);
+//                MatchData matchData=new MatchData(win,lose,award,penalty,date,winlev,loselev);
+//                ans.add(matchData);
+//            }
+//        }
+//        catch (SQLException e){e.printStackTrace();}
 
         return ans;
     }

@@ -15,6 +15,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.awt.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -1102,6 +1103,12 @@ public class GameController2 {
         bar.getMovingBarAnimation().stop();
         bar.setLayoutX(1);
         bar.setLayoutY(120);
+        game.setHostRemainingTurns(4);
+        game.setGuestRemainingTurns(4);
+        guestTurnNum.setText(String.valueOf(4));
+        hostTurnNum.setText(String.valueOf(4));
+//        new Image(LoginMenu.class.getResource("/Media/Images/Cards/" + ApplicationData.getHost().getAllPossessedCards().get(i).getName() +".jpeg").toExternalForm(),47,69,false,false);
     }
+
 
 }

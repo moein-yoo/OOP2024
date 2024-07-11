@@ -29,7 +29,6 @@ public class MovingBarAnimation extends Transition {
     }
     @Override
     protected void interpolate(double v){
-        System.out.println("entered interpolate func");
         double a=bar.getLayoutX();
         a+=3;
         bar.setLayoutX(a);
