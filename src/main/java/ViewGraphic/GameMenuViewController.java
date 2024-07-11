@@ -1,5 +1,7 @@
 package ViewGraphic;
 
+import Controller.GameController;
+import Controller.GameController2;
 import Controller.RegistryMenuController;
 import Model.ApplicationData;
 import Model.Game;
@@ -78,6 +80,8 @@ public class GameMenuViewController {
             }
             else game = new Game();
             ApplicationData.setGame(game);
+            GameController.setGame(game);
+            GameController2.setGame(game);
             ApplicationData.setPlayingMode(true);
             Stage stage = ApplicationData.getStage();
             ApplicationData.getHost().buffCardOnCharacter();
