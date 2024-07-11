@@ -178,8 +178,6 @@ public class GameController2 {
     public boolean [] selection;
     @FXML
     public void initialize(){
-        System.out.println("width "+root.getWidth());
-        System.out.println("height "+root.getHeight());
         ApplicationData.getGameGraphic().setController(this);
         bar=new Bar();
         bar.setLayoutX(1);
@@ -245,6 +243,18 @@ public class GameController2 {
         guestCells[18]=guestrect18;
         guestCells[19]=guestrect19;
         guestCells[20]=guestrect20;
+
+        hostslot0.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(0).getName())));
+        hostslot1.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(1).getName())));
+        hostslot2.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(2).getName())));
+        hostslot3.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(3).getName())));
+        hostslot4.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(4).getName())));
+        guestslot0.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(0).getName())));
+        guestslot1.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(1).getName())));
+        guestslot2.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(2).getName())));
+        guestslot3.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(3).getName())));
+        guestslot4.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(4).getName())));
+
 
 
         for(int j=0;j<21;j++) {
@@ -313,9 +323,11 @@ public class GameController2 {
                     for (int i = finalJ; i < finalJ + game.getHostCardsAtHand().get(r).getDuration() && i < 21; i++) {
                         hostCells[i].setFill(Paint.valueOf("#2a333b"));
                         if (game.getHostRowStatus()[i].equals("card")) {
-                            //Image card ro bezar
+                            hostCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostRowCards()[i].getName())));
                         }
                         if (game.getHostRowStatus()[i].equals("broken")) {
+                            hostCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostRowCards()[i].getName())));
+
                             //image shekasteh
                         }
                         if (game.getHostRowStatus()[i].equals("hole")) {
@@ -387,9 +399,12 @@ public class GameController2 {
                     for (int i = finalJ; i < finalJ + game.getGuestCardsAtHand().get(r).getDuration() && i < 21; i++) {
                         guestCells[i].setFill(Paint.valueOf("#2a333b"));
                         if (game.getGuestRowStatus()[i].equals("card")) {
+                            guestCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestRowCards()[i].getName())));
+
                             //Image card ro bezar
                         }
                         if (game.getGuestRowStatus()[i].equals("broken")) {
+                            guestCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestRowCards()[i].getName())));
                             //image shekasteh
                         }
                         if (game.getGuestRowStatus()[i].equals("hole")) {
@@ -580,6 +595,40 @@ public class GameController2 {
             guestTurnNum.setText(String.valueOf(a));
         }
         game.setHostTurn();
+        for(int i=0;i<21;i++){
+            if(game.getHostRowStatus()[i].equals("card") || game.getHostRowStatus()[i].equals("broken")){
+                hostCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostRowCards()[i].getName())));
+            }
+            if(game.getGuestRowStatus()[i].equals("card") || game.getGuestRowStatus()[i].equals("broken")){
+                guestCells[i].setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestRowCards()[i].getName())));
+            }
+            hostslot0.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(0).getName())));
+            hostslot1.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(1).getName())));
+            hostslot2.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(2).getName())));
+            hostslot3.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(3).getName())));
+            if(game.getHostCardsAtHand().size()>4)
+               hostslot4.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(4).getName())));
+            if(game.getHostCardsAtHand().size()<=4)
+                hostslot5.setFill(Paint.valueOf("#2a333b"));
+            if(game.getHostCardsAtHand().size()<6)
+                hostslot5.setFill(Paint.valueOf("#2a333b"));
+            if(game.getHostCardsAtHand().size()==6)
+                hostslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(4).getName())));
+            guestslot0.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(0).getName())));
+            guestslot1.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(1).getName())));
+            guestslot2.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(2).getName())));
+            guestslot3.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(3).getName())));
+            if(game.getGuestCardsAtHand().size()>4)
+                guestslot4.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(4).getName())));
+            if(game.getGuestCardsAtHand().size()<=4)
+                guestslot5.setFill(Paint.valueOf("#2a333b"));
+            if(game.getGuestCardsAtHand().size()<6)
+                guestslot5.setFill(Paint.valueOf("#2a333b"));
+            if(game.getGuestCardsAtHand().size()==6)
+                guestslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(4).getName())));
+
+
+        }
         if(game.getHostRemainingTurns()==0 && game.getGuestRemainingTurns()==0)
             createTimeline();
     }
@@ -591,6 +640,7 @@ public class GameController2 {
     }
 
     public void placeCard(int cardnumber, int blocknumber) throws InterruptedException {
+        System.out.println(blocknumber);
         Card i=null;
         if(game.isHostTurn()){
             i=game.getHostCardsAtHand().get(cardnumber);
@@ -638,8 +688,6 @@ public class GameController2 {
                 cardsAtHandHider(a);
                 return;
             }
-            if(i.getName().equalsIgnoreCase("HPInstaller")){
-            }
             game.hitSpecialCards(i,blocknumber);
             ApplicationData.getGameGraphic().getController().hosthp.setText("HP:"+ApplicationData.getHost().getHP());
             ApplicationData.getGameGraphic().getController().guesthp.setText("HP:"+ApplicationData.getGuest().getHP());
@@ -666,10 +714,13 @@ public class GameController2 {
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++) {
                 game.setHostRowStatus("card", j);
                 game.setHostRowCards(i, j);
+                hostCells[j].setFill(new ImagePattern(ApplicationData.getCardsImage().get(i.getName())));
                 //image
             }
-            if(game.getHostCardsAtHand().size()>5)
+            if(game.getHostCardsAtHand().size()>5){
                 game.getHostCardsAtHand().removeLast();
+                hostslot5.setFill(Paint.valueOf("#2a333b"));
+            }
             game.removeCardFromHostCardsAtHand(i);
             game.addCardToHostCardsAtHand(game.randomCardReplace(true));
             checkBrakes();
@@ -692,6 +743,7 @@ public class GameController2 {
             for(int j=blocknumber;j<blocknumber+i.getDuration();j++) {
                 game.setGuestRowStatus("card",j);
                 game.setGuestRowCards(i,j);
+                guestCells[j].setFill(new ImagePattern(ApplicationData.getCardsImage().get(i.getName())));
                 //image
             }
             if(game.getGuestCardsAtHand().size()>5)
@@ -724,10 +776,14 @@ public class GameController2 {
             turnSolver.setTextFill(Paint.valueOf("#000000"));
             turnSolver.setText(str);
             Card card=game.randomCardReplace(forHost);
-            if(forHost)
+            if(forHost){
                 game.getHostCardsAtHand().add(card);
-            else
+                hostslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(5).getName())));
+            }
+            else{
                 game.getGuestCardsAtHand().add(card);
+                guestslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(5).getName())));
+            }
         }
         if(a==2){
             turnSolver.setText("xp earned!");
@@ -1228,6 +1284,7 @@ public class GameController2 {
                 ArrayList<Card> ans=game.getHostCardsAtHand();
                 ans.add(game.getHostCardsAtHand().get(index1));
                 game.setHostCardsAtHand(ans);
+                hostslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getHostCardsAtHand().get(index1).getName())));
                 //image
                 root.getChildren().remove(copiertext);
                 root.getChildren().remove(copierButton);
@@ -1244,6 +1301,8 @@ public class GameController2 {
                 ArrayList<Card> ans=game.getGuestCardsAtHand();
                 ans.add(game.getGuestCardsAtHand().get(index1));
                 game.setGuestCardsAtHand(ans);
+                guestslot5.setFill(new ImagePattern(ApplicationData.getCardsImage().get(game.getGuestCardsAtHand().get(index1).getName())));
+
                 //image
                 root.getChildren().remove(copiertext);
                 root.getChildren().remove(copierButton);
