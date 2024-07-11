@@ -176,6 +176,8 @@ public class GameController2 {
     public boolean [] selection;
     @FXML
     public void initialize(){
+        System.out.println("width "+root.getWidth());
+        System.out.println("height "+root.getHeight());
         ApplicationData.getGameGraphic().setController(this);
         bar=new Bar();
         bar.setLayoutX(1);
@@ -595,19 +597,20 @@ public class GameController2 {
             i=game.getGuestCardsAtHand().get(cardnumber);
         }
         if(i.isSpecial()){
-            System.out.println("entered is special");
             if(i.getName().equalsIgnoreCase("holeremover") || i.getName().equalsIgnoreCase("holechanger")){
                 if(game.isHostTurn() && !game.getHostRowStatus()[blocknumber].equalsIgnoreCase("hole")){
                     String str=turnSolver.getText();
                     turnSolver.setText("select a hole to alter");
                     Thread.sleep(1000);
                     turnSolver.setText(str);
+                    return;
                 }
                 if(!game.isHostTurn() && !game.getGuestRowStatus()[blocknumber].equalsIgnoreCase("hole")){
                     String str=turnSolver.getText();
                     turnSolver.setText("select a hole to alter");
                     Thread.sleep(1000);
                     turnSolver.setText(str);
+                    return;
                 }
 
             }
@@ -618,18 +621,27 @@ public class GameController2 {
                 turnSolver.setText("Rounds decreased");
                 Thread.sleep(1000);
                 turnSolver.setText(str);
+                return;
             }
             if(i.getName().equalsIgnoreCase("cardcopier")){
                 root.getChildren().add(copierButton);
                 root.getChildren().add(copiertext);
+                return;
             }
             if(i.getName().equalsIgnoreCase("cardathandhider")){
+                nextTurn();
                 int a=2;
                 if(game.isHostTurn())
                     a=1;
                 cardsAtHandHider(a);
+                return;
+            }
+            if(i.getName().equalsIgnoreCase("HPInstaller")){
             }
             game.hitSpecialCards(i,blocknumber);
+            ApplicationData.getGameGraphic().getController().hosthp.setText("HP:"+ApplicationData.getHost().getHP());
+            ApplicationData.getGameGraphic().getController().guesthp.setText("HP:"+ApplicationData.getGuest().getHP());
+            nextTurn();
             return;
         }
         if(blocknumber+i.getDuration()>21){
@@ -1180,7 +1192,7 @@ public class GameController2 {
     }
     public void cardsAtHandHider(int player) {
         hidden=true;
-        if (player==1) {
+        if (player==2) {
             Collections.shuffle(game.getGuestCardsAtHand());
             guestslot0.setFill(new ImagePattern(hider));
             guestslot1.setFill(new ImagePattern(hider));
@@ -1217,6 +1229,7 @@ public class GameController2 {
                 //image
                 root.getChildren().remove(copiertext);
                 root.getChildren().remove(copierButton);
+                nextTurn();
             }
         }
         else {
@@ -1232,6 +1245,7 @@ public class GameController2 {
                 //image
                 root.getChildren().remove(copiertext);
                 root.getChildren().remove(copierButton);
+                nextTurn();
             }
         }
     }

@@ -75,11 +75,11 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="hostUsername" layoutX="800.0" layoutY="23.0" prefHeight="33.0" prefWidth="145.0" text="Host:" />
-      <Label fx:id="hosthp" layoutX="800.0" layoutY="75.0" prefHeight="33.0" prefWidth="145.0" text="HP:" />
-      <Label fx:id="guestUsername" layoutX="800.0" layoutY="404.0" prefHeight="33.0" prefWidth="145.0" text="Guest:" />
-      <Label fx:id="guesthp" layoutX="800.0" layoutY="448.0" prefHeight="33.0" prefWidth="145.0" text="HP:" />
-      <Label fx:id="turnSolver" layoutX="423.0" layoutY="243.0" prefHeight="26.0" prefWidth="146.0" text="Now Host should play" />
+      <Label fx:id="hostUsername" layoutX="800.0" layoutY="23.0" prefHeight="33.0" prefWidth="145.0" text="Host:" textFill="WHITE" />
+      <Label fx:id="hosthp" layoutX="800.0" layoutY="75.0" prefHeight="33.0" prefWidth="145.0" text="HP:" textFill="#12ff09" />
+      <Label fx:id="guestUsername" layoutX="800.0" layoutY="404.0" prefHeight="33.0" prefWidth="145.0" text="Guest:" textFill="WHITE" />
+      <Label fx:id="guesthp" layoutX="800.0" layoutY="448.0" prefHeight="33.0" prefWidth="145.0" text="HP:" textFill="#15e738" />
+      <Label fx:id="turnSolver" layoutX="423.0" layoutY="243.0" prefHeight="26.0" prefWidth="146.0" text="Now Host should play" textFill="#ffad09" />
       <Rectangle fx:id="hostComment" arcHeight="5.0" arcWidth="5.0" height="109.0" layoutX="523.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="160.0">
          <fill>
             <LinearGradient endX="1.0" endY="0.8409090936183929">
@@ -128,8 +128,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="8.0" layoutY="43.0" prefHeight="26.0" prefWidth="47.0" text="Turns:" />
-      <Label layoutX="15.0" layoutY="380.0" text="Turns:" />
+      <Label layoutX="8.0" layoutY="43.0" prefHeight="26.0" prefWidth="47.0" text="Turns:" textFill="#00ddff" />
+      <Label layoutX="15.0" layoutY="380.0" text="Turns:" textFill="#00ddff" />
       <TextField fx:id="copiertext" layoutX="48.0" layoutY="19.0" prefHeight="24.0" prefWidth="160.0" promptText="number you want to copy:">
          <font>
             <Font size="11.0" />

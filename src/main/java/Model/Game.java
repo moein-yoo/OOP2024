@@ -283,7 +283,6 @@ public class Game {
         return guestInitialHP;
     }
     public String hitSpecialCards(Card card,int index){
-        System.out.println("entered special");
         int a=1;
         if(!isHostTurn())
             a=2;
@@ -301,6 +300,8 @@ public class Game {
             return cardRemover(a);
         if(card.getName().equalsIgnoreCase("cardPowerDecrease"))
             return cardPowerDecrease(a);
+        if(card.getName().equalsIgnoreCase("HPInstaller"))
+            return HPInstaller(a);
         return "salam";
 //        if(card.getName().equalsIgnoreCase("cardCopier"))
 //            cardCopier(a);
@@ -324,12 +325,12 @@ public class Game {
 //        }
 //        return "null";
 //    }
-    public String HPInstaller(int cardHPScore,int player) {//host=1
+    public String HPInstaller(int player) {//host=1
         if (player == 1) {
-            ApplicationData.getHost().setHP(ApplicationData.getHost().getHP()+cardHPScore);
+            ApplicationData.getHost().setHP(ApplicationData.getHost().getHP()+20);
         }
         else {
-            ApplicationData.getGuest().setHP(ApplicationData.getGuest().getHP()+cardHPScore);
+            ApplicationData.getGuest().setHP(ApplicationData.getGuest().getHP()+20);
         }
         return "HP increased!";
     }

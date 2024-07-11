@@ -42,7 +42,7 @@ public class Game extends Application {
     }
 
     private static BackgroundImage createBackgroundImage() {
-        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/Game.jpeg").toExternalForm(), 600, 400, false, false);
+        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/Game.jpg").toExternalForm(), 1006, 514, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
