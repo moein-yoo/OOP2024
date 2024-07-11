@@ -4,8 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="503.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.MainMenuViewController">
+<AnchorPane prefHeight="503.0" prefWidth="768.0" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.MainMenuViewController">
    <children>
       <Button layoutX="346.0" layoutY="239.0" mnemonicParsing="false" onMouseClicked="#goToGameMenu" text="Start Game" />
       <Button layoutX="66.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#goToHistoryMenu" text="History Menu" />
@@ -17,6 +16,6 @@
       <Label fx:id="nicknameLabel" layoutX="511.0" layoutY="37.0" text="Nickname" />
       <Button layoutX="228.0" layoutY="390.0" mnemonicParsing="false" onMouseClicked="#goToSettingMenu" text="Setting" />
       <Button layoutX="512.0" layoutY="390.0" mnemonicParsing="false" onMouseClicked="#goToProfileMenu" text="Profile" />
-      <Button layoutX="358.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#logout" text="Logout" />
+      <Button layoutX="352.0" layoutY="457.0" mnemonicParsing="false" onMouseClicked="#logout" text="Logout" />
    </children>
 </AnchorPane>

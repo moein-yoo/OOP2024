@@ -35,8 +35,10 @@ public class LoginMenu extends Application {
 //        User.initialize();
 //        MatchData.initialize();
         makeImage();
-        ApplicationData.setMediaPlayer(new MediaPlayer(ApplicationData.getMedia()));
-        ApplicationData.getMediaPlayer().play();
+        if (ApplicationData.getMediaPlayer()== null || ApplicationData.getMediaPlayer().isMute()) {
+            ApplicationData.setMediaPlayer(new MediaPlayer(ApplicationData.getMedia()));
+            ApplicationData.getMediaPlayer().play();
+        }
         ApplicationData.setStage(stage);
         ApplicationData.getStage().getIcons().add(new Image(LoginMenu.class.getResource("/Media/Images/Logo.jpeg").toExternalForm()));
         ApplicationData.getStage().setTitle("M&S Card Game");

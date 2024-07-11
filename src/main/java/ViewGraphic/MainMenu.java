@@ -43,7 +43,7 @@ public class MainMenu extends Application {
     }
 
     private static BackgroundImage createBackgroundImage() {
-        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/MainMenu.jpeg").toExternalForm(), 600, 400, false, false);
+        Image image = new Image(LoginMenu.class.getResource("/Media/Images/Menus/MainMenu.jpeg").toExternalForm(), 768, 503, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
