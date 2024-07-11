@@ -1,8 +1,9 @@
 package Controller;
 
 import Model.*;
-import ViewGraphic.Animation.MovingBarAnimation;
+import ViewGraphic.Animation.*;
 import ViewGraphic.LoginMenu;
+import ViewGraphic.SettingMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.sql.Timestamp;
@@ -193,7 +195,7 @@ public class GameController2 {
         if(!game.isHostTurn())
             turnSolver.setText("Now guest should play");
         hostUsername.setText("Host: "+ApplicationData.getHost().getNickname());
-        guestUsername.setText("Guest: "+ApplicationData.getHost().getNickname());
+        guestUsername.setText("Guest: "+ApplicationData.getGuest().getNickname());
         hosthp.setText("HP: "+ApplicationData.getHost().getHP());
         guesthp.setText("HP: "+ApplicationData.getGuest().getHP());
         selection=new boolean[6];
@@ -1251,9 +1253,12 @@ public class GameController2 {
     }
 
     public void pause(MouseEvent mouseEvent) {
-
-
-
-
+        Stage stage = ApplicationData.getStage();
+        ApplicationData.setPlayingMode(true);
+        try {
+            new SettingMenu().start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

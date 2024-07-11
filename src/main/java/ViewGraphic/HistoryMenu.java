@@ -39,7 +39,7 @@ public class HistoryMenu extends Application {
         scene = new Scene(pane);
         stage.setScene(scene);
         stage.setResizable(false);
-        pane.setBackground(new Background(createBackgroundImage()));
+        //pane.setBackground(new Background(createBackgroundImage()));
         stage.centerOnScreen();
         stage.show();
     }

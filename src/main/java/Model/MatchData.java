@@ -14,8 +14,8 @@ public class MatchData {
     private int LoserLevel;
     private static String url="jdbc:mysql://localhost:3306/project";
     private static String username="root";
-    static String password="soroush1384";
-//    static String password="@9984moeiN";
+//    static String password="soroush1384";
+    static String password="@9984moeiN";
     private static Connection connection;
     private static java.sql.Statement statement;
     public MatchData(String Winner,String Loser,String Award,String Penalty,Timestamp Date,int WinnerLevel,int LoserLevel){
@@ -65,7 +65,7 @@ public class MatchData {
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         int int1=matchData.getWinnerLevel();
         int int2=matchData.getLoserLevel();
-        String query="INSERT INTO MatchData(Winner, Loser, Award , Penalty,Date , WinnerLevel , LoserLevel) VALUES (?,?,?,?,?,?,?)";
+        String query="INSERT INTO MatchData(Winner, Loser, Award , Penalty , WinnerLevel , LoserLevel,Date) VALUES (?,?,?,?,?,?,?)";
        // String query="INSERT INTO MatchData(Winner, Loser, Award , Penalty,Date , WinnerLevel , LoserLevel) VALUES ("+str1+","+str2+","+str3+","+str4+","+str5+","+ int1 +","+ int2+")";
         try{
             PreparedStatement stmt = connection.prepareStatement(query);
