@@ -68,12 +68,13 @@ public class ShopMenuViewController {
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = ApplicationData.getHost().getAllPossessedCards().get(finalI);
                 buyMode = true;
-                nameLabel.setText("Name : " + selectedCard.getName());
-                damageLabel.setText("Damage : " + selectedCard.getDamage());
-                accuracyLabel.setText("Accuracy : " + selectedCard.getAccuracy());
-                durationLabel.setText("Duration : " + selectedCard.getDuration());
-                levelLabel.setText("Level : " + selectedCard.getLevel());
-                costLabel.setText("Cost : " + selectedCard.getUpgradeCost());
+                Card upgradedCard = selectedCard.NextLevelCard();
+                nameLabel.setText("Name : " + upgradedCard.getName());
+                damageLabel.setText("Damage : " + upgradedCard.getDamage());
+                accuracyLabel.setText("Accuracy : " + upgradedCard.getAccuracy());
+                durationLabel.setText("Duration : " + upgradedCard.getDuration());
+                levelLabel.setText("Level : " + upgradedCard.getLevel());
+                costLabel.setText("Cost : " + upgradedCard.getUpgradeCost());
             });
         }
         for (int i = 0; i < lockedImageView.size(); i++) {
@@ -82,13 +83,12 @@ public class ShopMenuViewController {
             imageView.setOnMouseClicked(mouseEvent -> {
                 selectedCard = lockedCards.get(finalI);
                 buyMode = false;
-                Card upgradedCard = selectedCard.NextLevelCard();
-                nameLabel.setText("Name : " + upgradedCard.getName());
-                damageLabel.setText("Damage : " + upgradedCard.getDamage());
-                accuracyLabel.setText("Accuracy : " + upgradedCard.getAccuracy());
-                durationLabel.setText("Duration : " + upgradedCard.getDuration());
-                levelLabel.setText("Level : " + upgradedCard.getLevel());
-                costLabel.setText("Cost : " + upgradedCard.getUpgradeCost());
+                nameLabel.setText("Name : " + selectedCard.getName());
+                damageLabel.setText("Damage : " + selectedCard.getDamage());
+                accuracyLabel.setText("Accuracy : " + selectedCard.getAccuracy());
+                durationLabel.setText("Duration : " + selectedCard.getDuration());
+                levelLabel.setText("Level : " + selectedCard.getLevel());
+                costLabel.setText("Cost : " + selectedCard.getUpgradeCost());
             });
         }
 
@@ -103,6 +103,7 @@ public class ShopMenuViewController {
             String outcome = ShopMenuController.upgradeCard(selectedCard);
             warningLabel.setText(outcome);
         }
+        makeScrollPanes();
     }
 
     public void goBack(MouseEvent mouseEvent) {
@@ -114,11 +115,19 @@ public class ShopMenuViewController {
     }
 
     public void makeScrollPanes() {
+        LoginMenu.makeImage();
+        unlockedPane.getChildren().clear();
+        lockedPane.getChildren().clear();
+        unlockedScrollPane.setContent(null);
+        lockedScrollPane.setContent(null);
+        unlockedImageView.clear();
+        lockedImageView.clear();
         unlockedScrollPane.prefWidth(600);
         unlockedPane.prefWidth(ApplicationData.getHost().getAllPossessedCards().size() * 100);
         for (int i = 0; i < ApplicationData.getHost().getAllPossessedCards().size(); i++) {
             //Image image = new Image(MainMenu.class.getResource("/Images/" + ApplicationData.getUser().getSongs().get(i).getSinger().getName() + "/" + i + ".jpeg").toExternalForm(), 200, 200, false, false);
-            Image image = ApplicationData.getHost().getAllPossessedCards().get(i).getImage();
+            //Image image = ApplicationData.getHost().getAllPossessedCards().get(i).getImage();
+            Image image = new Image(ShopMenu.class.getResource("/Media/Images/Cards/" + ApplicationData.getHost().getAllPossessedCards().get(i).getName() + ".jpeg").toExternalForm(),100,100,false,false);
             ImageView tempImageView = new ImageView(image);
             tempImageView.setLayoutX(i*100);
             unlockedImageView.add(tempImageView);
@@ -126,9 +135,15 @@ public class ShopMenuViewController {
         }
         unlockedScrollPane.setContent(unlockedPane);
 
-        for (Card card : ApplicationData.getAllCardsArraylist()) {
-            if (!ApplicationData.getHost().isCardExist(card))
-                lockedCards.add(card);
+        lockedCards.addAll(ApplicationData.getAllCardsArraylist());
+        for (int i = 0; i < lockedCards.size(); i++) {
+            Card card = lockedCards.get(i);
+            for (Card allPossessedCard : ApplicationData.getHost().getAllPossessedCards()) {
+                if (card.getName().equals(allPossessedCard.getName())){
+                    lockedCards.remove(card);
+                    i--;
+                }
+            }
         }
 
         lockedScrollPane.prefWidth(600);

@@ -11,5 +11,7 @@ module OOP2024 {
     opens Controller to javafx.fxml;
     exports ViewGraphic.Animation;
     opens ViewGraphic.Animation to javafx.fxml;
+    exports Model;
+    opens Model to javafx;
 }
 ///

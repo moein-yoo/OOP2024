@@ -14,8 +14,8 @@ public class MatchData {
     private int LoserLevel;
     private static String url="jdbc:mysql://localhost:3306/project";
     private static String username="root";
-    static String password="soroush1384";
-//    static String password="@9984moeiN";
+//    static String password="soroush1384";
+    static String password="@9984moeiN";
     private static Connection connection;
     private static java.sql.Statement statement;
     public MatchData(String Winner,String Loser,String Award,String Penalty,Timestamp Date,int WinnerLevel,int LoserLevel){

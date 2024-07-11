@@ -64,7 +64,7 @@
       <Rectangle fx:id="guestslot3" arcHeight="5.0" arcWidth="5.0" fill="#2a333b" height="69.0" layoutX="417.0" layoutY="404.0" onMouseClicked="#prop9" onMouseDragReleased="#dosth" stroke="BLACK" strokeType="INSIDE" width="47.0" />
       <Rectangle fx:id="guestslot4" arcHeight="5.0" arcWidth="5.0" fill="#2a333b" height="69.0" layoutX="473.0" layoutY="404.0" onMouseClicked="#prop10" onMouseDragReleased="#dosth" stroke="BLACK" strokeType="INSIDE" width="47.0" />
       <Rectangle fx:id="guestslot5" arcHeight="5.0" arcWidth="5.0" fill="#2a333b" height="69.0" layoutX="687.0" layoutY="404.0" onMouseClicked="#prop11" onMouseDragReleased="#dosth" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-      <Button fx:id="backbutton" layoutX="32.0" layoutY="469.0" mnemonicParsing="false" onAction="#goback" text="back" />
+      <Button layoutX="32.0" layoutY="469.0" mnemonicParsing="false" onAction="#goback" onMouseClicked="#pause" text="Pause" />
       <Label fx:id="comment1" layoutX="526.0" layoutY="15.0" prefHeight="102.0" prefWidth="153.0">
          <font>
             <Font size="10.0" />

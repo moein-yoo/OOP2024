@@ -18,8 +18,8 @@ public class User {
     private int xp;
     private static String url="jdbc:mysql://localhost:3306/project";
     private static String Username="root";
-    static String Password="soroush1384";
-//    static String Password="@9984moeiN";
+//    static String Password="soroush1384";
+    static String Password="@9984moeiN";
     private static Connection connection;
     private static java.sql.Statement statement;
     public User (String username, String nickname, String password, String email, String passwordRecoveryQuestion, int passwordRecoveryType){
@@ -237,7 +237,12 @@ public class User {
     }
     public ArrayList<Card> getAllPossessedCards(){return this.allPossessedCards;}
     public boolean isCardExist(Card card) {
-        return allPossessedCards.contains(card);
+        for (Card card1 : ApplicationData.getAllCardsArraylist()) {
+            if(card1.getName().equals(card.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
     public void buyCard(Card i){
         //age mikhay barresi kon card az ghabl mojoode ya na,age mojoode update she va...

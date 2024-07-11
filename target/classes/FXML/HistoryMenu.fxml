@@ -6,66 +6,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="413.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.HistoryMenuViewController">
+<AnchorPane prefHeight="390.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewGraphic.HistoryMenuViewController">
    <children>
       <TableView fx:id="historyTable" layoutY="-2.0" prefHeight="366.0" prefWidth="706.0">
         <columns>
-            <TableColumn prefWidth="105.14284956455231" text="Award" />
-            <TableColumn prefWidth="114.8571548461914" text="Penalty" />
-            <TableColumn prefWidth="191.4285888671875" text="Opponent" />
-          <TableColumn minWidth="6.857147216796875" prefWidth="72.0" text="Opp Level" />
-          <TableColumn prefWidth="74.28573608398438" text="Your Level" />
-            <TableColumn prefWidth="44.5714111328125" text="Result" />
-            <TableColumn prefWidth="106.85711669921875" text="Time" />
+            <TableColumn fx:id="awardColumn" prefWidth="105.14284956455231" text="Award" />
+            <TableColumn fx:id="penaltyColumn" prefWidth="114.8571548461914" text="Penalty" />
+            <TableColumn fx:id="winnerColumn" prefWidth="127.99996948242188" text="Winner" />
+            <TableColumn fx:id="loserColumn" prefWidth="108.57147216796875" text="Loser" />
+          <TableColumn fx:id="winLevColumn" minWidth="6.857147216796875" prefWidth="72.0" text="Winner Level" />
+          <TableColumn fx:id="losLevColumn" prefWidth="74.28573608398438" text="Loser Level" />
+            <TableColumn fx:id="timeColumn" prefWidth="106.85711669921875" text="Time" />
         </columns>
       </TableView>
-      <Button fx:id="awardSort" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Sort" textFill="RED">
-         <font>
-            <Font name="Comic Sans MS" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="PenaltySort" layoutX="106.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Sort" textFill="RED">
+      <Button fx:id="nextPageButton" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Next Page" textFill="RED">
           <font>
               <Font name="Comic Sans MS" size="12.0" />
           </font>
       </Button>
-      <Button fx:id="opponentSort" layoutX="222.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="191.0" text="Sort" textFill="RED">
+      <Button fx:id="previousPageButton" layoutX="212.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="201.0" text="Previous Page" textFill="RED">
           <font>
               <Font name="Comic Sans MS" size="12.0" />
           </font>
       </Button>
-      <Button fx:id="oppLevelSort" layoutX="414.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Sort" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button fx:id="hostLevelSort" layoutX="486.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Sort" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button fx:id="resultSort" layoutX="560.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Sort" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button fx:id="timeSort" layoutX="608.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Sort" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button fx:id="nextPageButton" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Next Page" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button fx:id="previousPageButton" layoutX="212.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="201.0" text="Previous Page" textFill="RED">
-          <font>
-              <Font name="Comic Sans MS" size="12.0" />
-          </font>
-      </Button>
-      <Button layoutX="414.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="292.0" onMouseClicked="#goBack" text="Back" textFill="RED">
+      <Button layoutX="413.0" layoutY="364.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="25.0" prefWidth="292.0" text="Back" textFill="RED">
           <font>
               <Font name="Comic Sans MS" size="12.0" />
           </font>

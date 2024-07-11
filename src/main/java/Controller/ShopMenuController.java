@@ -32,7 +32,7 @@ public class ShopMenuController {
     }
     public static String upgradeCard(Card card){
 
-        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
+        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getLevel()){
             return ("Not enough coins or low level");
         }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());
@@ -51,7 +51,7 @@ public class ShopMenuController {
         if(found){
             return "You already have this card";
         }
-        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getUpgradeLevel()){
+        if(ApplicationData.getHost().getCoins()<card.getUpgradeCost() || ApplicationData.getHost().getLevel()<card.getLevel()){
             return ("Not enough coins or low level");
         }
         ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()-card.getUpgradeCost());

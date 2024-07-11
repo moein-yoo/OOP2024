@@ -1,11 +1,7 @@
 package ViewGraphic;
 
 import Controller.GameController2;
-import Controller.RegistryMenuController;
 import Model.ApplicationData;
-import Model.Card;
-import Model.MatchData;
-import Model.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,7 +32,7 @@ public class Game extends Application {
         ApplicationData.getStage().setTitle("M&S Card Game");
         ApplicationData.setGameGraphic(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane pane = fxmlLoader.load(LoginMenu.class.getResource("/FXML/Game.fxml"));
+        Pane pane = fxmlLoader.load(LoginMenu.class.getResource("/Game.fxml"));
         scene = new Scene(pane);
         stage.setScene(scene);
         stage.setResizable(false);

@@ -34,6 +34,7 @@ public class LoginMenu extends Application {
 //        Card.initialize();
 //        User.initialize();
 //        MatchData.initialize();
+        makeImage();
         ApplicationData.setMediaPlayer(new MediaPlayer(ApplicationData.getMedia()));
         ApplicationData.getMediaPlayer().play();
         ApplicationData.setStage(stage);
@@ -66,5 +67,16 @@ public class LoginMenu extends Application {
 
     public void setController(LoginMenuViewController controller) {
         this.controller = controller;
+    }
+
+    public static void makeImage() {
+        for (Card card : ApplicationData.getAllCardsArraylist()) {
+            try {
+                Image image = new Image(LoginMenu.class.getResource("/Media/Images/Cards/" + card.getName() + ".jpeg").toExternalForm(),100,100,false,false);
+                card.setImage(image);
+            }catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
