@@ -108,10 +108,11 @@ public class ShopMenuViewController {
 
     public void goBack(MouseEvent mouseEvent) {
         Stage stage = ApplicationData.getStage();
-        stage.setScene(MainMenu.getScene());
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
+        try {
+            new MainMenu().start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void makeScrollPanes() {

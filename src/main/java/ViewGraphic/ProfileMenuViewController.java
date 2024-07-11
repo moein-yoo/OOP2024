@@ -43,10 +43,11 @@ public class ProfileMenuViewController {
         });
         backButton.setOnMouseClicked(mouseEvent -> {
             Stage stage = ApplicationData.getStage();
-            stage.setScene(MainMenu.getScene());
-            stage.setResizable(false);
-            stage.centerOnScreen();
-            stage.show();
+            try {
+                new MainMenu().start(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
