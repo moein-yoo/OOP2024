@@ -15,7 +15,7 @@ public class Main {
         Card.initialize();
         User.initialize();
         MatchData.initialize();
-//        RegistryMenuView.run();
+        RegistryMenuView.run();
         LoginMenu.main(args);
     }
 }

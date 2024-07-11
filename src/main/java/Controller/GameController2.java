@@ -587,9 +587,11 @@ public class GameController2 {
             int a=Integer.parseInt(hostTurnNum.getText())-1;
             hostTurnNum.setText(String.valueOf(a));
             turnSolver.setText("Now guest should play");
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
         }
         if(!game.isHostTurn()){
             turnSolver.setText("Now host should play");
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             game.setGuestRemainingTurns(game.getGuestRemainingTurns()-1);
             int a=Integer.parseInt(guestTurnNum.getText())-1;
             guestTurnNum.setText(String.valueOf(a));
@@ -655,6 +657,7 @@ public class GameController2 {
                     turnSolver.setText("select a hole to alter");
                     Thread.sleep(1000);
                     turnSolver.setText(str);
+                    turnSolver.setTextFill(Paint.valueOf("#ffad09"));
                     return;
                 }
                 if(!game.isHostTurn() && !game.getGuestRowStatus()[blocknumber].equalsIgnoreCase("hole")){
@@ -662,6 +665,7 @@ public class GameController2 {
                     turnSolver.setText("select a hole to alter");
                     Thread.sleep(1000);
                     turnSolver.setText(str);
+                    turnSolver.setTextFill(Paint.valueOf("#ffad09"));
                     return;
                 }
 
@@ -673,6 +677,7 @@ public class GameController2 {
                 turnSolver.setText("Rounds decreased");
                 Thread.sleep(1000);
                 turnSolver.setText(str);
+                turnSolver.setTextFill(Paint.valueOf("#ffad09"));
                 return;
             }
             if(i.getName().equalsIgnoreCase("cardcopier")){
@@ -762,10 +767,12 @@ public class GameController2 {
         String str=turnSolver.getText();
         if(forHost){
             turnSolver.setText("Bonus activated for host!");
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             Thread.sleep(1000);
         }
         if(!forHost){
             turnSolver.setText("Bonus activated for guest!");
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             Thread.sleep(1000);
         }
         int a=ApplicationData.getRandom().nextInt(4);
@@ -775,6 +782,7 @@ public class GameController2 {
             Thread.sleep(1000);
             turnSolver.setTextFill(Paint.valueOf("#000000"));
             turnSolver.setText(str);
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             Card card=game.randomCardReplace(forHost);
             if(forHost){
                 game.getHostCardsAtHand().add(card);
@@ -791,6 +799,7 @@ public class GameController2 {
             Thread.sleep(1000);
             turnSolver.setTextFill(Paint.valueOf("#000000"));
             turnSolver.setText(str);
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             if(forHost)
                 ApplicationData.getHost().increaseXP(1000);
             if(!forHost)
@@ -802,6 +811,7 @@ public class GameController2 {
             Thread.sleep(1000);
             turnSolver.setTextFill(Paint.valueOf("#000000"));
             turnSolver.setText(str);
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             if(forHost)
                 ApplicationData.getHost().setCoins(ApplicationData.getHost().getCoins()+20);
             if(!forHost)
@@ -864,6 +874,7 @@ public class GameController2 {
             turnSolver.setText("Card Buffed!");
             Thread.sleep(2000);
             turnSolver.setText(str);
+            turnSolver.setTextFill(Paint.valueOf("#ffad09"));
             card.setDamage(card.getDamage()+card.getDuration());
             card.setAccuracy(card.getAccuracy()+3);
         }
@@ -1194,7 +1205,7 @@ public class GameController2 {
         String punishment=pun.toString();
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 
-        MatchData matchData=new MatchData(ApplicationData.getGuest().getNickname(),ApplicationData.getHost().getNickname(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
+        MatchData matchData=new MatchData(ApplicationData.getGuest().getUsername(),ApplicationData.getHost().getUsername(),award,punishment,timestamp,ApplicationData.getGuest().getLevel(),ApplicationData.getHost().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
@@ -1231,7 +1242,7 @@ public class GameController2 {
         String punishment=pun.toString();
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 
-        MatchData matchData=new MatchData(ApplicationData.getHost().getNickname(),ApplicationData.getGuest().getNickname(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
+        MatchData matchData=new MatchData(ApplicationData.getHost().getUsername(),ApplicationData.getGuest().getUsername(),award,punishment,timestamp,ApplicationData.getHost().getLevel(),ApplicationData.getGuest().getLevel());
         MatchData.addToMatchData(matchData);
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());

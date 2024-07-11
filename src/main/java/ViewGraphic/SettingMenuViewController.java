@@ -54,10 +54,11 @@ public class SettingMenuViewController {
                 ApplicationData.getGuest().deBuffCard();
                 ApplicationData.getHost().deBuffCard();
                 Stage stage = ApplicationData.getStage();
-                stage.setScene(MainMenu.getScene());
-                stage.setResizable(false);
-                stage.centerOnScreen();
-                stage.show();
+                try {
+                    new MainMenu().start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         ApplicationData.getSettingMenu().setController(this);

@@ -78,7 +78,7 @@ public class HistoryMenuController {
         return ans;
     }
     public static String showResult(MatchData matchData, User user){
-        if(matchData.getWinner().equals(user.getNickname())){
+        if(matchData.getWinner().equals(user.getUsername())){
             String str="Result: Winner, Opponent: " + matchData.getLoser()+" Your level: "+matchData.getWinnerLevel()+" Opponent level: "+matchData.getLoserLevel()+" \nYour Reward: "+matchData.getAward()+"Match Date: "+matchData.getDate().toString();
             return str;
         }
@@ -105,24 +105,24 @@ public class HistoryMenuController {
             @Override
             public int compare(MatchData o1, MatchData o2) {
                 if(ascending){
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                       return o1.getLoser().compareTo(o2.getLoser());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o1.getWinner().compareTo(o2.getWinner());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o1.getWinner().compareTo(o2.getLoser());
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o1.getLoser().compareTo(o2.getWinner());
                     return 1;
                 }
                 else{
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o2.getLoser().compareTo(o1.getLoser());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o2.getWinner().compareTo(o1.getWinner());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o2.getWinner().compareTo(o1.getLoser());
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o2.getLoser().compareTo(o1.getWinner());
                     return 1;
                 }
@@ -135,16 +135,16 @@ public class HistoryMenuController {
             @Override
             public int compare(MatchData o1, MatchData o2) {
                 if (ascending) {
-                    if (o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if (o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return 1;
-                    if (o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if (o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return -1;
                     return 1;
                 }
                 else {
-                    if (o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if (o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return -1;
-                    if (o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if (o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return 1;
                     return 1;
                 }
@@ -157,24 +157,24 @@ public class HistoryMenuController {
             @Override
             public int compare(MatchData o1, MatchData o2) {
                 if(ascending){
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o1.getLoserLevel()-o2.getLoserLevel();
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o1.getWinnerLevel()-(o2.getWinnerLevel());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o1.getWinnerLevel()-(o2.getLoserLevel());
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o1.getLoserLevel()-(o2.getWinnerLevel());
                     return 1;
                 }
                 else{
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o2.getLoserLevel()-(o1.getLoserLevel());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o2.getWinnerLevel()-(o1.getWinnerLevel());
-                    if(o1.getLoser().equals(user.getNickname()) && o2.getWinner().equals(user.getNickname()))
+                    if(o1.getLoser().equals(user.getUsername()) && o2.getWinner().equals(user.getUsername()))
                         return o2.getWinnerLevel()-(o1.getLoserLevel());
-                    if(o1.getWinner().equals(user.getNickname()) && o2.getLoser().equals(user.getNickname()))
+                    if(o1.getWinner().equals(user.getUsername()) && o2.getLoser().equals(user.getUsername()))
                         return o2.getLoserLevel()-(o1.getWinnerLevel());
                     return 1;
                 }
