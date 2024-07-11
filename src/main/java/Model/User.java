@@ -326,4 +326,20 @@ public class User {
     public void setAllPossessedCards(ArrayList<Card> allPossessedCards){this.allPossessedCards=allPossessedCards;}
     public void addToPossessedCards(Card card){this.allPossessedCards.add(card);}
     public void removeFromPossessedCards(Card card){this.allPossessedCards.remove(card);}
+    public void buffCardOnCharacter(){
+        for(Card card:this.getAllPossessedCards()){
+            if(card.getCharacter().equalsIgnoreCase(this.character)){
+                card.setAccuracy(card.getAccuracy()+2);
+                card.setDamage(card.getDamage()+4*card.getDuration());
+            }
+        }
+    }
+    public void deBuffCard(){
+        for(Card card:this.getAllPossessedCards()){
+            if(card.getCharacter().equalsIgnoreCase(this.character)){
+                card.setAccuracy(card.getAccuracy()-2);
+                card.setDamage(card.getDamage()-4*card.getDuration());
+            }
+        }
+    }
 }

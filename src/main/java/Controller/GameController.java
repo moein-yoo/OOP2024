@@ -4,6 +4,7 @@ import Model.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,8 +22,10 @@ public class GameController {
 
     private static Game game;
     public static boolean gameover=false;
+    private static boolean hidden=false;
 
     public static void nextTurn(){
+        hidden=false;
         if(game.isHostTurn())
             game.setHostRemainingTurns(game.getHostRemainingTurns()-1);
         if(!game.isHostTurn())
@@ -68,8 +71,32 @@ public class GameController {
             i=game.getGuestCardsAtHand().get(cardnumber);
         }
         if(i.isSpecial()){
-            game.hitSpecialCards(i,blocknumber);
-            return "spell placed";
+            if(i.getName().equalsIgnoreCase("holeremover") || i.getName().equalsIgnoreCase("holechanger")){
+                if(blocknumber>20)
+                    return "Out of Bounds";
+                if(game.isHostTurn() && !game.getHostRowStatus()[blocknumber].equalsIgnoreCase("hole"))
+                    return "select a hole to alter";
+                if(!game.isHostTurn() && !game.getGuestRowStatus()[blocknumber].equalsIgnoreCase("hole"))
+                    return "select a hole to alter";
+            }
+            if(i.getName().equalsIgnoreCase("roundDec")){
+                nextTurn();
+                nextTurn();
+                return "Rounds decreased";
+            }
+            if(i.getName().equalsIgnoreCase("cardcopier")){
+                int a=2;
+                if(game.isHostTurn())
+                    a=1;
+                return cardCopier(a);
+            }
+            if(i.getName().equalsIgnoreCase("cardathandhider")){
+                int a=2;
+                if(game.isHostTurn())
+                    a=1;
+                return cardsAtHandHider(a);
+            }
+             return game.hitSpecialCards(i,blocknumber);
         }
         if(blocknumber+i.getDuration()>20){
             System.out.println(1);
@@ -287,6 +314,8 @@ public class GameController {
         return false;
     }
     public static void hostWins(){
+        ApplicationData.getHost().deBuffCard();
+        ApplicationData.getGuest().deBuffCard();
         gameover=true;
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
@@ -320,6 +349,8 @@ public class GameController {
         User.updateUserInSQL(ApplicationData.getGuest());
     }
     public static void guestWins(){
+        ApplicationData.getHost().deBuffCard();
+        ApplicationData.getGuest().deBuffCard();
         gameover=true;
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
@@ -373,17 +404,59 @@ public class GameController {
                 System.out.print(game.getGuestRowCards()[i].getName()+"(broken)\t");
         }
         System.out.println();
-        System.out.print("Host cards to play:\t");
-        for(Card card:game.getHostCardsAtHand())
-            System.out.print(card.getName()+'\t');
-        System.out.println();
-        System.out.print("Guest cards to play:\t");
-        for(Card card:game.getGuestCardsAtHand())
-            System.out.print(card.getName()+'\t');
-        System.out.println();
-        if(game.isHostTurn())
-            System.out.println("Now is Host's turn to play");
-        if(!game.isHostTurn())
-            System.out.println("Now is Guest's turn to play");
+        if(!hidden){
+            System.out.print("Host cards to play:\t");
+            for(Card card:game.getHostCardsAtHand())
+                System.out.print(card.getName()+'\t');
+            System.out.println();
+            System.out.print("Guest cards to play:\t");
+            for(Card card:game.getGuestCardsAtHand())
+                System.out.print(card.getName()+'\t');
+            System.out.println();
+            if(game.isHostTurn())
+                System.out.println("Now is Host's turn to play");
+            if(!game.isHostTurn())
+                System.out.println("Now is Guest's turn to play");
+        }
+        if(hidden){
+            System.out.println("cards to play are hidden");
+        }
+
+    }
+    public static String cardCopier(int player) {
+        Scanner scanner = ApplicationData.getScanner();
+        System.out.println("Choose the number to copy that : ");
+        int index1 = scanner.nextInt();
+        if (player==1) {
+            if (index1>=game.getHostCardsAtHand().size())
+                return "Out of Bounds";
+            else {
+                ArrayList<Card> ans=game.getHostCardsAtHand();
+                ans.add(game.getHostCardsAtHand().get(index1));
+                game.setHostCardsAtHand(ans);
+            }
+            return "card copied";
+        }
+        else {
+            if (index1>=game.getGuestCardsAtHand().size())
+                return "Out of Bounds";
+            else {
+                ArrayList<Card> ans=game.getGuestCardsAtHand();
+                ans.add(game.getGuestCardsAtHand().get(index1));
+                game.setGuestCardsAtHand(ans);
+            }
+            return "card copied";
+        }
+    }
+    public static String cardsAtHandHider(int player) {
+        hidden=true;
+        if (player==1) {
+            Collections.shuffle(game.getHostCardsAtHand());
+            return "cards hidden";
+        }
+        else {
+            Collections.shuffle(game.getGuestCardsAtHand());
+            return "cards hidden";
+        }
     }
 }

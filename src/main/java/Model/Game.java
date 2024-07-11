@@ -271,84 +271,90 @@ public class Game {
     public int getGuestInitialHP() {
         return guestInitialHP;
     }
-    public void hitSpecialCards(Card card,int index){
+    public String hitSpecialCards(Card card,int index){
         int a=1;
         if(!isHostTurn())
             a=2;
-        if(card.getName().equalsIgnoreCase("separInstaller"))
-            separInstaller(index,a);
-        if(card.getName().equalsIgnoreCase("HPInstaller"))
-            HPInstaller(card.getDamage(),a);
+//        if(card.getName().equalsIgnoreCase("separInstaller"))
+//            separInstaller(index,a);
+//        if(card.getName().equalsIgnoreCase("HPInstaller"))
+//            HPInstaller(card.getDamage(),a);
         if(card.getName().equalsIgnoreCase("holeChanger"))
-            holeChanger(a,index);
+            return holeChanger(a,index);
         if(card.getName().equalsIgnoreCase("holeRemover"))
-            holeRemover(a,index);
+            return holeRemover(a,index);
         if(card.getName().equalsIgnoreCase("powerIncrease"))
-            powerIncrease(a);
+            return powerIncrease(a);
         if(card.getName().equalsIgnoreCase("cardRemover"))
-            cardRemover(a);
+            return cardRemover(a);
         if(card.getName().equalsIgnoreCase("cardPowerDecrease"))
-            cardPowerDecrease(a);
-        if(card.getName().equalsIgnoreCase("cardCopier"))
-            cardCopier(a);
-        if(card.getName().equalsIgnoreCase("cardAtHandHider"))
-            cardsAtHandHider(a);
-        if(card.getName().equalsIgnoreCase("roundDec"))
-            roundDecreaseOfPlayer();
+            return cardPowerDecrease(a);
+        return "salam";
+//        if(card.getName().equalsIgnoreCase("cardCopier"))
+//            cardCopier(a);
+//        if(card.getName().equ alsIgnoreCase("cardAtHandHider"))
+//            cardsAtHandHider(a);
+//        if(card.getName().equalsIgnoreCase("roundDec"))
+//            roundDecreaseOfPlayer();
     }
-    public void separInstaller(int index,int player) {
-        if (index>20)
-            System.out.println("Out of Bounds");
-        else if (player == 1) {
-            guestRowStatus[index] = "broken";
-//            guestRowCards[index] = null;
-        }
-        else {
-            hostRowStatus[index] = "broken";
-//            hostRowCards[index] = null;
-        }
-    }
-    public void HPInstaller(int cardHPScore,int player) {//host=1
+//    public String separInstaller(int index,int player) {
+//        if (index>20)
+//            return "Out of Bounds";
+//        else if (player == 1) {
+//            guestRowStatus[index] = "broken";
+//            setHostTurn();
+////            guestRowCards[index] = null;
+//        }
+//        else {
+//            hostRowStatus[index] = "broken";
+//            setHostTurn();
+////            hostRowCards[index] = null;
+//        }
+//        return "null";
+//    }
+    public String HPInstaller(int cardHPScore,int player) {//host=1
         if (player == 1) {
             ApplicationData.getHost().setHP(ApplicationData.getHost().getHP()+cardHPScore);
         }
         else {
             ApplicationData.getGuest().setHP(ApplicationData.getGuest().getHP()+cardHPScore);
         }
+        return "HP increased!";
     }
-    public void holeChanger(int player,int oldIndex) {
-        if (oldIndex>20)
-            System.out.println("Out of Bounds");
-        else if (player==1) {
+    public String holeChanger(int player,int oldIndex) {
+        if (player==1) {
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
             hostRowStatus[index] = "hole";hostRowStatus[oldIndex] = "nothing";
+            return "hole changed!";
         }
         else {
             int index = ApplicationData.getRandom().nextInt(21);
             while (!guestRowStatus[index].equals("nothing"))
                 index = ApplicationData.getRandom().nextInt(21);
             guestRowStatus[index] = "hole";guestRowStatus[oldIndex] = "nothing";
+            return "hole changed!";
         }
     }
 
-    public void holeRemover(int player, int index) {
-        if (index>20)
-            System.out.println("Out of Bounds");
-        else if (player==1) {
+    public String holeRemover(int player, int index) {
+        if (player==1) {
             hostRowStatus[index] = "nothing";
+            return "hole removed";
         }
         else {
             guestRowStatus[index] = "nothing";
+            return "hole removed";
         }
     }
 
-    public void roundDecreaseOfPlayer() {
-        this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
-        this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
-    }
-    public void powerIncrease(int player) {
+//    public String roundDecreaseOfPlayer() {
+//        this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
+//        this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
+//        return "rounds decreased";
+//    }
+    public String powerIncrease(int player) {
         if (player==1) {
             int index = ApplicationData.getRandom().nextInt(21);
             while (!hostRowStatus[index].equals("card")) {
@@ -356,6 +362,7 @@ public class Game {
             }
             hostRowCards[index].setDamage(hostRowCards[index].getDamage()+hostRowCards[index].getDuration());
             hostRowCards[index].setAccuracy(hostRowCards[index].getAccuracy()+3);
+            return "card power increased!";
         }
         else {
             int index = ApplicationData.getRandom().nextInt(21);
@@ -364,34 +371,38 @@ public class Game {
             }
             guestRowCards[index].setDamage(guestRowCards[index].getDamage()+guestRowCards[index].getDuration());
             guestRowCards[index].setAccuracy(guestRowCards[index].getAccuracy()+3);
+            return "card power increased";
         }
     }
-    public void cardRemover(int player) {
+    public String cardRemover(int player) {
         if (player==1) {
             int index = ApplicationData.getRandom().nextInt(GameController.getGame().getGuestCardsAtHand().size());
             Card card = this.getGuestCardsAtHand().get(index);
             this.removeCardFromGuestCardsAtHand(index);
             this.addCardToHostCardsAtHand(card);
+            return "guest card removed!";
         }
         else {
             int index = ApplicationData.getRandom().nextInt(GameController.getGame().getHostCardsAtHand().size());
             Card card = GameController.getGame().getHostCardsAtHand().get(index);
             this.removeCardFromHostCardsAtHand(index);
             this.addCardToGuestCardsAtHand(card);
+            return "host card removed!";
         }
     }
-    public void cardPowerDecrease(int player) {
+    public String cardPowerDecrease(int player) {
         int index1 = ApplicationData.getRandom().nextInt(21);
         int index2 = ApplicationData.getRandom().nextInt(21);
         if (player==1) {
             while (!guestRowStatus[index1].equals("card")) {
                 index1 = ApplicationData.getRandom().nextInt(21);
             }
-            while (!guestRowStatus[index1].equals("card") || index2==index1) {
+            while (!guestRowStatus[index2].equals("card") || index2==index1) {
                 index2 = ApplicationData.getRandom().nextInt(21);
             }
             guestRowCards[index1].setAccuracy(guestRowCards[index1].getAccuracy()-5);
-            guestRowCards[index2].setDamage(guestRowCards[index1].getDamage()- 2*guestRowCards[index1].getDuration());
+            guestRowCards[index2].setDamage(guestRowCards[index2].getDamage()- 2*guestRowCards[index2].getDuration());
+            return "Guest card "+index1+"'s acc and card "+index2+"'s damage decreased";
         }
         else {
             index1 = ApplicationData.getRandom().nextInt(21);
@@ -399,157 +410,15 @@ public class Game {
             while (!hostRowStatus[index1].equals("card")) {
                 index1 = ApplicationData.getRandom().nextInt(21);
             }
-            while (!hostRowStatus[index1].equals("card") || index2==index1) {
+            while (!hostRowStatus[index2].equals("card") || index2==index1) {
                 index2 = ApplicationData.getRandom().nextInt(21);
             }
             hostRowCards[index1].setAccuracy(hostRowCards[index1].getAccuracy()-5);
             hostRowCards[index2].setDamage(hostRowCards[index1].getDamage()- 2*hostRowCards[index1].getDuration());
+            return "Host card "+index1+"'s acc and card "+index2+"'s damage decreased";
         }
     }
-//    public void cardCopier(int player) {
-//        Scanner scanner = ApplicationData.getScanner();
-//        System.out.println("Choose the number to copy that : ");
-//        int index1 = scanner.nextInt();
-//        if (player==1) {
-//            if (index1>=hostCardsAtHand.size())
-//                System.out.println("Out of Bounds");
-//            else hostCardsAtHand.add(hostCardsAtHand.get(index1));
-//        }
-//        else {
-//            if (index1>=guestCardsAtHand.size())
-//                System.out.println("Out of Bounds");
-//            else guestCardsAtHand.add(guestCardsAtHand.get(index1));
-//        }
-//    }
-//    public void cardsAtHandHider(int player) {
-//        if (player==1) {
-//            Collections.shuffle(hostCardsAtHand);
-//        }
-//        else {
-//            Collections.shuffle(guestCardsAtHand);
-//        }
-//    }
 
-    public void HPInstaller2(int cardHPScore,int player) {//host=1
-        if (player == 1) {
-            ApplicationData.getHost().setHP(ApplicationData.getHost().getHP()+cardHPScore);
-        }
-        else {
-            ApplicationData.getGuest().setHP(ApplicationData.getGuest().getHP()+cardHPScore);
-        }
-    }
-//    public void holeChanger(int player,int oldIndex) {
-//        if (oldIndex>20)
-//            System.out.println("Out of Bounds");
-//        else if (player==1) {
-//            int index = ApplicationData.getRandom().nextInt(21);
-//            while (!hostRowStatus[index].equals("nothing"))
-//                index = ApplicationData.getRandom().nextInt(21);
-//            hostRowStatus[index] = "hole";hostRowStatus[oldIndex] = "nothing";
-//        }
-//        else {
-//            int index = ApplicationData.getRandom().nextInt(21);
-//            while (!guestRowStatus[index].equals("nothing"))
-//                index = ApplicationData.getRandom().nextInt(21);
-//            guestRowStatus[index] = "hole";guestRowStatus[oldIndex] = "nothing";
-//        }
-//    }
-//
-//    public void holeRemover(int player, int index) {
-//        if (index>20)
-//            System.out.println("Out of Bounds");
-//        else if (player==1) {
-//            hostRowStatus[index] = "nothing";
-//        }
-//        else {
-//            guestRowStatus[index] = "nothing";
-//        }
-//    }
-//
-//    public void roundDecreaseOfPlayer() {
-//        this.setHostRemainingTurns(GameController.getGame().getHostRemainingTurns()-1);
-//        this.setGuestRemainingTurns(GameController.getGame().getGuestRemainingTurns()-1);
-//    }
-//    public void powerIncrease(int player) {
-//        if (player==1) {
-//            int index = ApplicationData.getRandom().nextInt(21);
-//            while (!hostRowStatus[index].equals("card")) {
-//                index = ApplicationData.getRandom().nextInt(21);
-//            }
-//            hostRowCards[index].setDamage(hostRowCards[index].getDamage()+hostRowCards[index].getDuration());
-//            hostRowCards[index].setAccuracy(hostRowCards[index].getAccuracy()+3);
-//        }
-//        else {
-//            int index = ApplicationData.getRandom().nextInt(21);
-//            while (!guestRowStatus[index].equals("card")) {
-//                index = ApplicationData.getRandom().nextInt(21);
-//            }
-//            guestRowCards[index].setDamage(guestRowCards[index].getDamage()+guestRowCards[index].getDuration());
-//            guestRowCards[index].setAccuracy(guestRowCards[index].getAccuracy()+3);
-//        }
-//    }
-//    public void cardRemover(int player) {
-//        if (player==1) {
-//            int index = ApplicationData.getRandom().nextInt(GameController.getGame().getGuestCardsAtHand().size());
-//            Card card = this.getGuestCardsAtHand().get(index);
-//            this.removeCardFromGuestCardsAtHand(index);
-//            this.addCardToHostCardsAtHand(card);
-//        }
-//        else {
-//            int index = ApplicationData.getRandom().nextInt(GameController.getGame().getHostCardsAtHand().size());
-//            Card card = GameController.getGame().getHostCardsAtHand().get(index);
-//            this.removeCardFromHostCardsAtHand(index);
-//            this.addCardToGuestCardsAtHand(card);
-//        }
-//    }
-//    public void cardPowerDecrease(int player) {
-//        int index1 = ApplicationData.getRandom().nextInt(21);
-//        int index2 = ApplicationData.getRandom().nextInt(21);
-//        if (player==1) {
-//            while (!guestRowStatus[index1].equals("card")) {
-//                index1 = ApplicationData.getRandom().nextInt(21);
-//            }
-//            while (!guestRowStatus[index1].equals("card") || index2==index1) {
-//                index2 = ApplicationData.getRandom().nextInt(21);
-//            }
-//            guestRowCards[index1].setAccuracy(guestRowCards[index1].getAccuracy()-5);
-//            guestRowCards[index2].setDamage(guestRowCards[index1].getDamage()- 2*guestRowCards[index1].getDuration());
-//        }
-//        else {
-//            index1 = ApplicationData.getRandom().nextInt(21);
-//            index2 = ApplicationData.getRandom().nextInt(21);
-//            while (!hostRowStatus[index1].equals("card")) {
-//                index1 = ApplicationData.getRandom().nextInt(21);
-//            }
-//            while (!hostRowStatus[index1].equals("card") || index2==index1) {
-//                index2 = ApplicationData.getRandom().nextInt(21);
-//            }
-//            hostRowCards[index1].setAccuracy(hostRowCards[index1].getAccuracy()-5);
-//            hostRowCards[index2].setDamage(hostRowCards[index1].getDamage()- 2*hostRowCards[index1].getDuration());
-//        }
-//    }
-    public void cardCopier(int player) {
-        Scanner scanner = ApplicationData.getScanner();
-        System.out.println("Choose the number to copy that : ");
-        int index1 = scanner.nextInt();
-        if (player==1) {
-            if (index1>=hostCardsAtHand.size())
-                System.out.println("Out of Bounds");
-            else hostCardsAtHand.add(hostCardsAtHand.get(index1));
-        }
-        else {
-            if (index1>=guestCardsAtHand.size())
-                System.out.println("Out of Bounds");
-            else guestCardsAtHand.add(guestCardsAtHand.get(index1));
-        }
-    }
-    public void cardsAtHandHider(int player) {
-        if (player==1) {
-            Collections.shuffle(hostCardsAtHand);
-        }
-        else {
-            Collections.shuffle(guestCardsAtHand);
-        }
-    }
+
 
 }

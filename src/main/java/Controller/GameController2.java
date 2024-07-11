@@ -1032,6 +1032,8 @@ public class GameController2 {
         bar.getMovingBarAnimation().stop();
         bar.setLayoutX(1);
         bar.setLayoutY(120);
+        ApplicationData.getHost().deBuffCard();
+        ApplicationData.getGuest().deBuffCard();
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
         ApplicationData.getGuest().setHP(game.getHostInitialHP()+30);
@@ -1067,6 +1069,8 @@ public class GameController2 {
         bar.getMovingBarAnimation().stop();
         bar.setLayoutX(1);
         bar.setLayoutY(120);
+        ApplicationData.getHost().deBuffCard();
+        ApplicationData.getGuest().deBuffCard();
         StringBuilder reward=new StringBuilder();
         StringBuilder pun=new StringBuilder();
         ApplicationData.getHost().setHP(game.getHostInitialHP()+30);
