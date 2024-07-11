@@ -32,7 +32,7 @@ public class Game extends Application {
         ApplicationData.getStage().setTitle("M&S Card Game");
         ApplicationData.setGameGraphic(this);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane pane = fxmlLoader.load(LoginMenu.class.getResource("/Game.fxml"));
+        Pane pane = fxmlLoader.load(LoginMenu.class.getResource("/FXML/Game.fxml"));
         scene = new Scene(pane);
         stage.setScene(scene);
         stage.setResizable(false);

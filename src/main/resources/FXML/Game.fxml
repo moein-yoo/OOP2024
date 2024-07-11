@@ -118,7 +118,7 @@
       </Rectangle>
       <Circle fill="#5b6976" layoutX="66.0" layoutY="97.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#5b6976" layoutX="69.0" layoutY="429.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="hostTurnNum" layoutX="56.0" layoutY="71.0" prefHeight="54.0" prefWidth="22.0" text="4" textFill="#1ee1b7">
+      <Label fx:id="hostTurnNum" layoutX="56.0" layoutY="71.0" prefHeight="54.0" prefWidth="22.0" text="4" textFill="#00ddff">
          <font>
             <Font size="36.0" />
          </font>
@@ -130,5 +130,11 @@
       </Label>
       <Label layoutX="8.0" layoutY="43.0" prefHeight="26.0" prefWidth="47.0" text="Turns:" />
       <Label layoutX="15.0" layoutY="380.0" text="Turns:" />
+      <TextField fx:id="copiertext" layoutX="48.0" layoutY="19.0" prefHeight="24.0" prefWidth="160.0" promptText="number you want to copy:">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <Button fx:id="copierButton" layoutX="144.0" layoutY="54.0" mnemonicParsing="false" onAction="#activateCopier" prefHeight="26.0" prefWidth="38.0" text="OK" />
    </children>
 </AnchorPane>

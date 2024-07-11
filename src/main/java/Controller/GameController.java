@@ -98,8 +98,7 @@ public class GameController {
             }
              return game.hitSpecialCards(i,blocknumber);
         }
-        if(blocknumber+i.getDuration()>20){
-            System.out.println(1);
+        if(blocknumber+i.getDuration()>21){
             return "invalid spot for card placement";
         }
         if(game.isHostTurn()){
@@ -451,11 +450,11 @@ public class GameController {
     public static String cardsAtHandHider(int player) {
         hidden=true;
         if (player==1) {
-            Collections.shuffle(game.getHostCardsAtHand());
+            Collections.shuffle(game.getGuestCardsAtHand());
             return "cards hidden";
         }
         else {
-            Collections.shuffle(game.getGuestCardsAtHand());
+            Collections.shuffle(game.getHostCardsAtHand());
             return "cards hidden";
         }
     }

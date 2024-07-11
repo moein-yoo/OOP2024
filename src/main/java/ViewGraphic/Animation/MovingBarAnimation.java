@@ -43,7 +43,7 @@ public class MovingBarAnimation extends Transition {
             }
             if(game.getGuestRowStatus()[i].equals("card")){
                 ApplicationData.decreaseHostHP(game.getGuestRowCards()[i].getDamage()/game.getGuestRowCards()[i].getDuration());
-                ApplicationData.getGameGraphic().getController().hosthp.setText("HP:"+ApplicationData.getGuest().getHP());
+                ApplicationData.getGameGraphic().getController().hosthp.setText("HP:"+ApplicationData.getHost().getHP());
             }
             if(ApplicationData.getHost().getHP()<=0){
                 ApplicationData.getGameGraphic().getController().guestWins();

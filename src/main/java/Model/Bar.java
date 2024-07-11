@@ -11,7 +11,7 @@ public class Bar extends Rectangle {
     public Bar(){
         this.setHeight(height);
         this.setWidth(width);
-        this.setFill(Paint.valueOf("#FFFFFF"));
+        this.setFill(Paint.valueOf("#03fcf8"));
     }
     public void setMovingBarAnimation(MovingBarAnimation movingBarAnimation){
         this.movingBarAnimation=movingBarAnimation;

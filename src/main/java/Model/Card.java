@@ -219,7 +219,7 @@ public class Card {
     }
 
 
-    public boolean isSpecial(){    String str= this.character;
+    public boolean isSpecial(){    String str= this.name;
         if(str.equalsIgnoreCase("holeRemover")
                 || str.equalsIgnoreCase("holeChanger")
                 || str.equalsIgnoreCase("separInstaller"))

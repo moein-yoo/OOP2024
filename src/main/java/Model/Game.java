@@ -112,23 +112,34 @@ public class Game {
         if(ishost){
             int r=0;
             for(Card card:hostCardsAtHand){if(card.isSpecial())r++;}
-            Card card2= ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
+            Card card2= ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getHost().getAllPossessedCards().size()));
             if(r>=2){
                 while(card2.isSpecial())
-                    card2=ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
+                    card2=ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getHost().getAllPossessedCards().size()));
             }
-           return card2;
+            while(cardInArrlist(card2,hostCardsAtHand))
+                card2=ApplicationData.getHost().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getHost().getAllPossessedCards().size()));
+            return card2;
         }
         else{
             int r=0;
             for(Card card:guestCardsAtHand){if(card.isSpecial())r++;}
-            Card card2= ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
+            Card card2= ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getGuest().getAllPossessedCards().size()));
             if(r>=2){
                 while(card2.isSpecial())
-                    card2=ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(15));
+                    card2=ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getGuest().getAllPossessedCards().size()));
             }
+            while(cardInArrlist(card2,hostCardsAtHand))
+                card2=ApplicationData.getGuest().getAllPossessedCards().get(ApplicationData.getRandom().nextInt(ApplicationData.getGuest().getAllPossessedCards().size()));
             return card2;
         }
+    }
+    private boolean cardInArrlist(Card card,ArrayList<Card> arrlist){
+        for(Card x:arrlist){
+            if(x.getName().equalsIgnoreCase(card.getName()))
+                return true;
+        }
+        return false;
     }
     public Card nullCard(){
         Card card=new Card("1",0,0,0,"1",0,1);
@@ -272,6 +283,7 @@ public class Game {
         return guestInitialHP;
     }
     public String hitSpecialCards(Card card,int index){
+        System.out.println("entered special");
         int a=1;
         if(!isHostTurn())
             a=2;

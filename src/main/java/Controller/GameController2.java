@@ -18,11 +18,18 @@ import javafx.scene.shape.Rectangle;
 import java.awt.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class GameController2 {
+    @FXML
+    public javafx.scene.control.TextField copiertext;
+    public Button copierButton;
     javafx.scene.image.Image hole =new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/hole.png")));
+    javafx.scene.image.Image hider =new javafx.scene.image.Image(String.valueOf(LoginMenu.class.getResource("/Media/Images/Cards/question.jpg")));
 
     private static Game game;
+    private boolean hidden;
     Bar bar;
     boolean flag=false;
     boolean commentOn=false;
@@ -176,6 +183,8 @@ public class GameController2 {
         root.getChildren().add(bar);
         hostTurnNum.toFront();
         guestTurnNum.toFront();
+        root.getChildren().remove(copiertext);
+        root.getChildren().remove(copierButton);
         setGame(ApplicationData.getGame());
         root.getChildren().remove(hostComment);
         root.getChildren().remove(guestComment);
@@ -553,6 +562,7 @@ public class GameController2 {
 
 
     public void nextTurn(){
+        hidden=false;
         if(game.isHostTurn()){
             game.setHostRemainingTurns(game.getHostRemainingTurns()-1);
             int a=Integer.parseInt(hostTurnNum.getText())-1;
@@ -571,9 +581,6 @@ public class GameController2 {
     }
     public void createTimeline(){
         System.out.println("time line created");
-//        Rectangle rect=new Rectangle(1,120,15,265);
-//        rect.setFill(Paint.valueOf("#ffffff"));
-//        root.getChildren().add(rect);
         bar.setMovingBarAnimation(new MovingBarAnimation(root,bar,game));
         bar.getMovingBarAnimation().play();
         bar.requestFocus();
@@ -588,10 +595,44 @@ public class GameController2 {
             i=game.getGuestCardsAtHand().get(cardnumber);
         }
         if(i.isSpecial()){
+            System.out.println("entered is special");
+            if(i.getName().equalsIgnoreCase("holeremover") || i.getName().equalsIgnoreCase("holechanger")){
+                if(game.isHostTurn() && !game.getHostRowStatus()[blocknumber].equalsIgnoreCase("hole")){
+                    String str=turnSolver.getText();
+                    turnSolver.setText("select a hole to alter");
+                    Thread.sleep(1000);
+                    turnSolver.setText(str);
+                }
+                if(!game.isHostTurn() && !game.getGuestRowStatus()[blocknumber].equalsIgnoreCase("hole")){
+                    String str=turnSolver.getText();
+                    turnSolver.setText("select a hole to alter");
+                    Thread.sleep(1000);
+                    turnSolver.setText(str);
+                }
+
+            }
+            if(i.getName().equalsIgnoreCase("roundDec")){
+                nextTurn();
+                nextTurn();
+                String str=turnSolver.getText();
+                turnSolver.setText("Rounds decreased");
+                Thread.sleep(1000);
+                turnSolver.setText(str);
+            }
+            if(i.getName().equalsIgnoreCase("cardcopier")){
+                root.getChildren().add(copierButton);
+                root.getChildren().add(copiertext);
+            }
+            if(i.getName().equalsIgnoreCase("cardathandhider")){
+                int a=2;
+                if(game.isHostTurn())
+                    a=1;
+                cardsAtHandHider(a);
+            }
             game.hitSpecialCards(i,blocknumber);
             return;
         }
-        if(blocknumber+i.getDuration()>20){
+        if(blocknumber+i.getDuration()>21){
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Invalid spot for card placement");
             alert.setHeaderText("Invalid move!");
@@ -621,7 +662,7 @@ public class GameController2 {
             buffCardPossibly(i);
             nextTurn();
             if(checkPossibleBonusForHost());
-                giveBonus(true);
+              giveBonus(true);
                 return;
         }
         if(!game.isHostTurn()){
@@ -833,199 +874,223 @@ public class GameController2 {
     }
 
     public void prop0(MouseEvent mouseEvent) {
-        if(!commentOn){
-            hostslot0.setLayoutY(hostslot0.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(0).getName()+"\ndur:"+game.getHostCardsAtHand().get(0).getDuration()
-            +"\ndamage:"+game.getHostCardsAtHand().get(0).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(0).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot0.setLayoutY(hostslot0.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot0.setLayoutY(hostslot0.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(0).getName()+"\ndur:"+game.getHostCardsAtHand().get(0).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(0).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(0).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot0.setLayoutY(hostslot0.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop1(MouseEvent mouseEvent) {
-        if(!commentOn){
-            hostslot1.setLayoutY(hostslot1.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(1).getName()+"\ndur:"+game.getHostCardsAtHand().get(1).getDuration()
-                    +"\ndamage:"+game.getHostCardsAtHand().get(1).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(1).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot1.setLayoutY(hostslot1.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot1.setLayoutY(hostslot1.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(1).getName()+"\ndur:"+game.getHostCardsAtHand().get(1).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(1).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(1).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot1.setLayoutY(hostslot1.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop2(MouseEvent mouseEvent) {
-        if(!commentOn){
-            hostslot2.setLayoutY(hostslot2.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(2).getName()+"\ndur:"+game.getHostCardsAtHand().get(2).getDuration()
-                    +"\ndamage:"+game.getHostCardsAtHand().get(2).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(2).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot2.setLayoutY(hostslot2.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot2.setLayoutY(hostslot2.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(2).getName()+"\ndur:"+game.getHostCardsAtHand().get(2).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(2).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(2).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot2.setLayoutY(hostslot2.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop3(MouseEvent mouseEvent) {
-        if(!commentOn){
-            hostslot3.setLayoutY(hostslot3.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(3).getName()+"\ndur:"+game.getHostCardsAtHand().get(3).getDuration()
-                    +"\ndamage:"+game.getHostCardsAtHand().get(3).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(3).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot3.setLayoutY(hostslot3.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot3.setLayoutY(hostslot3.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(3).getName()+"\ndur:"+game.getHostCardsAtHand().get(3).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(3).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(3).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot3.setLayoutY(hostslot3.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop4(MouseEvent mouseEvent) {
-        if(!commentOn){
-            hostslot4.setLayoutY(hostslot4.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(4).getName()+"\ndur:"+game.getHostCardsAtHand().get(4).getDuration()
-                    +"\ndamage:"+game.getHostCardsAtHand().get(4).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(4).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot4.setLayoutY(hostslot4.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot4.setLayoutY(hostslot4.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(4).getName()+"\ndur:"+game.getHostCardsAtHand().get(4).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(4).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(4).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot4.setLayoutY(hostslot4.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop5(MouseEvent mouseEvent) {
         if(game.getHostCardsAtHand().size()<6)
             return;
-        if(!commentOn){
-            hostslot5.setLayoutY(hostslot5.getLayoutY()+10);
-            root.getChildren().add(hostComment);
-            comment1.setText("name:"+game.getHostCardsAtHand().get(5).getName()+"\ndur:"+game.getHostCardsAtHand().get(5).getDuration()
-                    +"\ndamage:"+game.getHostCardsAtHand().get(5).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(5).getAccuracy());
-            commentOn=true;
-            comment1.toFront();
-        }
-        else{
-            hostslot5.setLayoutY(hostslot5.getLayoutY()-10);
-            commentOn=false;
-            root.getChildren().remove(hostComment);
-            comment1.setText("");
+        if(!hidden){
+            if(!commentOn){
+                hostslot5.setLayoutY(hostslot5.getLayoutY()+10);
+                root.getChildren().add(hostComment);
+                comment1.setText("name:"+game.getHostCardsAtHand().get(5).getName()+"\ndur:"+game.getHostCardsAtHand().get(5).getDuration()
+                        +"\ndamage:"+game.getHostCardsAtHand().get(5).getDamage()+"\nacc:"+game.getHostCardsAtHand().get(5).getAccuracy());
+                commentOn=true;
+                comment1.toFront();
+            }
+            else{
+                hostslot5.setLayoutY(hostslot5.getLayoutY()-10);
+                commentOn=false;
+                root.getChildren().remove(hostComment);
+                comment1.setText("");
+            }
         }
     }
     public void prop6(MouseEvent mouseEvent) {
-        if(!commentOn){
-            guestslot0.setLayoutY(guestslot0.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot0.setLayoutY(guestslot0.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot0.setLayoutY(guestslot0.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot0.setLayoutY(guestslot0.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void prop7(MouseEvent mouseEvent) {
-        if(!commentOn){
-            guestslot1.setLayoutY(guestslot1.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(1).getName()+"\ndur:"+game.getGuestCardsAtHand().get(1).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(1).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(1).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot1.setLayoutY(guestslot1.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot1.setLayoutY(guestslot1.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(1).getName()+"\ndur:"+game.getGuestCardsAtHand().get(1).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(1).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(1).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot1.setLayoutY(guestslot1.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void prop8(MouseEvent mouseEvent) {
-        if(!commentOn){
-            guestslot2.setLayoutY(guestslot2.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot2.setLayoutY(guestslot2.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot2.setLayoutY(guestslot2.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(0).getName()+"\ndur:"+game.getGuestCardsAtHand().get(0).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(0).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(0).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot2.setLayoutY(guestslot2.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void prop9(MouseEvent mouseEvent) {
-        if(!commentOn){
-            guestslot3.setLayoutY(guestslot3.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(3).getName()+"\ndur:"+game.getGuestCardsAtHand().get(3).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(3).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(3).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot3.setLayoutY(guestslot3.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot3.setLayoutY(guestslot3.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(3).getName()+"\ndur:"+game.getGuestCardsAtHand().get(3).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(3).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(3).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot3.setLayoutY(guestslot3.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void prop10(MouseEvent mouseEvent) {
-        if(!commentOn){
-            guestslot4.setLayoutY(guestslot4.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(4).getName()+"\ndur:"+game.getGuestCardsAtHand().get(4).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(4).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(4).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot4.setLayoutY(guestslot4.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot4.setLayoutY(guestslot4.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(4).getName()+"\ndur:"+game.getGuestCardsAtHand().get(4).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(4).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(4).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot4.setLayoutY(guestslot4.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void prop11(MouseEvent mouseEvent) {
         if(game.getGuestCardsAtHand().size()<6)
             return;
-        if(!commentOn){
-            guestslot5.setLayoutY(guestslot5.getLayoutY()-10);
-            root.getChildren().add(guestComment);
-            comment2.setText("name:"+game.getGuestCardsAtHand().get(5).getName()+"\ndur:"+game.getGuestCardsAtHand().get(5).getDuration()
-                    +"\ndamage:"+game.getGuestCardsAtHand().get(5).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(5).getAccuracy());
-            commentOn=true;
-            comment2.toFront();
-        }
-        else{
-            guestslot5.setLayoutY(guestslot5.getLayoutY()+10);
-            commentOn=false;
-            root.getChildren().remove(guestComment);
-            comment2.setText("");
+        if(!hidden){
+            if(!commentOn){
+                guestslot5.setLayoutY(guestslot5.getLayoutY()-10);
+                root.getChildren().add(guestComment);
+                comment2.setText("name:"+game.getGuestCardsAtHand().get(5).getName()+"\ndur:"+game.getGuestCardsAtHand().get(5).getDuration()
+                        +"\ndamage:"+game.getGuestCardsAtHand().get(5).getDamage()+"\nacc:"+game.getGuestCardsAtHand().get(5).getAccuracy());
+                commentOn=true;
+                comment2.toFront();
+            }
+            else{
+                guestslot5.setLayoutY(guestslot5.getLayoutY()+10);
+                commentOn=false;
+                root.getChildren().remove(guestComment);
+                comment2.setText("");
+            }
         }
     }
     public void guestWins(){
@@ -1113,6 +1178,68 @@ public class GameController2 {
         hostTurnNum.setText(String.valueOf(4));
 //        new Image(LoginMenu.class.getResource("/Media/Images/Cards/" + ApplicationData.getHost().getAllPossessedCards().get(i).getName() +".jpeg").toExternalForm(),47,69,false,false);
     }
+    public void cardsAtHandHider(int player) {
+        hidden=true;
+        if (player==1) {
+            Collections.shuffle(game.getGuestCardsAtHand());
+            guestslot0.setFill(new ImagePattern(hider));
+            guestslot1.setFill(new ImagePattern(hider));
+            guestslot2.setFill(new ImagePattern(hider));
+            guestslot3.setFill(new ImagePattern(hider));
+            guestslot4.setFill(new ImagePattern(hider));
+            guestslot5.setFill(new ImagePattern(hider));
+        }
+        else {
+            Collections.shuffle(game.getHostCardsAtHand());
+            hostslot0.setFill(new ImagePattern(hider));
+            hostslot1.setFill(new ImagePattern(hider));
+            hostslot2.setFill(new ImagePattern(hider));
+            hostslot3.setFill(new ImagePattern(hider));
+            hostslot4.setFill(new ImagePattern(hider));
+            hostslot5.setFill(new ImagePattern(hider));
+        }
+    }
 
 
+    public void activateCopier(ActionEvent actionEvent) {
+        String str=copiertext.getText();
+        int index1=Integer.parseInt(str);
+        if(game.isHostTurn()){
+            if (index1>=game.getHostCardsAtHand().size()){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Enter a valid card number");
+                alert.showAndWait();
+            }
+            else {
+                ArrayList<Card> ans=game.getHostCardsAtHand();
+                ans.add(game.getHostCardsAtHand().get(index1));
+                game.setHostCardsAtHand(ans);
+                //image
+                root.getChildren().remove(copiertext);
+                root.getChildren().remove(copierButton);
+            }
+        }
+        else {
+            if (index1>=game.getGuestCardsAtHand().size()){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Enter a valid card number");
+                alert.showAndWait();
+            }
+            else {
+                ArrayList<Card> ans=game.getGuestCardsAtHand();
+                ans.add(game.getGuestCardsAtHand().get(index1));
+                game.setGuestCardsAtHand(ans);
+                //image
+                root.getChildren().remove(copiertext);
+                root.getChildren().remove(copierButton);
+            }
+        }
+    }
+
+    public void pause(MouseEvent mouseEvent) {
+
+
+
+
+    }
 }
