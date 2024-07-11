@@ -3,10 +3,14 @@ package ViewGraphic;
 import Controller.HistoryMenuController;
 import Model.ApplicationData;
 import Model.MatchData;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -15,54 +19,41 @@ import java.util.List;
 
 public class HistoryMenuViewController {
     @FXML
-    public Button awardSort;
+    private Button nextPageButton;
     @FXML
-    public Button PenaltySort;
+    private Button previousPageButton;
     @FXML
-    public Button opponentSort;
-    @FXML
-    public Button hostLevelSort;
-    @FXML
-    public Button oppLevelSort;
-    @FXML
-    public Button resultSort;
-    @FXML
-    public Button timeSort;
-    @FXML
-    public Button nextPageButton;
-    @FXML
-    public Button previousPageButton;
-    public TableColumn awardColumn;
-    public TableColumn penaltyColumn;
-    public TableColumn oppColumn;
-    public TableColumn oppLevColumn;
-    public TableColumn hostLevColumn;
-    public TableColumn resultColumn;
-    public TableColumn timeColumn;
-    @FXML
-    private TableView<String> historyTable;
+    private TableView<MatchData> historyTable;
     static int currentPage=1;
 
     public void initialize() {
         ApplicationData.getHistoryMenu().setController(this);
         ArrayList<MatchData> allMatches= HistoryMenuController.getAllMatches();
-        HistoryMenuController.sortOnDate(allMatches,false);
-        HistoryMenuController.showAll(allMatches,1);
 
-        nextPageButton.setOnMouseClicked(mouseEvent -> {
-            int totalPages=allMatches.size()-(allMatches.size()%10);
-            totalPages/=10;
-            if(allMatches.size()%10!=0)
-                totalPages+=1;
-            if(currentPage==totalPages)
-                System.out.println("You are already at last page");
-            else{
-                currentPage+=1;
-                HistoryMenuController.showAll(allMatches,currentPage);
-                
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int numberOfColumns = historyTable.getColumns().size();
+
+                for (TableColumn<MatchData, ?> column : historyTable.getColumns()) {
+                    //
+                }
+
+                historyTable.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("Award"));
+                historyTable.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("Penalty"));
+                historyTable.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("Winner"));
+                historyTable.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("Loser"));
+                historyTable.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("WinnerLevel"));
+                historyTable.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("LoserLevel"));
+                historyTable.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+                ObservableList<MatchData> data = FXCollections.observableArrayList();
+                for (MatchData matchData : allMatches) {
+                    data.add(matchData);
+                }
+                historyTable.setItems(data);
             }
         });
-
     }
 
     public void goBack(MouseEvent mouseEvent) {
