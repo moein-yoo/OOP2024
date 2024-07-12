@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import ViewGraphic.Animation.*;
+import ViewGraphic.EndGame;
 import ViewGraphic.LoginMenu;
 import ViewGraphic.MainMenu;
 import ViewGraphic.SettingMenu;
@@ -1356,7 +1357,7 @@ public class GameController2 {
         User.updateUserInSQL(ApplicationData.getGuest());
         Stage stage = ApplicationData.getStage();
         try {
-            new MainMenu().start(stage);
+            new EndGame().start(stage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1400,7 +1401,7 @@ public class GameController2 {
         User.updateUserInSQL(ApplicationData.getGuest());
         Stage stage = ApplicationData.getStage();
         try {
-            new MainMenu().start(stage);
+            new EndGame().start(stage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
