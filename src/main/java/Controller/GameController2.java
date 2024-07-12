@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import ViewGraphic.Animation.*;
 import ViewGraphic.LoginMenu;
+import ViewGraphic.MainMenu;
 import ViewGraphic.SettingMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -1353,6 +1354,12 @@ public class GameController2 {
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
         User.updateUserInSQL(ApplicationData.getGuest());
+        Stage stage = ApplicationData.getStage();
+        try {
+            new MainMenu().start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public void hostWins(){
@@ -1391,6 +1398,13 @@ public class GameController2 {
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
         User.updateUserInSQL(ApplicationData.getGuest());
+        Stage stage = ApplicationData.getStage();
+        try {
+            new MainMenu().start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
     public void newRound(){
         System.out.println("new Round");
