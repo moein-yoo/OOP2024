@@ -748,6 +748,7 @@ public class GameController2 {
                 if(game.isHostTurn())
                     a=1;
                 cardsAtHandHider(a);
+                moveMade=true;
             }
             if(!moveMade){
                 game.hitSpecialCards(i,blocknumber);
