@@ -1353,6 +1353,7 @@ public class GameController2 {
         MatchData.addToList(matchData);
         User.updateUserInSQL(ApplicationData.getHost());
         User.updateUserInSQL(ApplicationData.getGuest());
+
     }
     public void hostWins(){
         bar.getMovingBarAnimation().stop();

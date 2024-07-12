@@ -38,6 +38,7 @@ public class ApplicationData {
     private static SettingMenu settingMenu;
     private static ShopMenu shopMenu;
     private static ViewGraphic.Game gameGraphic;
+    private static EndGame endGame;
     private static Media media = new Media(ApplicationData.class.getResource("/Media/Music/0.mp3").toExternalForm());
     private static int mediaIndex = 0;
     private static MediaPlayer mediaPlayer;
@@ -293,6 +294,14 @@ public class ApplicationData {
     }
     public static void setCardsImage(HashMap<String, Image> cardsImage) {
         ApplicationData.cardsImage = cardsImage;
+    }
+
+    public static EndGame getEndGame() {
+        return endGame;
+    }
+
+    public static void setEndGame(EndGame endGame) {
+        ApplicationData.endGame = endGame;
     }
 
     public void setRandom(Random random) {
