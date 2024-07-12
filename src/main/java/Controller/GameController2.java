@@ -282,27 +282,27 @@ public class GameController2 {
                     try {
                         moveMade=false;
                         placeCard(r, finalJ1);
-                        for(Card card:game.getHostCardsAtHand()){
-                            System.out.printf(card.getName()+'\t');
-                        }
-                        System.out.println();
-                        for(int i=0;i<21;i++){
-                            if(game.getHostRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing"))
-                                System.out.printf(game.getHostRowStatus()[i]+'\t');
-                            if(game.getHostRowStatus()[i].equals("broken") || game.getHostRowStatus()[i].equals("card"))
-                                System.out.printf(game.getHostRowCards()[i].getName()+'\t');
-                        }
-                        System.out.println();
-                        for(int i=0;i<21;i++){
-                            if(game.getGuestRowStatus()[i].equals("hole") || game.getGuestRowStatus()[i].equals("nothing"))
-                                System.out.printf(game.getGuestRowStatus()[i]+'\t');
-                            if(game.getGuestRowStatus()[i].equals("broken") || game.getGuestRowStatus()[i].equals("card"))
-                                System.out.printf(game.getGuestRowCards()[i].getName()+'\t');
-                        }
-                        System.out.println();
-                        for(Card card:game.getGuestCardsAtHand()){
-                            System.out.printf(card.getName()+'\t');
-                        }
+//                        for(Card card:game.getHostCardsAtHand()){
+//                            System.out.printf(card.getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(int i=0;i<21;i++){
+//                            if(game.getHostRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing"))
+//                                System.out.printf(game.getHostRowStatus()[i]+'\t');
+//                            if(game.getHostRowStatus()[i].equals("broken") || game.getHostRowStatus()[i].equals("card"))
+//                                System.out.printf(game.getHostRowCards()[i].getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(int i=0;i<21;i++){
+//                            if(game.getGuestRowStatus()[i].equals("hole") || game.getGuestRowStatus()[i].equals("nothing"))
+//                                System.out.printf(game.getGuestRowStatus()[i]+'\t');
+//                            if(game.getGuestRowStatus()[i].equals("broken") || game.getGuestRowStatus()[i].equals("card"))
+//                                System.out.printf(game.getGuestRowCards()[i].getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(Card card:game.getGuestCardsAtHand()){
+//                            System.out.printf(card.getName()+'\t');
+//                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -380,27 +380,27 @@ public class GameController2 {
                     try {
                         moveMade=false;
                         placeCard(r, finalJ1);
-                        for(Card card:game.getHostCardsAtHand()){
-                            System.out.printf(card.getName()+'\t');
-                        }
-                        System.out.println();
-                        for(int i=0;i<21;i++){
-                            if(game.getHostRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing"))
-                                System.out.printf(game.getHostRowStatus()[i]+'\t');
-                            if(game.getHostRowStatus()[i].equals("broken") || game.getHostRowStatus()[i].equals("card"))
-                                System.out.printf(game.getHostRowCards()[i].getName()+'\t');
-                        }
-                        System.out.println();
-                        for(int i=0;i<21;i++){
-                            if(game.getGuestRowStatus()[i].equals("hole") || game.getGuestRowStatus()[i].equals("nothing"))
-                                System.out.printf(game.getGuestRowStatus()[i]+'\t');
-                            if(game.getGuestRowStatus()[i].equals("broken") || game.getGuestRowStatus()[i].equals("card"))
-                                System.out.printf(game.getGuestRowCards()[i].getName()+'\t');
-                        }
-                        System.out.println();
-                        for(Card card:game.getGuestCardsAtHand()){
-                            System.out.printf(card.getName()+'\t');
-                        }
+//                        for(Card card:game.getHostCardsAtHand()){
+//                            System.out.printf(card.getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(int i=0;i<21;i++){
+//                            if(game.getHostRowStatus()[i].equals("hole") || game.getHostRowStatus()[i].equals("nothing"))
+//                                System.out.printf(game.getHostRowStatus()[i]+'\t');
+//                            if(game.getHostRowStatus()[i].equals("broken") || game.getHostRowStatus()[i].equals("card"))
+//                                System.out.printf(game.getHostRowCards()[i].getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(int i=0;i<21;i++){
+//                            if(game.getGuestRowStatus()[i].equals("hole") || game.getGuestRowStatus()[i].equals("nothing"))
+//                                System.out.printf(game.getGuestRowStatus()[i]+'\t');
+//                            if(game.getGuestRowStatus()[i].equals("broken") || game.getGuestRowStatus()[i].equals("card"))
+//                                System.out.printf(game.getGuestRowCards()[i].getName()+'\t');
+//                        }
+//                        System.out.println();
+//                        for(Card card:game.getGuestCardsAtHand()){
+//                            System.out.printf(card.getName()+'\t');
+//                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -796,13 +796,13 @@ public class GameController2 {
                     hostCells[j].setFill(new ImagePattern(ApplicationData.getCardsImage().get(i.getName())));
                     //image
                 }
-                int e=0;
-                while (game.getHostCardsAtHand().get(e).getName().equals(i.getName()))
-                    e++;
-                if(e!=5 && game.getHostCardsAtHand().size()>5){
-                    game.getHostCardsAtHand().removeLast();
-                    hostslot5.setFill(Paint.valueOf("#2a333b"));
-                }
+//                int e=0;
+//                while (game.getHostCardsAtHand().get(e).getName().equals(i.getName()))
+//                    e++;
+//                if(e!=5 && game.getHostCardsAtHand().size()>5){
+//                    game.getHostCardsAtHand().removeLast();
+//                    hostslot5.setFill(Paint.valueOf("#2a333b"));
+//                }
                 game.removeCardFromHostCardsAtHand(i);
                 game.addCardToHostCardsAtHand(game.randomCardReplace(true));
                 checkBrakes();
@@ -840,13 +840,13 @@ public class GameController2 {
                     guestCells[j].setFill(new ImagePattern(ApplicationData.getCardsImage().get(i.getName())));
                     //image
                 }
-                int e=0;
-                while (game.getGuestCardsAtHand().get(e).getName().equals(i.getName()))
-                    e++;
-                if(e!=5 && game.getGuestCardsAtHand().size()>5){
-                    game.getGuestCardsAtHand().removeLast();
-                    guestslot5.setFill(Paint.valueOf("#2a333b"));
-                }
+//                int e=0;
+//                while (game.getGuestCardsAtHand().get(e).getName().equals(i.getName()))
+//                    e++;
+//                if(e!=5 && game.getGuestCardsAtHand().size()>5){
+//                    game.getGuestCardsAtHand().removeLast();
+//                    guestslot5.setFill(Paint.valueOf("#2a333b"));
+//                }
                 game.removeCardFromGuestCardsAtHand(i);
                 game.addCardToGuestCardsAtHand(game.randomCardReplace(false));
                 //image
