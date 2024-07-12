@@ -14,6 +14,15 @@ public class EndGame extends Application {
     private EndGameController controller;
     private static Scene scene;
 
+    public EndGame(String winner, String loser) {
+        this.winner = winner;
+        this.loser = loser;
+    }
+
+    public static String winner;
+    public static String loser;
+
+
     public static void main(String[] args){
         launch(args);
     }

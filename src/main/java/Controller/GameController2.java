@@ -1357,7 +1357,7 @@ public class GameController2 {
         User.updateUserInSQL(ApplicationData.getGuest());
         Stage stage = ApplicationData.getStage();
         try {
-            new EndGame().start(stage);
+            new EndGame(award,punishment).start(stage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1401,7 +1401,7 @@ public class GameController2 {
         User.updateUserInSQL(ApplicationData.getGuest());
         Stage stage = ApplicationData.getStage();
         try {
-            new EndGame().start(stage);
+            new EndGame(award, punishment).start(stage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

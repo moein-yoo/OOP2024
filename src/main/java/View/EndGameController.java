@@ -1,6 +1,7 @@
 package View;
 
 import Model.ApplicationData;
+import ViewGraphic.EndGame;
 import ViewGraphic.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,12 +10,17 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class EndGameController {
-@FXML
+    @FXML
     public Button button;
-@FXML
+    @FXML
     Label winnerLabel;
-@FXML
-Label loserLabel;
+    @FXML
+    Label loserLabel;
+
+    public void initialize() {
+        winnerLabel.setText("Award : " + EndGame.winner);
+        loserLabel.setText("Punishment : " + EndGame.loser);
+    }
     public void srt(ActionEvent actionEvent) {
         Stage stage= ApplicationData.getStage();
         try {
