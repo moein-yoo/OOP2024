@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.EndGameController">
+   <children>
+      <Button fx:id="button" layoutX="202.0" layoutY="284.0" mnemonicParsing="false" onAction="#srt" prefHeight="81.0" prefWidth="141.0" text="Go to main menu" />
+      <Label fx:id="winnerLabel" layoutX="38.0" layoutY="21.0" prefHeight="88.0" prefWidth="518.0" text="Label" />
+      <Label fx:id="loserLabel" layoutX="38.0" layoutY="123.0" prefHeight="88.0" prefWidth="533.0" text="Label" />
+   </children>
+</AnchorPane>
